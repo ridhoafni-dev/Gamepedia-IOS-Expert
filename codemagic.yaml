@@ -33,5 +33,5 @@ workflows:
     publishing:
       email:
         recipients:
-          - ridhoafni.dev.gr@gmail.com # Isikan email untuk notifikasi status building.
+          - ridhoafni.dev@gmail.com # Isikan email untuk notifikasi status building.
 
