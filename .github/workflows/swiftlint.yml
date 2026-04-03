@@ -1,0 +1,22 @@
+name: SwiftLint
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  swiftlint:
+    name: SwiftLint Code Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run SwiftLint
+        uses: realm/SwiftLint-action@main
+        with:
+          version: latest
+          args: --strict --config .swiftlint.yml
