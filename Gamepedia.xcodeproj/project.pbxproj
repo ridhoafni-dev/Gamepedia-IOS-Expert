@@ -25,6 +25,7 @@
 		CECBCEFE2F7FC35C00C0D451 /* Genres in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCEFD2F7FC35C00C0D451 /* Genres */; };
 		CECBCF012F7FC36900C0D451 /* SearchGame in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCF002F7FC36900C0D451 /* SearchGame */; };
 		CECBCFFC2F7FC56000C0D451 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCFFB2F7FC56000C0D451 /* Core */; };
+		CECBCFFE2F7FCCB900C0D451 /* codemagic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = CECBCFFD2F7FCCAE00C0D451 /* codemagic.yaml */; };
 		CEECFC802F2BA36E00A400C2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CEECFC7F2F2BA36E00A400C2 /* Alamofire */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		CE7AE2682F023789008E76A5 /* Gamepedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gamepedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CECBCFFD2F7FCCAE00C0D451 /* codemagic.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codemagic.yaml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -125,6 +127,7 @@
 		CE7AE25F2F023789008E76A5 = {
 			isa = PBXGroup;
 			children = (
+				CECBCFFD2F7FCCAE00C0D451 /* codemagic.yaml */,
 				CE2B819B2F2903D8005971D7 /* Modules */,
 				CE7AE26A2F023789008E76A5 /* Gamepedia */,
 				CE28BF562F2BBD89009A5175 /* Frameworks */,
@@ -239,6 +242,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CECBCFFE2F7FCCB900C0D451 /* codemagic.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
