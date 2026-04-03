@@ -18,6 +18,13 @@
 		CE884CF32F299ED400CA9205 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = CE884CF22F299ED400CA9205 /* CachedAsyncImage */; settings = {ATTRIBUTES = (Required, ); }; };
 		CE884CF62F299EE400CA9205 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE884CF52F299EE400CA9205 /* Kingfisher */; settings = {ATTRIBUTES = (Required, ); }; };
 		CE884CF92F299F0100CA9205 /* SkeletonUI in Frameworks */ = {isa = PBXBuildFile; productRef = CE884CF82F299F0100CA9205 /* SkeletonUI */; settings = {ATTRIBUTES = (Required, ); }; };
+		CECBCEF22F7FC31800C0D451 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCEF12F7FC31800C0D451 /* Core */; };
+		CECBCEF52F7FC32C00C0D451 /* Developers in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCEF42F7FC32C00C0D451 /* Developers */; };
+		CECBCEF82F7FC33D00C0D451 /* Favorite in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCEF72F7FC33D00C0D451 /* Favorite */; };
+		CECBCEFB2F7FC34E00C0D451 /* Games in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCEFA2F7FC34E00C0D451 /* Games */; };
+		CECBCEFE2F7FC35C00C0D451 /* Genres in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCEFD2F7FC35C00C0D451 /* Genres */; };
+		CECBCF012F7FC36900C0D451 /* SearchGame in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCF002F7FC36900C0D451 /* SearchGame */; };
+		CECBCFFC2F7FC56000C0D451 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = CECBCFFB2F7FC56000C0D451 /* Core */; };
 		CEECFC802F2BA36E00A400C2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CEECFC7F2F2BA36E00A400C2 /* Alamofire */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
@@ -49,7 +56,6 @@
 		CEB958DB2F447F5D00EEA8EB /* Exceptions for "Modules" folder in "Gamepedia" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Core,
 				Developers,
 				Favorite,
 				Games,
@@ -86,16 +92,23 @@
 			files = (
 				CE6ACCD72F4AEA1300CB72EA /* Developers in Frameworks */,
 				CE6AC8F32F47D2B000CB72EA /* Core in Frameworks */,
+				CECBCEFB2F7FC34E00C0D451 /* Games in Frameworks */,
 				CE884CF92F299F0100CA9205 /* SkeletonUI in Frameworks */,
+				CECBCEF22F7FC31800C0D451 /* Core in Frameworks */,
 				CE6ACCD42F4AE98800CB72EA /* Genres in Frameworks */,
+				CECBCFFC2F7FC56000C0D451 /* Core in Frameworks */,
 				CE884CF62F299EE400CA9205 /* Kingfisher in Frameworks */,
 				CE1ECBBC2F52CE9900C23164 /* Favorite in Frameworks */,
 				CEECFC802F2BA36E00A400C2 /* Alamofire in Frameworks */,
 				CE28BF552F2BBC4B009A5175 /* RealmSwift in Frameworks */,
+				CECBCEF52F7FC32C00C0D451 /* Developers in Frameworks */,
+				CECBCEFE2F7FC35C00C0D451 /* Genres in Frameworks */,
+				CECBCF012F7FC36900C0D451 /* SearchGame in Frameworks */,
 				CE6AC9BC2F47D81200CB72EA /* Games in Frameworks */,
 				CE1ECBBA2F52CE9200C23164 /* SearchGame in Frameworks */,
 				CE884CF32F299ED400CA9205 /* CachedAsyncImage in Frameworks */,
 				CE39074A2F6A43FD00754F94 /* Lottie in Frameworks */,
+				CECBCEF82F7FC33D00C0D451 /* Favorite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +174,13 @@
 				CE1ECBB92F52CE9200C23164 /* SearchGame */,
 				CE1ECBBB2F52CE9900C23164 /* Favorite */,
 				CE3907492F6A43FD00754F94 /* Lottie */,
+				CECBCEF12F7FC31800C0D451 /* Core */,
+				CECBCEF42F7FC32C00C0D451 /* Developers */,
+				CECBCEF72F7FC33D00C0D451 /* Favorite */,
+				CECBCEFA2F7FC34E00C0D451 /* Games */,
+				CECBCEFD2F7FC35C00C0D451 /* Genres */,
+				CECBCF002F7FC36900C0D451 /* SearchGame */,
+				CECBCFFB2F7FC56000C0D451 /* Core */,
 			);
 			productName = Gamepedia;
 			productReference = CE7AE2682F023789008E76A5 /* Gamepedia.app */;
@@ -197,6 +217,12 @@
 				CEECFC7E2F2BA36E00A400C2 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CE28BF532F2BBC4B009A5175 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				CE3907482F6A43FD00754F94 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				CECBCEF32F7FC32C00C0D451 /* XCLocalSwiftPackageReference "Modules/Developers" */,
+				CECBCEF62F7FC33D00C0D451 /* XCLocalSwiftPackageReference "Modules/Favorite" */,
+				CECBCEF92F7FC34E00C0D451 /* XCLocalSwiftPackageReference "Modules/Games" */,
+				CECBCEFC2F7FC35C00C0D451 /* XCLocalSwiftPackageReference "Modules/Genres" */,
+				CECBCEFF2F7FC36900C0D451 /* XCLocalSwiftPackageReference "Modules/SearchGame" */,
+				CECBCFFA2F7FC56000C0D451 /* XCLocalSwiftPackageReference "Modules/Core" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CE7AE2692F023789008E76A5 /* Products */;
@@ -441,6 +467,33 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		CECBCEF32F7FC32C00C0D451 /* XCLocalSwiftPackageReference "Modules/Developers" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Modules/Developers;
+		};
+		CECBCEF62F7FC33D00C0D451 /* XCLocalSwiftPackageReference "Modules/Favorite" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Modules/Favorite;
+		};
+		CECBCEF92F7FC34E00C0D451 /* XCLocalSwiftPackageReference "Modules/Games" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Modules/Games;
+		};
+		CECBCEFC2F7FC35C00C0D451 /* XCLocalSwiftPackageReference "Modules/Genres" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Modules/Genres;
+		};
+		CECBCEFF2F7FC36900C0D451 /* XCLocalSwiftPackageReference "Modules/SearchGame" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Modules/SearchGame;
+		};
+		CECBCFFA2F7FC56000C0D451 /* XCLocalSwiftPackageReference "Modules/Core" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Modules/Core;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		CE28BF532F2BBC4B009A5175 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -539,6 +592,34 @@
 			productName = SkeletonUI;
 		};
 		CEB957ED2F4479F700EEA8EB /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
+		};
+		CECBCEF12F7FC31800C0D451 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
+		};
+		CECBCEF42F7FC32C00C0D451 /* Developers */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Developers;
+		};
+		CECBCEF72F7FC33D00C0D451 /* Favorite */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Favorite;
+		};
+		CECBCEFA2F7FC34E00C0D451 /* Games */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Games;
+		};
+		CECBCEFD2F7FC35C00C0D451 /* Genres */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Genres;
+		};
+		CECBCF002F7FC36900C0D451 /* SearchGame */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SearchGame;
+		};
+		CECBCFFB2F7FC56000C0D451 /* Core */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Core;
 		};
