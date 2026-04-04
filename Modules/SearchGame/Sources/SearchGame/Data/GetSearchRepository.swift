@@ -5,44 +5,53 @@
 //  Created by User on 27/02/26.
 //
 
-
 import Combine
 import Core
-public struct GetSearchRepository<RemoteDataSource: DataSource, Transformer: Mapper>:
+
+public struct GetSearchRepository<
+    RemoteDataSource: DataSource,
+    Transformer: Mapper
+>:
     Repository
 where
     RemoteDataSource.Response == [SearchResult],
     Transformer.Response == [SearchResult],
     Transformer.Entity == [SearchModuleEntity],
-    Transformer.Domain == [SearchDomainModel] {
+    Transformer.Domain == [SearchDomainModel]
+{
 
-        public typealias Request = Any
-        public typealias Response = [SearchDomainModel]
+    public typealias Request = Any
+    public typealias Response = [SearchDomainModel]
 
-        private let _remoteDataSource: RemoteDataSource
-        private let _mapper: Transformer
+    private let _remoteDataSource: RemoteDataSource
+    private let _mapper: Transformer
 
-        public init(
-            remoteDataSource: RemoteDataSource,
-            mapper: Transformer
-        ) {
-            _remoteDataSource = remoteDataSource
-            _mapper = mapper
-        }
+    public init(
+        remoteDataSource: RemoteDataSource,
+        mapper: Transformer
+    ) {
+        _remoteDataSource = remoteDataSource
+        _mapper = mapper
+    }
 
-        public func execute(request: Request?) -> AnyPublisher<[SearchDomainModel], Error> {
-            fatalError()
-        }
+    public func execute(request: Request?) -> AnyPublisher<
+        [SearchDomainModel], Error
+    > {
+        fatalError()
+    }
 
-        public func execute(request: Request?, keyword: String) -> AnyPublisher<[SearchDomainModel], Error> {
-            return _remoteDataSource.execute(request: nil, keyword: keyword)
-                .map { _mapper.transformResponseToDomain(response: $0) }
-                .eraseToAnyPublisher()
-        }
+    public func execute(request: Request?, keyword: String) -> AnyPublisher<
+        [SearchDomainModel], Error
+    > {
+        return _remoteDataSource.execute(request: nil, keyword: keyword)
+            .map { _mapper.transformResponseToDomain(response: $0) }
+            .eraseToAnyPublisher()
+    }
 
-        public func execute(request: Request?, id: Int, isFavorite: Bool) -> AnyPublisher<Bool, Error> {
-            fatalError()
-        }
+    public func execute(request: Request?, id: Int, isFavorite: Bool)
+        -> AnyPublisher<Bool, Error>
+    {
+        fatalError()
+    }
 
 }
-

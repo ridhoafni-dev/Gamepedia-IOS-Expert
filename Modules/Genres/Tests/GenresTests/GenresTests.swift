@@ -1,12 +1,18 @@
 import Foundation
 import Testing
+
 @testable import Genres
 
 // MARK: - GenreTransformer Tests
 
 @Test("GenreTransformer maps genre responses to entities correctly")
 func testMapGenresResponsesToEntities_basicFields() {
-    let gameInGenre = GameInGenre(id: 1, name: "GTA V", slug: "gta-v", added: 100)
+    let gameInGenre = GameInGenre(
+        id: 1,
+        name: "GTA V",
+        slug: "gta-v",
+        added: 100
+    )
     let result = GenreResult(
         id: 10,
         name: "Action",
@@ -16,7 +22,8 @@ func testMapGenresResponsesToEntities_basicFields() {
         games: [gameInGenre]
     )
 
-    let entities = GenreTransformer.mapGenresResponsesToEntities(input: [result])
+    let entities = GenreTransformer.mapGenresResponsesToEntities(input: [result]
+    )
 
     #expect(entities.count == 1)
     let entity = entities[0]
@@ -33,9 +40,30 @@ func testMapGenresResponsesToEntities_basicFields() {
 @Test("GenreTransformer maps multiple genre responses to entities")
 func testMapGenresResponsesToEntities_multipleItems() {
     let results = [
-        GenreResult(id: 1, name: "Action", slug: "action", gamesCount: 100, imageBackground: "", games: []),
-        GenreResult(id: 2, name: "RPG", slug: "rpg", gamesCount: 80, imageBackground: "", games: []),
-        GenreResult(id: 3, name: "Strategy", slug: "strategy", gamesCount: 60, imageBackground: "", games: [])
+        GenreResult(
+            id: 1,
+            name: "Action",
+            slug: "action",
+            gamesCount: 100,
+            imageBackground: "",
+            games: []
+        ),
+        GenreResult(
+            id: 2,
+            name: "RPG",
+            slug: "rpg",
+            gamesCount: 80,
+            imageBackground: "",
+            games: []
+        ),
+        GenreResult(
+            id: 3,
+            name: "Strategy",
+            slug: "strategy",
+            gamesCount: 60,
+            imageBackground: "",
+            games: []
+        ),
     ]
 
     let entities = GenreTransformer.mapGenresResponsesToEntities(input: results)
@@ -55,9 +83,17 @@ func testMapGenresResponsesToEntities_empty() {
 
 @Test("GenreTransformer uses default values for nil genre response fields")
 func testMapGenresResponsesToEntities_nilFields() {
-    let result = GenreResult(id: nil, name: nil, slug: nil, gamesCount: nil, imageBackground: nil, games: nil)
+    let result = GenreResult(
+        id: nil,
+        name: nil,
+        slug: nil,
+        gamesCount: nil,
+        imageBackground: nil,
+        games: nil
+    )
 
-    let entities = GenreTransformer.mapGenresResponsesToEntities(input: [result])
+    let entities = GenreTransformer.mapGenresResponsesToEntities(input: [result]
+    )
 
     #expect(entities.count == 1)
     let entity = entities[0]
@@ -98,9 +134,17 @@ func testMapGenresEntitiesToDomains_basicFields() {
         slug: "simulation",
         gamesCount: 200,
         imageBackground: "https://example.com/sim.jpg",
-        games: [GameInGenre(id: 2, name: "Cities Skylines", slug: "cities-skylines", added: 50)]
+        games: [
+            GameInGenre(
+                id: 2,
+                name: "Cities Skylines",
+                slug: "cities-skylines",
+                added: 50
+            )
+        ]
     )
-    let entities = GenreTransformer.mapGenresResponsesToEntities(input: [result])
+    let entities = GenreTransformer.mapGenresResponsesToEntities(input: [result]
+    )
 
     let domains = GenreTransformer.mapGenresEntitiesToDomains(input: entities)
 
@@ -144,8 +188,21 @@ func testMapGenresEntityToDomains_withDescription() {
 @Test("GenreTransformer maps genre responses directly to domains")
 func testMapGenreResponsesToDomains_basicFields() {
     let results = [
-        GenreResult(id: 1, name: "Action", slug: "action", gamesCount: 100, imageBackground: "https://example.com/action.jpg",
-                    games: [GameInGenre(id: 5, name: "Call of Duty", slug: "cod", added: 300)])
+        GenreResult(
+            id: 1,
+            name: "Action",
+            slug: "action",
+            gamesCount: 100,
+            imageBackground: "https://example.com/action.jpg",
+            games: [
+                GameInGenre(
+                    id: 5,
+                    name: "Call of Duty",
+                    slug: "cod",
+                    added: 300
+                )
+            ]
+        )
     ]
 
     let domains = GenreTransformer.mapGenreResponsesToDomains(input: results)
@@ -166,8 +223,22 @@ func testMapGenreResponsesToDomains_basicFields() {
 @Test("GenreTransformer maps responses to domains for multiple genres")
 func testMapGenreResponsesToDomains_multipleItems() {
     let results = [
-        GenreResult(id: 1, name: "Action", slug: "action", gamesCount: 100, imageBackground: "", games: []),
-        GenreResult(id: 2, name: "Sports", slug: "sports", gamesCount: 70, imageBackground: "", games: [])
+        GenreResult(
+            id: 1,
+            name: "Action",
+            slug: "action",
+            gamesCount: 100,
+            imageBackground: "",
+            games: []
+        ),
+        GenreResult(
+            id: 2,
+            name: "Sports",
+            slug: "sports",
+            gamesCount: 70,
+            imageBackground: "",
+            games: []
+        ),
     ]
 
     let domains = GenreTransformer.mapGenreResponsesToDomains(input: results)
@@ -186,8 +257,14 @@ func testMapGenreResponsesToDomains_empty() {
 @Test("GenreTransformer maps nil game fields with defaults in domain")
 func testMapGenreResponsesToDomains_nilGameFields() {
     let results = [
-        GenreResult(id: 1, name: "Puzzle", slug: "puzzle", gamesCount: 50, imageBackground: "",
-                    games: [GameInGenre(id: nil, name: nil, slug: nil, added: nil)])
+        GenreResult(
+            id: 1,
+            name: "Puzzle",
+            slug: "puzzle",
+            gamesCount: 50,
+            imageBackground: "",
+            games: [GameInGenre(id: nil, name: nil, slug: nil, added: nil)]
+        )
     ]
 
     let domains = GenreTransformer.mapGenreResponsesToDomains(input: results)
@@ -205,7 +282,14 @@ func testMapGenreResponsesToDomains_nilGameFields() {
 
 @Test("GenreDomainModel initializes with correct values")
 func testGenreDomainModelInitialization() {
-    let games = [GameInGenreModel(id: 1, name: "Puzzle Game", slug: "puzzle-game", added: 50)]
+    let games = [
+        GameInGenreModel(
+            id: 1,
+            name: "Puzzle Game",
+            slug: "puzzle-game",
+            added: 50
+        )
+    ]
     let model = GenreDomainModel(
         id: 3,
         name: "Puzzle",
@@ -242,11 +326,31 @@ func testGenreDomainModelWithCustomDescription() {
 @Test("GenreDomainModel equality works correctly")
 func testGenreDomainModelEquality() {
     let games = [GameInGenreModel(id: 1, name: "X", slug: "x", added: 10)]
-    let model1 = GenreDomainModel(id: 1, name: "Action", slug: "action", gamesCount: 100, imageBackground: "", games: games)
-    let model2 = GenreDomainModel(id: 1, name: "Action", slug: "action", gamesCount: 100, imageBackground: "", games: games)
-    let model3 = GenreDomainModel(id: 2, name: "RPG", slug: "rpg", gamesCount: 50, imageBackground: "", games: [])
+    let model1 = GenreDomainModel(
+        id: 1,
+        name: "Action",
+        slug: "action",
+        gamesCount: 100,
+        imageBackground: "",
+        games: games
+    )
+    let model2 = GenreDomainModel(
+        id: 1,
+        name: "Action",
+        slug: "action",
+        gamesCount: 100,
+        imageBackground: "",
+        games: games
+    )
+    let model3 = GenreDomainModel(
+        id: 2,
+        name: "RPG",
+        slug: "rpg",
+        gamesCount: 50,
+        imageBackground: "",
+        games: []
+    )
 
     #expect(model1 == model2)
     #expect(model1 != model3)
 }
-

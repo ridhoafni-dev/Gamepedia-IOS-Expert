@@ -9,8 +9,7 @@ import Combine
 import Foundation
 import SwiftUI
 
-public class GetListPresenter<Request, Response, Interactor: UseCase> :
-    ObservableObject
+public class GetListPresenter<Request, Response, Interactor: UseCase>: ObservableObject
 where Interactor.Request == Request,
       Interactor.Response == [Response] {
 

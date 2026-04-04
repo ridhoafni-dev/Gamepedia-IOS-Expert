@@ -5,8 +5,8 @@
 //  Created by User on 26/02/26.
 //
 
-
 import Foundation
+
 public struct SearchResponse: Decodable, Sendable {
     public var count: Int?
     public var next, previous: String?

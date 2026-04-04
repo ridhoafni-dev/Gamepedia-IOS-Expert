@@ -5,11 +5,11 @@
 //  Created by User on 10/01/26.
 //
 
-
 import SwiftUI
+
 struct ProfileTab: View {
     var body: some View {
-        ScrollView{
+        ScrollView {
             VStack(alignment: .leading) {
                 Image("user")
                     .resizable()
@@ -38,9 +38,11 @@ struct ProfileTab: View {
                 maxHeight: .infinity,
                 alignment: .leading
             )
-            .padding(EdgeInsets.init(top: 16, leading: 20, bottom: 50, trailing: 20))
+            .padding(
+                EdgeInsets.init(top: 16, leading: 20, bottom: 50, trailing: 20)
+            )
         }
-        .onAppear{
+        .onAppear {
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance

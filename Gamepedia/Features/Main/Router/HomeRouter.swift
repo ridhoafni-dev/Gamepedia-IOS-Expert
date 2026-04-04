@@ -6,13 +6,15 @@ import Genres
 import SwiftUI
 
 typealias HomeFavoritePresenterType = GetListPresenter<
-  Any,
-  Favorite.DetailGameDomainModel,
-  Interactor<
     Any,
-    [Favorite.DetailGameDomainModel],
-    GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>
-  >
+    Favorite.DetailGameDomainModel,
+    Interactor<
+        Any,
+        [Favorite.DetailGameDomainModel],
+        GetFavoritiesRepository<
+            GetFavoriteLocaleDataSource, FavoriteTransformer
+        >
+    >
 >
 
 class HomeRouter {

@@ -5,22 +5,19 @@
 //  Created by User on 29/12/25.
 //
 
-
 import Foundation
-nonisolated
-struct GamesResponse: Decodable, Sendable {
+
+nonisolated struct GamesResponse: Decodable, Sendable {
     let games: GameResponse
 }
 
-nonisolated
-struct GameResponse: Decodable, Sendable {
+nonisolated struct GameResponse: Decodable, Sendable {
     let count: Int?
     let next, previous: String?
     let results: [GameResult]?
 }
 
-nonisolated
-public struct GameResult: Decodable, Sendable {
+nonisolated public struct GameResult: Decodable, Sendable {
     public let id: Int?
     public let name, released: String?
     public let backgroundImage: String?
@@ -91,3 +88,4 @@ public struct ParentPlatformPlatform: Decodable, Sendable {
     public let id: Int?
     public let name, slug: String?
 }
+

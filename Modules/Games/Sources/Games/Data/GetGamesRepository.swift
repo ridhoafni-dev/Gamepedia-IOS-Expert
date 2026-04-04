@@ -5,9 +5,9 @@
 //  Created by User on 31/01/26.
 //
 
-
 import Combine
 import ObjectiveC
+
 public class GetGamesRepository: NSObject {
     public typealias GamepediaInstance = (
         GetGameLocaleDataSource, GetGamesRemoteDataSource
@@ -33,8 +33,9 @@ public class GetGamesRepository: NSObject {
             }.eraseToAnyPublisher()
     }
 
-    public func getFewDiscoveryGames() -> AnyPublisher<[DetailGameDomainModel], Error>
-    {
+    public func getFewDiscoveryGames() -> AnyPublisher<
+        [DetailGameDomainModel], Error
+    > {
         return self.locale.getBestRatingGames()
             .flatMap { result -> AnyPublisher<[DetailGameDomainModel], Error> in
                 return self.remote.getFewDiscoveryGames()
@@ -57,28 +58,39 @@ public class GetGamesRepository: NSObject {
             }.eraseToAnyPublisher()
     }
 
-    public func getGameDetail(id: Int, isAdd: Bool = false) -> AnyPublisher<DetailGameDomainModel, Error> {
+    public func getGameDetail(id: Int, isAdd: Bool = false) -> AnyPublisher<
+        DetailGameDomainModel, Error
+    > {
         return self.locale.getDetailGame(id: id)
             .flatMap { result -> AnyPublisher<DetailGameDomainModel, Error> in
                 if result.desc == "" {
                     return self.remote.getGameDetails(id: id)
-                    .map { DetailGameTransformer.mapDetailGameResponsesToEntities(input: $0)  }
+                        .map {
+                            DetailGameTransformer
+                                .mapDetailGameResponsesToEntities(input: $0)
+                        }
                         .flatMap { res in
-                            if(isAdd) {
+                            if isAdd {
                                 return self.locale.addGame(from: res)
                             } else {
                                 return self.locale.updateGames(gameEntity: res)
                             }
                         }
                         .filter { $0 }
-                        .flatMap { _ in self.locale.getDetailGame(id: id)
-                            .map {
-                                DetailGameTransformer.mapDetailGameEntityToDomain(input: $0)
-                            }
+                        .flatMap { _ in
+                            self.locale.getDetailGame(id: id)
+                                .map {
+                                    DetailGameTransformer
+                                        .mapDetailGameEntityToDomain(input: $0)
+                                }
                         }.eraseToAnyPublisher()
                 } else {
                     return self.locale.getDetailGame(id: id)
-                        .map { DetailGameTransformer.mapDetailGameEntityToDomain(input: $0) }
+                        .map {
+                            DetailGameTransformer.mapDetailGameEntityToDomain(
+                                input: $0
+                            )
+                        }
                         .eraseToAnyPublisher()
                 }
             }.eraseToAnyPublisher()

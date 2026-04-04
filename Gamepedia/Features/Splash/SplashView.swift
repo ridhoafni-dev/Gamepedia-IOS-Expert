@@ -14,37 +14,39 @@ import SearchGame
 import SwiftUI
 
 typealias FavoritePresenterType = GetListPresenter<
-  Any,
-  Favorite.DetailGameDomainModel,
-  Interactor<
     Any,
-    [Favorite.DetailGameDomainModel],
-    GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>
-  >
+    Favorite.DetailGameDomainModel,
+    Interactor<
+        Any,
+        [Favorite.DetailGameDomainModel],
+        GetFavoritiesRepository<
+            GetFavoriteLocaleDataSource, FavoriteTransformer
+        >
+    >
 >
 
 typealias SearchPresenterType = GetListPresenter<
-  Any,
-  SearchDomainModel,
-  Interactor<
     Any,
-    [SearchDomainModel],
-    GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>
-  >
+    SearchDomainModel,
+    Interactor<
+        Any,
+        [SearchDomainModel],
+        GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>
+    >
 >
 
 typealias DeveloperPresenterType = GetListPresenter<
-  Any,
-  DeveloperDomainModel,
-  Interactor<
     Any,
-    [DeveloperDomainModel],
-    GetDevelopersRepository<
-      GetDevelopersLocaleDataSource,
-      GetDevelopersRemoteDataSource,
-      DeveloperTransformer
+    DeveloperDomainModel,
+    Interactor<
+        Any,
+        [DeveloperDomainModel],
+        GetDevelopersRepository<
+            GetDevelopersLocaleDataSource,
+            GetDevelopersRemoteDataSource,
+            DeveloperTransformer
+        >
     >
-  >
 >
 
 struct SplashView: View {

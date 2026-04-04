@@ -1,6 +1,7 @@
 import Combine
 import Foundation
 import Testing
+
 @testable import Core
 
 // MARK: - Interactor Tests
@@ -48,7 +49,8 @@ func testInteractorExecuteWithKeyword() async throws {
     let keyword = "search_term"
 
     // When
-    let result = try await interactor.execute(request: nil, keyword: keyword).firstValue
+    let result = try await interactor.execute(request: nil, keyword: keyword)
+        .firstValue
 
     // Then
     #expect(result == "Search Response with keyword: search_term")
@@ -65,7 +67,11 @@ func testInteractorExecuteWithFavorite() async throws {
     let isFavorite = true
 
     // When
-    let result = try await interactor.execute(request: nil, id: gameId, isFavorite: isFavorite).firstValue
+    let result = try await interactor.execute(
+        request: nil,
+        id: gameId,
+        isFavorite: isFavorite
+    ).firstValue
 
     // Then
     #expect(result == true)
@@ -190,7 +196,10 @@ func testRepositoryExecuteWithKeyword() async throws {
     let keyword = "game_search"
 
     // When
-    let result = try await repository.execute(request: "search", keyword: keyword).firstValue
+    let result = try await repository.execute(
+        request: "search",
+        keyword: keyword
+    ).firstValue
 
     // Then
     #expect(result.contains("game_search"))
@@ -206,7 +215,11 @@ func testRepositoryHandlesFavoriteOperation() async throws {
     let isFavorite = false
 
     // When
-    let result = try await repository.execute(request: nil, id: gameId, isFavorite: isFavorite).firstValue
+    let result = try await repository.execute(
+        request: nil,
+        id: gameId,
+        isFavorite: isFavorite
+    ).firstValue
 
     // Then
     #expect(result == false)
@@ -316,7 +329,8 @@ func testLocaleDataSourceUpdate() async throws {
     let updatedItem = "Updated Item"
 
     // When
-    let result = try await dataSource.update(id: itemId, entity: updatedItem).firstValue
+    let result = try await dataSource.update(id: itemId, entity: updatedItem)
+        .firstValue
 
     // Then
     #expect(result == true)
@@ -332,7 +346,8 @@ func testLocaleDataSourceUpdateFavorite() async throws {
     let isFavorite = true
 
     // When
-    let result = try await dataSource.update(id: itemId, isFavorite: isFavorite).firstValue
+    let result = try await dataSource.update(id: itemId, isFavorite: isFavorite)
+        .firstValue
 
     // Then
     #expect(result == true)

@@ -4,8 +4,6 @@
 //
 //  Created by User on 27/01/26.
 //
-
-
 import Foundation
 public protocol Mapper {
     associatedtype Response

@@ -5,10 +5,11 @@
 //  Created by User on 22/02/26.
 //
 
-
 import Foundation
+
 nonisolated
-struct GenreResponse: Decodable {
+    struct GenreResponse: Decodable
+{
     let count: Int?
     let next, previous: String?
     let results: [GenreResult]?
@@ -21,7 +22,8 @@ struct GameInGenre: Decodable {
 }
 
 nonisolated
-struct GenreResult: Decodable {
+    struct GenreResult: Decodable
+{
     let id: Int?
     let name, slug: String?
     let gamesCount: Int?

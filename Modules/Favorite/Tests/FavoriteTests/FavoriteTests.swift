@@ -1,8 +1,9 @@
 import Foundation
+import Games
 import Testing
+
 @testable import Favorite
 
-import Games
 // MARK: - FavoriteTransformer Tests
 
 @Test("FavoriteTransformer transforms entity list to domain list correctly")
@@ -55,7 +56,9 @@ func testTransformEntityToDomain_multipleEntities() {
     entity3.name = "Game Gamma"
     entity3.isFavorite = true
 
-    let domains = transformer.transformEntityToDomain(entity: [entity1, entity2, entity3])
+    let domains = transformer.transformEntityToDomain(entity: [
+        entity1, entity2, entity3,
+    ])
 
     #expect(domains.count == 3)
     #expect(domains[0].id == 1)
@@ -108,7 +111,9 @@ func testTransformEntityToDomain_allFieldsPreserved() {
     #expect(domain.slug == "elden-ring")
     #expect(domain.nameOriginal == "Elden Ring Original")
     #expect(domain.description == "Open world action RPG")
-    #expect(domain.backgroundImageAdditional == "https://example.com/eldenring2.jpg")
+    #expect(
+        domain.backgroundImageAdditional == "https://example.com/eldenring2.jpg"
+    )
     #expect(domain.website == "https://eldenring.com")
     #expect(domain.achievementsCount == 100)
     #expect(domain.ratingsCount == 5000)
@@ -130,4 +135,3 @@ func testTransformResponseToEntity_alwaysEmpty() {
     let result = transformer.transformResponseToEntity(response: false)
     #expect(result.isEmpty)
 }
-

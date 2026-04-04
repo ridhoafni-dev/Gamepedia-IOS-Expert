@@ -5,9 +5,9 @@
 //  Created by User on 12/01/26.
 //
 
-
 import Games
 import SwiftUI
+
 struct PlatformItem: View {
     var releasedAt: String?
     var platform: PlatformDetailsDomainModel?
@@ -23,9 +23,11 @@ struct PlatformItem: View {
                     Text("Release on \(dateFormat(dateTxt: releasedAt!))")
                         .font(.system(size: 12))
                         .foregroundColor(.white)
-                    Text("Total game in this platform are \(platform?.gamesCount ?? 0)")
-                        .font(.system(size: 12))
-                        .foregroundColor(.white)
+                    Text(
+                        "Total game in this platform are \(platform?.gamesCount ?? 0)"
+                    )
+                    .font(.system(size: 12))
+                    .foregroundColor(.white)
                 }
             }
             .frame(

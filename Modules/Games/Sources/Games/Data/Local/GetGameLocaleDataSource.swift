@@ -5,11 +5,11 @@
 //  Created by User on 30/01/26.
 //
 
-
 import Combine
 import Core
 import Foundation
 import RealmSwift
+
 public struct GetGameLocaleDataSource {
     public typealias Request = Any
     public typealias Response = GameModuleEntity
@@ -26,7 +26,9 @@ public struct GetGameLocaleDataSource {
                 self._realm.objects(GameModuleEntity.self)
                     .sorted(byKeyPath: "name", ascending: true)
             }()
-            completion(.success(detailGames.toArray(ofType: GameModuleEntity.self)))
+            completion(
+                .success(detailGames.toArray(ofType: GameModuleEntity.self))
+            )
 
         }.eraseToAnyPublisher()
     }
@@ -37,7 +39,9 @@ public struct GetGameLocaleDataSource {
                 self._realm.objects(GameModuleEntity.self)
                     .sorted(byKeyPath: "rating", ascending: false)
             }()
-            completion(.success(detailGames.toArray(ofType: GameModuleEntity.self)))
+            completion(
+                .success(detailGames.toArray(ofType: GameModuleEntity.self))
+            )
 
         }.eraseToAnyPublisher()
     }
@@ -53,7 +57,10 @@ public struct GetGameLocaleDataSource {
                         let temp = GameModuleEntity()
                         temp.id = game.id
                         // Preserve existing isFavorite value if the record already exists
-                        let existing = self._realm.object(ofType: GameModuleEntity.self, forPrimaryKey: game.id)
+                        let existing = self._realm.object(
+                            ofType: GameModuleEntity.self,
+                            forPrimaryKey: game.id
+                        )
                         temp.isFavorite = existing?.isFavorite ?? false
                         temp.name = game.name
                         temp.originalName = game.originalName
@@ -62,7 +69,8 @@ public struct GetGameLocaleDataSource {
                         temp.released = game.released
                         temp.updated = game.updated
                         temp.backgroundImage = game.backgroundImage
-                        temp.backgroundImageAdditional = game.backgroundImageAdditional
+                        temp.backgroundImageAdditional =
+                            game.backgroundImageAdditional
                         temp.website = game.website
                         temp.rating = game.rating
                         temp.added = game.added
@@ -73,14 +81,18 @@ public struct GetGameLocaleDataSource {
                         temp.reviewsCount = game.reviewsCount
                         temp.descriptionRaw = game.descriptionRaw
 
-                        temp.parentPlatforms.append(objectsIn: game.parentPlatforms)
+                        temp.parentPlatforms.append(
+                            objectsIn: game.parentPlatforms
+                        )
                         temp.platforms.append(objectsIn: game.platforms)
                         temp.stores.append(objectsIn: game.stores)
                         temp.developers.append(objectsIn: game.developers)
                         temp.genres.append(objectsIn: game.genres)
                         temp.tags.append(objectsIn: game.tags)
                         temp.publishers.append(objectsIn: game.publishers)
-                        temp.parentPlatforms.append(objectsIn: game.parentPlatforms)
+                        temp.parentPlatforms.append(
+                            objectsIn: game.parentPlatforms
+                        )
 
                         self._realm.add(temp, update: .all)
                     }
@@ -102,7 +114,10 @@ public struct GetGameLocaleDataSource {
 
                     temp.id = game.id
                     // Preserve existing isFavorite value if the record already exists
-                    let existing = self._realm.object(ofType: GameModuleEntity.self, forPrimaryKey: game.id)
+                    let existing = self._realm.object(
+                        ofType: GameModuleEntity.self,
+                        forPrimaryKey: game.id
+                    )
                     temp.isFavorite = existing?.isFavorite ?? false
                     temp.name = game.name
                     temp.originalName = game.originalName
@@ -111,7 +126,8 @@ public struct GetGameLocaleDataSource {
                     temp.released = game.released
                     temp.updated = game.updated
                     temp.backgroundImage = game.backgroundImage
-                    temp.backgroundImageAdditional = game.backgroundImageAdditional
+                    temp.backgroundImageAdditional =
+                        game.backgroundImageAdditional
                     temp.website = game.website
                     temp.rating = game.rating
                     temp.added = game.added
@@ -134,8 +150,7 @@ public struct GetGameLocaleDataSource {
                     self._realm.add(temp, update: .all)
                     completion(.success(true))
                 }
-            }
-            catch {
+            } catch {
                 completion(.failure(DatabaseError.requestFailed))
             }
         }.eraseToAnyPublisher()
@@ -143,45 +158,81 @@ public struct GetGameLocaleDataSource {
 
     func getDetailGame(id: Int) -> AnyPublisher<GameModuleEntity, Error> {
         return Future<GameModuleEntity, Error> { completion in
-            let detail: GameModuleEntity = {
-                self._realm.object(ofType: GameModuleEntity.self, forPrimaryKey: id)
-            }() ?? GameModuleEntity()
+            let detail: GameModuleEntity =
+                {
+                    self._realm.object(
+                        ofType: GameModuleEntity.self,
+                        forPrimaryKey: id
+                    )
+                }() ?? GameModuleEntity()
 
             completion(.success(detail))
 
         }.eraseToAnyPublisher()
     }
 
-    func updateGames(gameEntity: GameModuleEntity) -> AnyPublisher<Bool, Error> {
+    func updateGames(gameEntity: GameModuleEntity) -> AnyPublisher<Bool, Error>
+    {
         return Future<Bool, Error> { completion in
             do {
-              let currentData = self._realm.objects(GameModuleEntity.self).where {
-                $0.id == gameEntity.id
-              }.first!
-              //Update the all data that not added before
+                let currentData = self._realm.objects(GameModuleEntity.self)
+                    .where {
+                        $0.id == gameEntity.id
+                    }.first!
+                //Update the all data that not added before
 
-              try self._realm.write {
-                currentData.setValue(gameEntity.slug, forKey: "slug")
-                currentData.setValue(gameEntity.originalName, forKey: "originalName")
-                currentData.setValue(gameEntity.desc, forKey: "desc")
-                currentData.setValue(gameEntity.backgroundImageAdditional, forKey: "backgroundImageAdditional")
-                currentData.setValue(gameEntity.website, forKey: "website")
-                currentData.setValue(gameEntity.added, forKey: "added")
-                currentData.setValue(gameEntity.playtime, forKey: "playtime")
-                currentData.setValue(gameEntity.achievementsCount, forKey: "achievementsCount")
-                currentData.setValue(gameEntity.ratingsCount, forKey: "ratingsCount")
-                currentData.setValue(gameEntity.parentPlatforms, forKey: "parentPlatforms")
-                currentData.setValue(gameEntity.platforms, forKey: "platforms")
-                currentData.setValue(gameEntity.stores, forKey: "stores")
-                currentData.setValue(gameEntity.developers, forKey: "developers")
-                currentData.setValue(gameEntity.genres, forKey: "genres")
-                currentData.setValue(gameEntity.tags, forKey: "tags")
-                currentData.setValue(gameEntity.publishers, forKey: "publishers")
-                currentData.setValue(gameEntity.descriptionRaw, forKey: "descriptionRaw")
-              }
-              completion(.success(true))
+                try self._realm.write {
+                    currentData.setValue(gameEntity.slug, forKey: "slug")
+                    currentData.setValue(
+                        gameEntity.originalName,
+                        forKey: "originalName"
+                    )
+                    currentData.setValue(gameEntity.desc, forKey: "desc")
+                    currentData.setValue(
+                        gameEntity.backgroundImageAdditional,
+                        forKey: "backgroundImageAdditional"
+                    )
+                    currentData.setValue(gameEntity.website, forKey: "website")
+                    currentData.setValue(gameEntity.added, forKey: "added")
+                    currentData.setValue(
+                        gameEntity.playtime,
+                        forKey: "playtime"
+                    )
+                    currentData.setValue(
+                        gameEntity.achievementsCount,
+                        forKey: "achievementsCount"
+                    )
+                    currentData.setValue(
+                        gameEntity.ratingsCount,
+                        forKey: "ratingsCount"
+                    )
+                    currentData.setValue(
+                        gameEntity.parentPlatforms,
+                        forKey: "parentPlatforms"
+                    )
+                    currentData.setValue(
+                        gameEntity.platforms,
+                        forKey: "platforms"
+                    )
+                    currentData.setValue(gameEntity.stores, forKey: "stores")
+                    currentData.setValue(
+                        gameEntity.developers,
+                        forKey: "developers"
+                    )
+                    currentData.setValue(gameEntity.genres, forKey: "genres")
+                    currentData.setValue(gameEntity.tags, forKey: "tags")
+                    currentData.setValue(
+                        gameEntity.publishers,
+                        forKey: "publishers"
+                    )
+                    currentData.setValue(
+                        gameEntity.descriptionRaw,
+                        forKey: "descriptionRaw"
+                    )
+                }
+                completion(.success(true))
             } catch {
-              completion(.failure(DatabaseError.requestFailed))
+                completion(.failure(DatabaseError.requestFailed))
             }
         }.eraseToAnyPublisher()
 

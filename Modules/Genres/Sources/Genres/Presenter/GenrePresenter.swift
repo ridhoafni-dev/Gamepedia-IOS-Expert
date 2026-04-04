@@ -5,9 +5,9 @@
 //  Created by User on 25/02/26.
 //
 
-
 import Combine
 import SwiftUI
+
 public class GenrePresenter: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     private let useCase: GenreUseCase
@@ -26,16 +26,19 @@ public class GenrePresenter: ObservableObject {
         loadingState = true
         useCase.getListGenres()
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure:
-                    self.errorMessage = String(describing: completion)
-                case .finished:
-                    self.loadingState = false
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .failure:
+                        self.errorMessage = String(describing: completion)
+                    case .finished:
+                        self.loadingState = false
+                    }
+                },
+                receiveValue: { genres in
+                    self.genres = genres
                 }
-            }, receiveValue: { genres in
-                self.genres = genres
-            })
+            )
             .store(in: &cancellables)
     }
 
@@ -43,17 +46,20 @@ public class GenrePresenter: ObservableObject {
         loadingState = true
         useCase.getDetailGenre(id: id)
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure:
-                    self.errorMessage = String(describing: completion)
-                case .finished:
-                    self.loadingState = false
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .failure:
+                        self.errorMessage = String(describing: completion)
+                    case .finished:
+                        self.loadingState = false
 
+                    }
+                },
+                receiveValue: { detail in
+                    self.detailGenre = detail
                 }
-            }, receiveValue: { detail in
-                self.detailGenre = detail
-            })
+            )
             .store(in: &cancellables)
     }
 

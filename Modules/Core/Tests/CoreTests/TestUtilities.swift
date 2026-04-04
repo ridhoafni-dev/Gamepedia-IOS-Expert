@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import Testing
+
 @testable import Core
 
 // MARK: - Test Utilities and Extensions
@@ -16,7 +17,8 @@ import Testing
 extension AnyPublisher where Output: Sendable {
     var firstValue: Output {
         get async throws {
-            return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Output, Error>) in
+            try await withCheckedThrowingContinuation {
+                (continuation: CheckedContinuation<Output, Error>) in
                 nonisolated(unsafe) var cancellable: AnyCancellable?
                 cancellable = self.sink(
                     receiveCompletion: { completion in
@@ -41,7 +43,7 @@ extension AnyPublisher where Output: Sendable {
 /// Helper extension for testing async publishers
 extension AnyPublisher where Failure == Error {
     func collectFirst() -> AnyPublisher<Output, Failure> {
-        return self.prefix(1).eraseToAnyPublisher()
+        self.prefix(1).eraseToAnyPublisher()
     }
 }
 
@@ -71,15 +73,15 @@ enum TestError: Error, Equatable {
 
 class TestDataFactory {
     static func createTestString(_ suffix: String = "") -> String {
-        return "TestData\(suffix.isEmpty ? "" : "_\(suffix)")"
+        "TestData\(suffix.isEmpty ? "" : "_\(suffix)")"
     }
 
     static func createTestArray<T>(_ element: T, count: Int = 3) -> [T] {
-        return Array(repeating: element, count: count)
+        Array(repeating: element, count: count)
     }
 
     static func createTestDictionary() -> [String: Any] {
-        return [
+        [
             "id": 1,
             "name": "Test Name",
             "value": "Test Value",

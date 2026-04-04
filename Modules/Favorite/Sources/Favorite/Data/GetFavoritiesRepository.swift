@@ -5,19 +5,20 @@
 //  Created by User on 28/02/26.
 //
 
-
 import Combine
 import Core
 import Games
+
 public struct GetFavoritiesRepository<
     FavoriteLocaleDataSource: LocaleDataSource,
     Transformer: Mapper
-> : Repository
+>: Repository
 where
-FavoriteLocaleDataSource.Response == GameModuleEntity,
-Transformer.Response == Bool,
-Transformer.Entity == [GameModuleEntity],
-Transformer.Domain == [DetailGameDomainModel] {
+    FavoriteLocaleDataSource.Response == GameModuleEntity,
+    Transformer.Response == Bool,
+    Transformer.Entity == [GameModuleEntity],
+    Transformer.Domain == [DetailGameDomainModel]
+{
 
     public typealias Request = Any
     public typealias Response = [DetailGameDomainModel]
@@ -45,12 +46,11 @@ Transformer.Domain == [DetailGameDomainModel] {
     }
 
     public func execute(request: Request?, keyword: String) -> AnyPublisher<[DetailGameDomainModel], Error> {
-            fatalError()
+        fatalError()
     }
 
     public func execute(request: Request?, id: Int, isFavorite: Bool) -> AnyPublisher<[DetailGameDomainModel], Error> {
         fatalError()
     }
-
 
 }

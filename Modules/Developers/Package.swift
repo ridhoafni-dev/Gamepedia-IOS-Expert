@@ -1,8 +1,8 @@
 // swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
-
 import PackageDescription
+
 let package = Package(
     name: "Developers",
     platforms: [.iOS(.v16), .macOS(.v13)],
@@ -11,8 +11,7 @@ let package = Package(
         .library(
             name: "Developers",
             targets: ["Developers"]
-        ),
-
+        )
     ],
     dependencies: [
         // Align with Core
@@ -30,10 +29,10 @@ let package = Package(
                 "Alamofire",
                 "Core"
             ]
-        ),
+        )
         .testTarget(
             name: "DevelopersTests",
             dependencies: ["Developers"]
-        ),
+        )
     ]
 )

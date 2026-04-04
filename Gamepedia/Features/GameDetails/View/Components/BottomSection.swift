@@ -5,10 +5,10 @@
 //  Created by User on 12/01/26.
 //
 
-
 import Games
 import SkeletonUI
 import SwiftUI
+
 struct BottomSection: View {
     @ObservedObject var presenter: GamePresenter
     @State private var htmlHeight: CGFloat = 100

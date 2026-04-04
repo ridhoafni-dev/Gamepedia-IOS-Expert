@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+
 @testable import SearchGame
 
 // MARK: - Test Data Helpers
@@ -62,7 +63,7 @@ func testTransformResponseToDomain_multipleItems() {
     let results = [
         makeSearchResult(id: 1, name: "Game A"),
         makeSearchResult(id: 2, name: "Game B"),
-        makeSearchResult(id: 3, name: "Game C")
+        makeSearchResult(id: 3, name: "Game C"),
     ]
 
     let domains = transformer.transformResponseToDomain(response: results)
@@ -116,7 +117,9 @@ func testTransformResponseToDomain_nilFields() {
 @Test("SearchTransformer transformResponseToEntity returns empty list")
 func testTransformResponseToEntity_alwaysEmpty() {
     let transformer = SearchTransformer()
-    let results = [makeSearchResult(), makeSearchResult(id: 2, name: "Another Game")]
+    let results = [
+        makeSearchResult(), makeSearchResult(id: 2, name: "Another Game"),
+    ]
 
     let entities = transformer.transformResponseToEntity(response: results)
 
@@ -226,7 +229,12 @@ func testSearchDomainModelIdentifiable() {
 @Test("SearchResponse initializes correctly")
 func testSearchResponseInitialization() {
     let results = [makeSearchResult(id: 1, name: "Test")]
-    let response = SearchResponse(count: 1, next: nil, previous: nil, results: results)
+    let response = SearchResponse(
+        count: 1,
+        next: nil,
+        previous: nil,
+        results: results
+    )
 
     #expect(response.count == 1)
     #expect(response.next == nil)
@@ -234,4 +242,3 @@ func testSearchResponseInitialization() {
     #expect(response.results?.count == 1)
     #expect(response.results?.first?.name == "Test")
 }
-

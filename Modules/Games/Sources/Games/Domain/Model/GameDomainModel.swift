@@ -5,8 +5,8 @@
 //  Created by User on 02/02/26.
 //
 
-
 import Foundation
+
 public struct GameDomainModel: Equatable {
     public let id: Int?
     public let name, released: String?
@@ -20,7 +20,21 @@ public struct GameDomainModel: Equatable {
     public let genres: [GenreInGameDomainModel]?
     public let parentPlatforms: [ParentPlatformPlatformDomainModel]?
 
-    public init(id: Int?, name: String?, released: String?, backgroundImage: String?, rating: Double?, ratingTop: Double?, suggestionsCount: Int?, updated: String?, reviewsCount: Int?, communityRating: Int?, platforms: [PlatformDomainModel]?, genres: [GenreInGameDomainModel]?, parentPlatforms: [ParentPlatformPlatformDomainModel]?) {
+    public init(
+        id: Int?,
+        name: String?,
+        released: String?,
+        backgroundImage: String?,
+        rating: Double?,
+        ratingTop: Double?,
+        suggestionsCount: Int?,
+        updated: String?,
+        reviewsCount: Int?,
+        communityRating: Int?,
+        platforms: [PlatformDomainModel]?,
+        genres: [GenreInGameDomainModel]?,
+        parentPlatforms: [ParentPlatformPlatformDomainModel]?
+    ) {
         self.id = id
         self.name = name
         self.released = released
@@ -76,7 +90,14 @@ public struct GenreInGameDomainModel: Equatable, Identifiable {
     public let imageBackground: String?
     public let language: String?
 
-    public init(id: Int?, name: String?, slug: String?, gamesCount: Int?, imageBackground: String?, language: String?) {
+    public init(
+        id: Int?,
+        name: String?,
+        slug: String?,
+        gamesCount: Int?,
+        imageBackground: String?,
+        language: String?
+    ) {
         self.id = id
         self.name = name
         self.slug = slug

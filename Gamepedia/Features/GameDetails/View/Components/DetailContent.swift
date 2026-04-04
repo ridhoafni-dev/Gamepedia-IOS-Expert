@@ -31,27 +31,44 @@ struct DetailContent: View {
             .padding(.bottom, 50)
         }
         .background(Color.black)
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        .navigationBarItems(leading: Button {
-            presentationMode.wrappedValue.dismiss()
-        } label: {
-            HStack {
-                Image(systemName: "arrow.left.circle")
-                    .foregroundColor(.yellow)
-                Text("Go Back")
-                    .foregroundColor(.yellow)
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
+        .navigationBarItems(
+            leading: Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left.circle")
+                        .foregroundColor(.yellow)
+                    Text("Go Back")
+                        .foregroundColor(.yellow)
+                }
             }
-        })
-        .navigationBarItems(trailing: Button(action: {
-            isFavorite = !isFavorite
-            if let gameId = presenter.detailGame?.id {
-                favoritePresenter.updateFavorite(request: nil, id: gameId, isFavorite: isFavorite)
-                isUpdateFavorite = true
-            }
-        }) {
-            Image(systemName: isFavorite ? "heart.circle.fill" : "heart.circle")
+        )
+        .navigationBarItems(
+            trailing: Button(action: {
+                isFavorite = !isFavorite
+                if let gameId = presenter.detailGame?.id {
+                    favoritePresenter.updateFavorite(
+                        request: nil,
+                        id: gameId,
+                        isFavorite: isFavorite
+                    )
+                    isUpdateFavorite = true
+                }
+            }) {
+                Image(
+                    systemName: isFavorite
+                        ? "heart.circle.fill" : "heart.circle"
+                )
                 .foregroundColor(isFavorite ? .red : .gray)
-        })
+            }
+        )
         .navigationBarBackButtonHidden(true)
         //.phoneOnlyStackNavigationView()
         .statusBar(hidden: true)

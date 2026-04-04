@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+
 @testable import Games
 
 // MARK: - GameTransformer Tests
@@ -40,7 +41,7 @@ func testMapGameResponsesToDomains_multipleItems() {
     let responses = [
         GameResultFactory.make(id: 1, name: "Game One"),
         GameResultFactory.make(id: 2, name: "Game Two"),
-        GameResultFactory.make(id: 3, name: "Game Three")
+        GameResultFactory.make(id: 3, name: "Game Three"),
     ]
 
     let domains = GameTransformer.mapGameResponsesToDomains(input: responses)
@@ -86,11 +87,19 @@ func testMapGameResponsesToDomains_nilValues() {
 @Test("DetailGameTransformer maps GameResult array to entities")
 func testMapDetailGameResponseToEntities_fromGameResults() {
     let responses = [
-        GameResultFactory.make(id: 5, name: "Entity Game", released: "2023-03-15",
-                               rating: 3.8, suggestionsCount: 20, reviewsCount: 10)
+        GameResultFactory.make(
+            id: 5,
+            name: "Entity Game",
+            released: "2023-03-15",
+            rating: 3.8,
+            suggestionsCount: 20,
+            reviewsCount: 10
+        )
     ]
 
-    let entities = DetailGameTransformer.mapDetailGameResponseToEntities(input: responses)
+    let entities = DetailGameTransformer.mapDetailGameResponseToEntities(
+        input: responses
+    )
 
     #expect(entities.count == 1)
     let entity = entities[0]
@@ -107,10 +116,12 @@ func testMapDetailGameResponseToEntities_fromGameResults() {
 func testMapDetailGameResponseToEntities_multiple() {
     let responses = [
         GameResultFactory.make(id: 1, name: "Alpha"),
-        GameResultFactory.make(id: 2, name: "Beta")
+        GameResultFactory.make(id: 2, name: "Beta"),
     ]
 
-    let entities = DetailGameTransformer.mapDetailGameResponseToEntities(input: responses)
+    let entities = DetailGameTransformer.mapDetailGameResponseToEntities(
+        input: responses
+    )
 
     #expect(entities.count == 2)
     #expect(entities[0].id == 1)
@@ -121,7 +132,8 @@ func testMapDetailGameResponseToEntities_multiple() {
 
 @Test("DetailGameTransformer returns empty array for empty GameResult input")
 func testMapDetailGameResponseToEntities_empty() {
-    let entities = DetailGameTransformer.mapDetailGameResponseToEntities(input: [])
+    let entities = DetailGameTransformer.mapDetailGameResponseToEntities(
+        input: [])
     #expect(entities.isEmpty)
 }
 
@@ -138,7 +150,9 @@ func testMapDetailGameEntitiesToDomains_singleItem() {
         isFavorite: true
     )
 
-    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [entity])
+    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [
+        entity
+    ])
 
     #expect(domains.count == 1)
     let domain = domains[0]
@@ -156,10 +170,12 @@ func testMapDetailGameEntitiesToDomains_multipleItems() {
     let entities = [
         GameModuleEntityFactory.make(id: 1, name: "Game A"),
         GameModuleEntityFactory.make(id: 2, name: "Game B"),
-        GameModuleEntityFactory.make(id: 3, name: "Game C")
+        GameModuleEntityFactory.make(id: 3, name: "Game C"),
     ]
 
-    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: entities)
+    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(
+        input: entities
+    )
 
     #expect(domains.count == 3)
     #expect(domains[0].id == 1)
@@ -170,7 +186,8 @@ func testMapDetailGameEntitiesToDomains_multipleItems() {
 
 @Test("DetailGameTransformer returns empty array for empty entities")
 func testMapDetailGameEntitiesToDomains_empty() {
-    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [])
+    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: []
+    )
     #expect(domains.isEmpty)
 }
 
@@ -178,7 +195,9 @@ func testMapDetailGameEntitiesToDomains_empty() {
 func testMapDetailGameEntitiesToDomains_notFavorite() {
     let entity = GameModuleEntityFactory.make(id: 7, isFavorite: false)
 
-    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [entity])
+    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [
+        entity
+    ])
 
     #expect(domains.count == 1)
     #expect(domains[0].isFavorite == false)
@@ -186,14 +205,20 @@ func testMapDetailGameEntitiesToDomains_notFavorite() {
 
 @Test("DetailGameTransformer preserves all entity fields in domain")
 func testMapDetailGameEntitiesToDomains_fieldsPreserved() {
-    let entity = GameModuleEntityFactory.make(id: 15, name: "Elden Ring", rating: 4.95)
+    let entity = GameModuleEntityFactory.make(
+        id: 15,
+        name: "Elden Ring",
+        rating: 4.95
+    )
     entity.playtime = 100
     entity.achievementsCount = 50
     entity.ratingsCount = 5000
     entity.added = 999
     entity.website = "https://eldenring.com"
 
-    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [entity])
+    let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [
+        entity
+    ])
 
     let domain = domains[0]
     #expect(domain.playtime == 100)
@@ -240,22 +265,49 @@ func testGameDomainModelInitialization() {
 @Test("GameDomainModel equality works correctly")
 func testGameDomainModelEquality() {
     let model1 = GameDomainModel(
-        id: 5, name: "Test", released: "2020-01-01",
-        backgroundImage: "", rating: 4.0, ratingTop: 5.0,
-        suggestionsCount: 10, updated: "2024-01-01", reviewsCount: 5,
-        communityRating: 4, platforms: nil, genres: nil, parentPlatforms: nil
+        id: 5,
+        name: "Test",
+        released: "2020-01-01",
+        backgroundImage: "",
+        rating: 4.0,
+        ratingTop: 5.0,
+        suggestionsCount: 10,
+        updated: "2024-01-01",
+        reviewsCount: 5,
+        communityRating: 4,
+        platforms: nil,
+        genres: nil,
+        parentPlatforms: nil
     )
     let model2 = GameDomainModel(
-        id: 5, name: "Test", released: "2020-01-01",
-        backgroundImage: "", rating: 4.0, ratingTop: 5.0,
-        suggestionsCount: 10, updated: "2024-01-01", reviewsCount: 5,
-        communityRating: 4, platforms: nil, genres: nil, parentPlatforms: nil
+        id: 5,
+        name: "Test",
+        released: "2020-01-01",
+        backgroundImage: "",
+        rating: 4.0,
+        ratingTop: 5.0,
+        suggestionsCount: 10,
+        updated: "2024-01-01",
+        reviewsCount: 5,
+        communityRating: 4,
+        platforms: nil,
+        genres: nil,
+        parentPlatforms: nil
     )
     let model3 = GameDomainModel(
-        id: 6, name: "Different", released: "2021-01-01",
-        backgroundImage: "", rating: 3.0, ratingTop: 4.0,
-        suggestionsCount: 5, updated: "2023-01-01", reviewsCount: 2,
-        communityRating: 3, platforms: nil, genres: nil, parentPlatforms: nil
+        id: 6,
+        name: "Different",
+        released: "2021-01-01",
+        backgroundImage: "",
+        rating: 3.0,
+        ratingTop: 4.0,
+        suggestionsCount: 5,
+        updated: "2023-01-01",
+        reviewsCount: 2,
+        communityRating: 3,
+        platforms: nil,
+        genres: nil,
+        parentPlatforms: nil
     )
 
     #expect(model1 == model2)
@@ -308,22 +360,60 @@ func testDetailGameDomainModelInitialization() {
 @Test("DetailGameDomainModel equality works correctly")
 func testDetailGameDomainModelEquality() {
     let model1 = DetailGameDomainModel(
-        id: 1, isFavorite: true, slug: "game", name: "Game",
-        nameOriginal: nil, description: nil, released: nil, updated: nil,
-        backgroundImage: nil, backgroundImageAdditional: nil, website: nil,
-        rating: nil, added: nil, playtime: nil, achievementsCount: nil,
-        ratingsCount: nil, suggestionsCount: nil, reviewsCount: nil,
-        parentPlatforms: nil, platforms: nil, stores: nil, developers: nil,
-        genres: nil, tags: nil, publishers: nil, descriptionRaw: nil
+        id: 1,
+        isFavorite: true,
+        slug: "game",
+        name: "Game",
+        nameOriginal: nil,
+        description: nil,
+        released: nil,
+        updated: nil,
+        backgroundImage: nil,
+        backgroundImageAdditional: nil,
+        website: nil,
+        rating: nil,
+        added: nil,
+        playtime: nil,
+        achievementsCount: nil,
+        ratingsCount: nil,
+        suggestionsCount: nil,
+        reviewsCount: nil,
+        parentPlatforms: nil,
+        platforms: nil,
+        stores: nil,
+        developers: nil,
+        genres: nil,
+        tags: nil,
+        publishers: nil,
+        descriptionRaw: nil
     )
     let model2 = DetailGameDomainModel(
-        id: 1, isFavorite: true, slug: "game", name: "Game",
-        nameOriginal: nil, description: nil, released: nil, updated: nil,
-        backgroundImage: nil, backgroundImageAdditional: nil, website: nil,
-        rating: nil, added: nil, playtime: nil, achievementsCount: nil,
-        ratingsCount: nil, suggestionsCount: nil, reviewsCount: nil,
-        parentPlatforms: nil, platforms: nil, stores: nil, developers: nil,
-        genres: nil, tags: nil, publishers: nil, descriptionRaw: nil
+        id: 1,
+        isFavorite: true,
+        slug: "game",
+        name: "Game",
+        nameOriginal: nil,
+        description: nil,
+        released: nil,
+        updated: nil,
+        backgroundImage: nil,
+        backgroundImageAdditional: nil,
+        website: nil,
+        rating: nil,
+        added: nil,
+        playtime: nil,
+        achievementsCount: nil,
+        ratingsCount: nil,
+        suggestionsCount: nil,
+        reviewsCount: nil,
+        parentPlatforms: nil,
+        platforms: nil,
+        stores: nil,
+        developers: nil,
+        genres: nil,
+        tags: nil,
+        publishers: nil,
+        descriptionRaw: nil
     )
 
     #expect(model1 == model2)

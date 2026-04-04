@@ -5,7 +5,6 @@
 //  Created by User on 29/12/25.
 //
 
-
 import Core
 import Developers
 import Favorite
@@ -13,6 +12,7 @@ import Games
 import Genres
 import SearchGame
 import SwiftUI
+
 @main
 struct GamepediaApp: App {
     @Environment(\.scenePhase) var scenePhase
@@ -24,78 +24,84 @@ struct GamepediaApp: App {
     private let genrePresenter: GenrePresenter
     private let gamePresenter: GamePresenter
 
-    private let developerPresenter: GetListPresenter<
-        Any,
-        DeveloperDomainModel,
-        Interactor<
+    private let developerPresenter:
+        GetListPresenter<
             Any,
-            [DeveloperDomainModel],
-            GetDevelopersRepository<
-                GetDevelopersLocaleDataSource,
-                GetDevelopersRemoteDataSource,
-                DeveloperTransformer
+            DeveloperDomainModel,
+            Interactor<
+                Any,
+                [DeveloperDomainModel],
+                GetDevelopersRepository<
+                    GetDevelopersLocaleDataSource,
+                    GetDevelopersRemoteDataSource,
+                    DeveloperTransformer
+                >
             >
         >
-    >
 
-    private let favoritePresenter: GetListPresenter<
-        Any,
-        Favorite.DetailGameDomainModel,
-        Interactor<
+    private let favoritePresenter:
+        GetListPresenter<
             Any,
-            [Favorite.DetailGameDomainModel],
-            GetFavoritiesRepository<
-                GetFavoriteLocaleDataSource,
-                FavoriteTransformer
+            Favorite.DetailGameDomainModel,
+            Interactor<
+                Any,
+                [Favorite.DetailGameDomainModel],
+                GetFavoritiesRepository<
+                    GetFavoriteLocaleDataSource,
+                    FavoriteTransformer
+                >
             >
         >
-    >
 
-    private let searchPresenter: GetListPresenter<
-        Any,
-        SearchDomainModel,
-        Interactor<
+    private let searchPresenter:
+        GetListPresenter<
             Any,
-            [SearchDomainModel],
-            GetSearchRepository<
-                GetSearchRemoteDataSource,
-                SearchTransformer
+            SearchDomainModel,
+            Interactor<
+                Any,
+                [SearchDomainModel],
+                GetSearchRepository<
+                    GetSearchRemoteDataSource,
+                    SearchTransformer
+                >
             >
         >
-    >
 
     init() {
         // Build use cases
         let genreUseCase: GenreInteractor = injection.provideGenre()
         let gameUseCase: GameInteractor = injection.provideGame()
 
-        let developerUseCase: Interactor<
-            Any,
-            [DeveloperDomainModel],
-            GetDevelopersRepository<
-                GetDevelopersLocaleDataSource,
-                GetDevelopersRemoteDataSource,
-                DeveloperTransformer
-            >
-        > = injection.provideDeveloper()
+        let developerUseCase:
+            Interactor<
+                Any,
+                [DeveloperDomainModel],
+                GetDevelopersRepository<
+                    GetDevelopersLocaleDataSource,
+                    GetDevelopersRemoteDataSource,
+                    DeveloperTransformer
+                >
+            > = injection.provideDeveloper()
 
-        let favoriteUseCase: Interactor<
-            Any,
-            [Favorite.DetailGameDomainModel],
-            GetFavoritiesRepository<
-                GetFavoriteLocaleDataSource,
-                FavoriteTransformer
-            >
-        > = injection.provideFavorite()
+        let favoriteUseCase:
+            Interactor<
+                Any,
+                [Favorite.DetailGameDomainModel],
+                GetFavoritiesRepository<
+                    GetFavoriteLocaleDataSource,
+                    FavoriteTransformer
+                >
+            > = injection.provideFavorite()
 
-        let searchUseCase: Interactor<
-            Any,
-            [SearchDomainModel],
-            GetSearchRepository<
-                GetSearchRemoteDataSource,
-                SearchTransformer
-            >
-        > = injection.provideSearch()
+        let searchUseCase:
+            Interactor<
+                Any,
+                [SearchDomainModel],
+                GetSearchRepository<
+                    GetSearchRemoteDataSource,
+                    SearchTransformer
+                >
+            > = injection.provideSearch()
 
         // Build presenters
         self.genrePresenter = GenrePresenter(useCase: genreUseCase)

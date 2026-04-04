@@ -14,7 +14,10 @@ public struct GenreFilterDropdownOptionModel: Hashable {
         self.value = value
     }
 
-    public static func == (lhs: GenreFilterDropdownOptionModel, rhs: GenreFilterDropdownOptionModel) -> Bool {
+    public static func == (
+        lhs: GenreFilterDropdownOptionModel,
+        rhs: GenreFilterDropdownOptionModel
+    ) -> Bool {
         return lhs.key == rhs.key
     }
 }

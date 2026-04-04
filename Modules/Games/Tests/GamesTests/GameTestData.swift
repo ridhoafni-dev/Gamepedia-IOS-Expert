@@ -4,6 +4,7 @@
 //
 
 import Foundation
+
 @testable import Games
 
 // MARK: - Factory helpers for test data
@@ -89,4 +90,3 @@ struct GameModuleEntityFactory {
         return entity
     }
 }
-

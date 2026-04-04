@@ -67,8 +67,6 @@ function_body_length:
   warning: 90
 # rules that have both warning and error levels, can set just the warning level
 # implicitly
-line_length: 180
-# they can set both implicitly with an array
 type_body_length:
   - 300 # warning
   - 400 # error
@@ -77,6 +75,7 @@ file_length:
   warning: 500
   error: 1200
 line_length:
+  warning: 180
   ignores_urls: true
   ignores_function_declarations: true
   ignores_comments: true

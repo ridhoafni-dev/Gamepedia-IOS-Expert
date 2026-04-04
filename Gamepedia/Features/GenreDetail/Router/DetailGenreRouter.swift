@@ -4,13 +4,15 @@ import Games
 import SwiftUI
 
 typealias DetailGenreFavoritePresenterType = GetListPresenter<
-  Any,
-  Favorite.DetailGameDomainModel,
-  Interactor<
     Any,
-    [Favorite.DetailGameDomainModel],
-    GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>
-  >
+    Favorite.DetailGameDomainModel,
+    Interactor<
+        Any,
+        [Favorite.DetailGameDomainModel],
+        GetFavoritiesRepository<
+            GetFavoriteLocaleDataSource, FavoriteTransformer
+        >
+    >
 >
 
 class DetailGenreRouter {

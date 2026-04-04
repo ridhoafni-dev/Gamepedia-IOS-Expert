@@ -5,10 +5,11 @@
 //  Created by User on 22/02/26.
 //
 
-
 import Foundation
+
 nonisolated
-struct DetailGenreResponse: Decodable {
+    struct DetailGenreResponse: Decodable
+{
     var id: Int?
     var name, slug: String?
     var gamesCount: Int?

@@ -5,7 +5,6 @@
 //  Created by User on 08/02/26.
 //
 
-
 import Foundation
 nonisolated
 public struct DeveloperResponse: Decodable, Sendable {

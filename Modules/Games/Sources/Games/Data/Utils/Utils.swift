@@ -5,11 +5,11 @@
 //  Created by User on 02/02/26.
 //
 
-
 import SwiftUI
 import UIKit
 import WebKit
-func dateFormat(dateTxt: String)-> String{
+
+func dateFormat(dateTxt: String) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"
     guard let date = dateFormatter.date(from: dateTxt) else { return "" }
@@ -33,24 +33,24 @@ struct HTMLStringView: UIViewRepresentable {
 
     func updateUIView(_ webView: WKWebView, context: Context) {
         let htmlString = """
-        <html>
-        <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                body {
-                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                    font-size: 16px;
-                    line-height: 1.6;
-                    margin: 0;
-                    padding: 0;
-                    color: white;
-                    background-color: transparent;
-                }
-            </style>
-        </head>
-        <body>\(htmlContent)</body>
-        </html>
-        """
+            <html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    body {
+                        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                        font-size: 16px;
+                        line-height: 1.6;
+                        margin: 0;
+                        padding: 0;
+                        color: white;
+                        background-color: transparent;
+                    }
+                </style>
+            </head>
+            <body>\(htmlContent)</body>
+            </html>
+            """
         webView.loadHTMLString(htmlString, baseURL: nil)
     }
 
@@ -65,10 +65,15 @@ struct HTMLStringView: UIViewRepresentable {
             self.parent = parent
         }
 
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            webView.evaluateJavaScript("document.readyState") { complete, error in
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
+        {
+            webView.evaluateJavaScript("document.readyState") {
+                complete,
+                error in
                 if complete != nil {
-                    webView.evaluateJavaScript("document.body.scrollHeight") { height, error in
+                    webView.evaluateJavaScript("document.body.scrollHeight") {
+                        height,
+                        error in
                         if let height = height as? CGFloat {
                             DispatchQueue.main.async {
                                 self.parent.contentHeight = height

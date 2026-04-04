@@ -13,13 +13,15 @@ import Genres
 import SwiftUI
 
 typealias GameFavoritePresenterType = GetListPresenter<
-  Any,
-  Favorite.DetailGameDomainModel,
-  Interactor<
     Any,
-    [Favorite.DetailGameDomainModel],
-    GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>
-  >
+    Favorite.DetailGameDomainModel,
+    Interactor<
+        Any,
+        [Favorite.DetailGameDomainModel],
+        GetFavoritiesRepository<
+            GetFavoriteLocaleDataSource, FavoriteTransformer
+        >
+    >
 >
 
 struct GameFavoriteItem: View {
@@ -27,8 +29,9 @@ struct GameFavoriteItem: View {
     @State var game: Favorite.DetailGameDomainModel?
 
     var body: some View {
-        HStack{
-            CachedAsyncImage(url: URL(string: (game?.backgroundImage) ?? "")) { image in
+        HStack {
+            CachedAsyncImage(url: URL(string: (game?.backgroundImage) ?? "")) {
+                image in
                 image.resizable()
             } placeholder: {
                 ProgressView()
@@ -38,8 +41,8 @@ struct GameFavoriteItem: View {
             .frame(width: 80, height: 80)
             .padding(.top)
 
-            HStack{
-                VStack(alignment: .leading){
+            HStack {
+                VStack(alignment: .leading) {
                     Text(game?.name ?? "-")
                         .lineLimit(1)
                         .font(.system(size: 18))
@@ -48,10 +51,22 @@ struct GameFavoriteItem: View {
                     if let releaseDate = game?.released, !releaseDate.isEmpty {
                         Text("Release on \(dateFormat(dateTxt: releaseDate))")
                             .font(.system(size: 12))
-                            .foregroundColor(Color(red: 241 / 255, green: 242 / 255, blue: 246 / 255))
+                            .foregroundColor(
+                                Color(
+                                    red: 241 / 255,
+                                    green: 242 / 255,
+                                    blue: 246 / 255
+                                )
+                            )
                     } else {
                         Text("-")
-                            .foregroundColor(Color(red: 241 / 255, green: 242 / 255, blue: 246 / 255))
+                            .foregroundColor(
+                                Color(
+                                    red: 241 / 255,
+                                    green: 242 / 255,
+                                    blue: 246 / 255
+                                )
+                            )
                     }
 
                     HStack {
@@ -66,9 +81,11 @@ struct GameFavoriteItem: View {
                             .fontWeight(.bold)
 
                         // Convert Int? to a String, or show "-"
-                        Text("| Score: \(game?.reviewsCount.map(String.init) ?? "-")")
-                            .foregroundColor(.white)
-                            .font(.system(size: 14))
+                        Text(
+                            "| Score: \(game?.reviewsCount.map(String.init) ?? "-")"
+                        )
+                        .foregroundColor(.white)
+                        .font(.system(size: 14))
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

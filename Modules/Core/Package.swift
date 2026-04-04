@@ -1,6 +1,8 @@
 // swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
+
 let package = Package(
     name: "Core",
     platforms: [.iOS(.v16), .macOS(.v13)],
@@ -8,8 +10,8 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "Core",
-            targets: ["Core"],
-        ),
+            targets: ["Core"]
+        )
     ],
     dependencies: [
         // Use a released RealmSwift version to keep the graph stable
@@ -21,12 +23,12 @@ let package = Package(
         .target(
             name: "Core",
             dependencies: [
-               .product(name: "RealmSwift", package: "realm-swift"),
+               .product(name: "RealmSwift", package: "realm-swift")
            ]
         ),
         .testTarget(
             name: "CoreTests",
-            dependencies: ["Core"],
-        ),
+            dependencies: ["Core"]
+        )
     ]
 )

@@ -25,7 +25,11 @@ struct SearchTab: View {
     @State var isLoading = false
 
     var body: some View {
-        let router = HomeRouter(gamePresenter: gamePresenter, favoritePresenter: favoritePresenter, genrePresenter: genrePresenter)
+        let router = HomeRouter(
+            gamePresenter: gamePresenter,
+            favoritePresenter: favoritePresenter,
+            genrePresenter: genrePresenter
+        )
         VStack(alignment: .leading) {
             Text("Search")
                 .font(.system(size: 24))
@@ -43,17 +47,20 @@ struct SearchTab: View {
                 .disableAutocorrection(true)
             }
             .padding(10)
-            .background(Color(red: 68/255, green: 68/255, blue: 68/255))
+            .background(Color(red: 68 / 255, green: 68 / 255, blue: 68 / 255))
 
-            if(presenter.isLoading) {
+            if presenter.isLoading {
                 Loading()
             } else {
-                if(!presenter.list.isEmpty) {
-                    ScrollView(.vertical, showsIndicators: false){
-                        LazyVStack{
-                            ForEach(presenter.list, id: \.self.id){ game in
+                if !presenter.list.isEmpty {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        LazyVStack {
+                            ForEach(presenter.list, id: \.self.id) { game in
                                 NavigationLink(
-                                    destination: router.makeDetailView(for: game.id!, isAdd: false)
+                                    destination: router.makeDetailView(
+                                        for: game.id!,
+                                        isAdd: false
+                                    )
                                 ) {
                                     SearchItem(presenter: presenter, game: game)
                                 }.buttonStyle(PlainButtonStyle())
@@ -70,12 +77,12 @@ struct SearchTab: View {
                             LottieView(
                                 name: "no_result",
                                 loopMode: .loop
-                              )
-                              .frame(
+                            )
+                            .frame(
                                 width: 150,
                                 height: 150,
                                 alignment: .center
-                              )
+                            )
                         }
                         Spacer()
                         Text("No data found")
@@ -101,7 +108,7 @@ struct SearchTab: View {
             minHeight: 0,
             maxHeight: .infinity,
             alignment: .topLeading
-          )
+        )
         .onAppear {
             self.presenter.objectWillChange.send()
 

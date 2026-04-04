@@ -5,8 +5,8 @@
 //  Created by User on 27/02/26.
 //
 
-
 import Foundation
+
 public struct SearchDomainModel: Equatable, Identifiable {
     public var id: Int?
     public var name, slug: String?
@@ -36,4 +36,3 @@ public struct SearchDomainModel: Equatable, Identifiable {
         self.backgroundImage = backgroundImage
     }
 }
-

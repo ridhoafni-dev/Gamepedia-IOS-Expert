@@ -5,13 +5,17 @@
 //  Created by User on 05/02/26.
 //
 
-
 import Combine
 import Foundation
+
 public protocol GameUseCase {
     func getFewDiscoveryGame() -> AnyPublisher<[DetailGameDomainModel], Error>
-    func getAllDiscoveryGame(sortFromBest: Bool) -> AnyPublisher<[GameDomainModel], Error>
-    func getDetailGame(id: Int, isAdd: Bool) -> AnyPublisher<DetailGameDomainModel, Error>
+    func getAllDiscoveryGame(sortFromBest: Bool) -> AnyPublisher<
+        [GameDomainModel], Error
+    >
+    func getDetailGame(id: Int, isAdd: Bool) -> AnyPublisher<
+        DetailGameDomainModel, Error
+    >
 }
 
 public class GameInteractor: GameUseCase {
@@ -23,15 +27,21 @@ public class GameInteractor: GameUseCase {
         self.isAdd = isAdd
     }
 
-    public func getFewDiscoveryGame() -> AnyPublisher<[DetailGameDomainModel], Error> {
+    public func getFewDiscoveryGame() -> AnyPublisher<
+        [DetailGameDomainModel], Error
+    > {
         return repository.getFewDiscoveryGames()
     }
 
-    public func getAllDiscoveryGame(sortFromBest: Bool) -> AnyPublisher<[GameDomainModel], Error> {
+    public func getAllDiscoveryGame(sortFromBest: Bool) -> AnyPublisher<
+        [GameDomainModel], Error
+    > {
         return repository.getDiscoveryGames(sortFromBest: sortFromBest)
     }
 
-    public func getDetailGame(id: Int, isAdd: Bool) -> AnyPublisher<DetailGameDomainModel, Error> {
+    public func getDetailGame(id: Int, isAdd: Bool) -> AnyPublisher<
+        DetailGameDomainModel, Error
+    > {
         return repository.getGameDetail(id: id, isAdd: isAdd)
     }
 }

@@ -5,12 +5,12 @@
 //  Created by User on 28/02/26.
 //
 
-
 import Combine
 import Core
 import Foundation
 import Games
 import RealmSwift
+
 public struct GetFavoriteLocaleDataSource: LocaleDataSource {
     public typealias Request = Any
     public typealias Response = GameModuleEntity
@@ -22,7 +22,7 @@ public struct GetFavoriteLocaleDataSource: LocaleDataSource {
     }
 
     public func list(request: Any?) -> AnyPublisher<[GameModuleEntity], Error> {
-        return Future<[GameModuleEntity], Error> { completion in
+        Future<[GameModuleEntity], Error> { completion in
             let games: Results<GameModuleEntity> = {
                 _realm.objects(GameModuleEntity.self)
                     .filter("isFavorite == true")
@@ -33,11 +33,14 @@ public struct GetFavoriteLocaleDataSource: LocaleDataSource {
     }
 
     public func update(id: Int, isFavorite: Bool) -> AnyPublisher<Bool, Error> {
-        return Future<Bool, Error> { completion in
+        Future<Bool, Error> { completion in
             do {
-                guard let currentData = _realm.objects(GameModuleEntity.self).where({
-                    $0.id == id
-                }).first else {
+                guard
+                    let currentData = _realm.objects(GameModuleEntity.self)
+                        .where({
+                            $0.id == id
+                        }).first
+                else {
                     completion(.failure(DatabaseError.requestFailed))
                     return
                 }
@@ -61,7 +64,9 @@ public struct GetFavoriteLocaleDataSource: LocaleDataSource {
         fatalError()
     }
 
-    public func update(id: Int, entity: GameModuleEntity) -> AnyPublisher<Bool, Error> {
+    public func update(id: Int, entity: GameModuleEntity) -> AnyPublisher<
+        Bool, Error
+    > {
         fatalError()
     }
 

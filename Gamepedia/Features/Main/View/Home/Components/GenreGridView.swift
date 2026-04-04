@@ -5,11 +5,11 @@
 //  Created by User on 16/01/26.
 //
 
-
 import Core
 import Games
 import Genres
 import SwiftUI
+
 struct GenreGridView: View {
     @ObservedObject var presenter: GenrePresenter
     var router: HomeRouter
@@ -17,14 +17,16 @@ struct GenreGridView: View {
     var body: some View {
         let columns = [
             GridItem(.flexible()),
-            GridItem(.flexible())
+            GridItem(.flexible()),
         ]
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(presenter.genres) { genre in
                     ZStack {
                         NavigationLink(
-                            destination: router.makeDetailGenreView(for: genre.id ?? 0)
+                            destination: router.makeDetailGenreView(
+                                for: genre.id ?? 0
+                            )
                         ) {
                             GenreItem(genre: genre)
                         }

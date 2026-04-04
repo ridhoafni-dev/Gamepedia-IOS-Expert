@@ -5,9 +5,9 @@
 //  Created by User on 08/02/26.
 //
 
-
 import Combine
 import Foundation
+
 public class GamePresenter: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     private let useCase: GameUseCase
@@ -30,8 +30,14 @@ public class GamePresenter: ObservableObject {
     public init(useCase: GameUseCase) {
         self.useCase = useCase
         self.options = [
-            GenreFilterDropdownOptionDomainModel(key: GamePresenter.uniqueKey, value: "Best Rating"),
-            GenreFilterDropdownOptionDomainModel(key: GamePresenter.uniqueKey, value: "Worst Rating"),
+            GenreFilterDropdownOptionDomainModel(
+                key: GamePresenter.uniqueKey,
+                value: "Best Rating"
+            ),
+            GenreFilterDropdownOptionDomainModel(
+                key: GamePresenter.uniqueKey,
+                value: "Worst Rating"
+            ),
         ]
     }
 
@@ -39,16 +45,19 @@ public class GamePresenter: ObservableObject {
         discoveryLoadingState = true
         useCase.getFewDiscoveryGame()
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure:
-                    self.errorMessage = String(describing: completion)
-                case .finished:
-                    self.discoveryLoadingState = false
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .failure:
+                        self.errorMessage = String(describing: completion)
+                    case .finished:
+                        self.discoveryLoadingState = false
+                    }
+                },
+                receiveValue: { games in
+                    self.games = games
                 }
-            }, receiveValue: { games in
-                self.games = games
-            })
+            )
             .store(in: &cancellables)
     }
 
@@ -56,35 +65,40 @@ public class GamePresenter: ObservableObject {
         loadingState = true
         useCase.getAllDiscoveryGame(sortFromBest: isBest)
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure:
-                    self.errorMessage = String(describing: completion)
-                case .finished:
-                    self.loadingState = false
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .failure:
+                        self.errorMessage = String(describing: completion)
+                    case .finished:
+                        self.loadingState = false
+                    }
+                },
+                receiveValue: { games in
+                    self.gamesByRating = games
                 }
-            }, receiveValue: { games in
-                self.gamesByRating = games
-            })
+            )
             .store(in: &cancellables)
     }
 
     public func getDetailGame(id: Int, isAdd: Bool = false) {
-      loadingState = true
-      useCase.getDetailGame(id: id, isAdd: isAdd)
-        .receive(on: RunLoop.main)
-        .sink(receiveCompletion: { completion in
-          switch completion {
-          case .failure:
-            self.errorMessage = String(describing: completion)
-          case .finished:
-            self.loadingState = false
-          }
-        }, receiveValue: { detail in
-          self.detailGame = detail
-        })
-        .store(in: &cancellables)
+        loadingState = true
+        useCase.getDetailGame(id: id, isAdd: isAdd)
+            .receive(on: RunLoop.main)
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .failure:
+                        self.errorMessage = String(describing: completion)
+                    case .finished:
+                        self.loadingState = false
+                    }
+                },
+                receiveValue: { detail in
+                    self.detailGame = detail
+                }
+            )
+            .store(in: &cancellables)
     }
-
 
 }
