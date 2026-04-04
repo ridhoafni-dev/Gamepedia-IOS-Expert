@@ -3,11 +3,11 @@ workflows:
     name: iOS debug
     environment:
       xcode: latest
-      cocoapods: default
       vars:
         XCODE_PROJECT: "Gamepedia.xcodeproj"
         XCODE_SCHEME: "Gamepedia"
         DERIVED_DATA_PATH: "$CM_BUILD_DIR/DerivedData"
+        ENABLE_PREVIEWS: "NO"
     scripts:
       - name: Show environment
         script: |
@@ -16,18 +16,21 @@ workflows:
           sw_vers
           xcrun simctl list runtimes
 
-      - name: Clean DerivedData
-        script: |
-          rm -rf "$DERIVED_DATA_PATH"
-          mkdir -p "$DERIVED_DATA_PATH"
-
-      - name: Install CocoaPods dependencies
+      - name: Clean build artifacts
         script: |
           set -euo pipefail
-          if [ -f "Podfile" ]; then
-            pod repo update
-            pod install
-          fi
+          rm -rf "$DERIVED_DATA_PATH"
+          mkdir -p "$DERIVED_DATA_PATH"
+          rm -rf ~/Library/Developer/Xcode/DerivedData/Gamepedia*
+
+      - name: Resolve SPM dependencies
+        script: |
+          set -euo pipefail
+          xcodebuild \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -resolvePackageDependencies \
+            -derivedDataPath "$DERIVED_DATA_PATH" 2>&1 | tee resolve-packages.log
 
       - name: Build app (generic iOS, no signing)
         script: |
@@ -37,11 +40,12 @@ workflows:
             -scheme "$XCODE_SCHEME" \
             -configuration Debug \
             -derivedDataPath "$DERIVED_DATA_PATH" \
+            -destination 'generic/platform=iOS' \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             COMPILER_INDEX_STORE_ENABLE=NO \
-            -destination 'generic/platform=iOS' \
+            OTHER_SWIFT_FLAGS="-suppress-warnings" \
             clean build 2>&1 | tee build.log
 
       - name: Build for testing (iOS Simulator)
@@ -57,6 +61,7 @@ workflows:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             COMPILER_INDEX_STORE_ENABLE=NO \
+            OTHER_SWIFT_FLAGS="-suppress-warnings" \
             -destination 'generic/platform=iOS Simulator' \
             build-for-testing 2>&1 | tee build-test.log
 
@@ -64,6 +69,7 @@ workflows:
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $CM_BUILD_DIR/DerivedData/Logs/**
       - $CM_BUILD_DIR/DerivedData/Build/Products/**
+      - resolve-packages.log
       - build.log
       - build-test.log
 

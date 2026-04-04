@@ -29,7 +29,7 @@ let package = Package(
                 "Alamofire",
                 "Core"
             ]
-        )
+        ),
         .testTarget(
             name: "DevelopersTests",
             dependencies: ["Developers"]
