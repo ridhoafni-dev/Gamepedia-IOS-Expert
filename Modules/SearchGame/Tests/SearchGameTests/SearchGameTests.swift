@@ -180,9 +180,36 @@ func testSearchDomainModelDefaultInit() {
 
 @Test("SearchDomainModel equality works correctly")
 func testSearchDomainModelEquality() {
-    let model1 = SearchDomainModel(id: 1, name: "Game", slug: "game", playtime: 10, released: "2024-01-01", rating: 4.0, score: "good", backgroundImage: "")
-    let model2 = SearchDomainModel(id: 1, name: "Game", slug: "game", playtime: 10, released: "2024-01-01", rating: 4.0, score: "good", backgroundImage: "")
-    let model3 = SearchDomainModel(id: 2, name: "Different", slug: "different", playtime: 5, released: "2023-01-01", rating: 3.0, score: "meh", backgroundImage: "")
+    let model1 = SearchDomainModel(
+        id: 1,
+        name: "Game",
+        slug: "game",
+        playtime: 10,
+        released: "2024-01-01",
+        rating: 4.0,
+        score: "good",
+        backgroundImage: ""
+    )
+    let model2 = SearchDomainModel(
+        id: 1,
+        name: "Game",
+        slug: "game",
+        playtime: 10,
+        released: "2024-01-01",
+        rating: 4.0,
+        score: "good",
+        backgroundImage: ""
+    )
+    let model3 = SearchDomainModel(
+        id: 2,
+        name: "Different",
+        slug: "different",
+        playtime: 5,
+        released: "2023-01-01",
+        rating: 3.0,
+        score: "meh",
+        backgroundImage: ""
+    )
 
     #expect(model1 == model2)
     #expect(model1 != model3)

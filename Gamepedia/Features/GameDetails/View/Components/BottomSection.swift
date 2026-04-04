@@ -62,7 +62,7 @@ struct BottomSection: View {
                         id: \.platform?.id
                     ) { platformData in
                         PlatformItem(
-                            released_at: presenter.detailGame?.released,
+                            releasedAt: presenter.detailGame?.released,
                             platform: platformData.platform
                         )
 

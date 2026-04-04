@@ -16,9 +16,6 @@ import Kingfisher
 import SkeletonUI
 import SwiftUI
 
-typealias DeveloperPresenterType = GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
-typealias FavoritePresenterType = GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
-
 struct DeveloperItem: View {
     var developer: DeveloperDomainModel
      @ObservedObject var presenter: DeveloperPresenterType

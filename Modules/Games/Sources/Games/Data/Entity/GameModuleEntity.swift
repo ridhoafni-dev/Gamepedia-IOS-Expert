@@ -43,14 +43,14 @@ public class PlatformModuleEntity: Object {
   @Persisted public var slug: String = ""
 }
 
-public class DetailPlatformModuleEntity: Object{
+public class DetailPlatformModuleEntity: Object {
   @Persisted(primaryKey: true) public var id = UUID()
   @Persisted public var platform: PlatformDetailsModuleEntity? = nil
   @Persisted public var releasedAt: String = ""
   @Persisted public var requirements: PlatformRequirementModuleEntity? = nil
 }
 
-public class PlatformDetailsModuleEntity: Object{
+public class PlatformDetailsModuleEntity: Object {
   @Persisted(primaryKey: true) public var id = UUID()
   @Persisted public var name: String? = ""
   @Persisted public var slug: String? = ""
@@ -61,18 +61,18 @@ public class PlatformDetailsModuleEntity: Object{
   @Persisted public var imageBackground: String? = ""
 }
 
-public class PlatformRequirementModuleEntity: Object{
+public class PlatformRequirementModuleEntity: Object {
     @Persisted(primaryKey: true) public var id = UUID()
     @Persisted public var minimum: String? = ""
 }
 
-public class StoreDetailsModuleEntity: Object{
+public class StoreDetailsModuleEntity: Object {
   @Persisted(primaryKey: true) public var id = UUID()
   @Persisted public var url: String = ""
   @Persisted public var store: StoreModuleEntity? = nil
 }
 
-public class StoreModuleEntity: Object{
+public class StoreModuleEntity: Object {
   @Persisted(primaryKey: true) public var id = UUID()
   @Persisted public var name: String? = ""
   @Persisted public var slug: String? = ""
@@ -81,7 +81,7 @@ public class StoreModuleEntity: Object{
   @Persisted public var imageBackground: String? = ""
 }
 
-public class DeveloperInDetailsModuleEntity: Object{
+public class DeveloperInDetailsModuleEntity: Object {
   @Persisted(primaryKey: true) public var id = UUID()
   @Persisted public var name: String = ""
   @Persisted public var slug: String = ""
@@ -89,7 +89,7 @@ public class DeveloperInDetailsModuleEntity: Object{
   @Persisted public var imageBackground: String = ""
 }
 
-public class PublisherModuleEntity: Object{
+public class PublisherModuleEntity: Object {
   @Persisted(primaryKey: true) public var id = UUID()
   @Persisted public var name: String = ""
   @Persisted public var slug: String = ""
@@ -97,7 +97,7 @@ public class PublisherModuleEntity: Object{
   @Persisted public var imageBackground: String = ""
 }
 
-public class GenreInDetailsModuleEntity: Object{
+public class GenreInDetailsModuleEntity: Object {
   @Persisted(primaryKey: true) public var id = UUID()
   @Persisted public var name: String = ""
   @Persisted public var slug: String = ""
@@ -105,7 +105,7 @@ public class GenreInDetailsModuleEntity: Object{
   @Persisted public var imageBackground: String = ""
 }
 
-public class TagModuleEntity: Object{
+public class TagModuleEntity: Object {
   @Persisted(primaryKey: true) public var id = UUID()
   @Persisted public var name: String = ""
   @Persisted public var slug: String = ""

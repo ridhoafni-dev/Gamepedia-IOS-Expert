@@ -5,64 +5,77 @@
 //  Created by User on 16/01/26.
 //
 
-
 import Genres
 import Kingfisher
 import SwiftUI
+
 struct GenreItem: View {
     var genre: GenreDomainModel
 
     var body: some View {
-      ZStack{
-          GeometryReader { geometry in
-            KFImage.url(URL(string: (genre.imageBackground) ?? ""))
-                  .placeholder {
-                      ProgressView()
-                  }
-                  .cacheOriginalImage()
-                  .fade(duration: 0.25)
-                  .resizable()
-                  .aspectRatio(contentMode: .fill)
-                  .edgesIgnoringSafeArea(.all)
-                  .frame(maxWidth: geometry.size.width,
-                         maxHeight: geometry.size.height)
-                  .mask(
-                      LinearGradient(gradient: Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]), startPoint: .top, endPoint: .bottom)
-                  )
-                  .overlay{
-                      GenreHeaderOverlay(genre: genre)
-                  }
-          }
-
-      }
-      .frame(height: 150.0)
+        ZStack {
+            GeometryReader { geometry in
+                KFImage.url(URL(string: (genre.imageBackground) ?? ""))
+                    .placeholder {
+                        ProgressView()
+                    }
+                    .cacheOriginalImage()
+                    .fade(duration: 0.25)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .edgesIgnoringSafeArea(.all)
+                    .frame(
+                        maxWidth: geometry.size.width,
+                        maxHeight: geometry.size.height
+                    )
+                    .mask(
+                        LinearGradient(
+                            gradient: Gradient(
+                                colors: [
+                                    Color.black,
+                                    Color.black,
+                                    Color.black,
+                                    Color.black.opacity(0)
+                                ]
+                            ),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .overlay {
+                        GenreHeaderOverlay(genre: genre)
+                    }
+            }
+        }
+        .frame(height: 150.0)
     }
 }
 
-private struct GenreHeaderOverlay: View{
+private struct GenreHeaderOverlay: View {
     var genre: GenreDomainModel
 
     var gradient: LinearGradient {
         .linearGradient(
             Gradient(colors: [.black.opacity(0.8), .black.opacity(0)]),
             startPoint: .bottom,
-            endPoint: .top)
+            endPoint: .top
+        )
     }
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             gradient
             VStack(alignment: .leading) {
-              Spacer()
-              Text(genre.name ?? "-")
+                Spacer()
+                Text(genre.name ?? "-")
                     .font(.gameSubtitle)
-                  .foregroundColor(.white)
-                  .shadow(color: .black, radius: 5)
-              Spacer().frame(height: 3)
-              Text("Total games: \(genre.gamesCount ?? 0)")
-                .font(.gameCaption)
-                  .foregroundColor(.white)
-                  .shadow(color: .black, radius: 5)
+                    .foregroundColor(.white)
+                    .shadow(color: .black, radius: 5)
+                Spacer().frame(height: 3)
+                Text("Total games: \(genre.gamesCount ?? 0)")
+                    .font(.gameCaption)
+                    .foregroundColor(.white)
+                    .shadow(color: .black, radius: 5)
             }
             .padding()
         }

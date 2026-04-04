@@ -3,21 +3,19 @@
 //  Gamepedia
 //
 //  Created by User on 03/01/26.
-//
-
-
-
-import Combine
+//import Combine
 import Core
 import Developers
 import Favorite
 import Games
 import Genres
 import SwiftUI
+import Combine
+
 struct HomeTab: View {
     @ObservedObject var genrePresenter: GenrePresenter
-      @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
-      @ObservedObject var developerPresenter: GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
+    @ObservedObject var favoritePresenter: FavoritePresenterType
+    @ObservedObject var developerPresenter: DeveloperPresenterType
       @ObservedObject var gamePresenter: GamePresenter
       @State var game: Games.DetailGameDomainModel?
     var body: some View {

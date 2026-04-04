@@ -5,15 +5,25 @@
 //  Created by User on 09/01/26.
 //
 
-
 import CachedAsyncImage
 import Core
 import Favorite
 import Games
 import Genres
 import SwiftUI
+
+typealias GameFavoritePresenterType = GetListPresenter<
+  Any,
+  Favorite.DetailGameDomainModel,
+  Interactor<
+    Any,
+    [Favorite.DetailGameDomainModel],
+    GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>
+  >
+>
+
 struct GameFavoriteItem: View {
-    @ObservedObject var presenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
+    @ObservedObject var presenter: GameFavoritePresenterType
     @State var game: Favorite.DetailGameDomainModel?
 
     var body: some View {

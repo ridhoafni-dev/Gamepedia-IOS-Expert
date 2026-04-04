@@ -5,7 +5,6 @@
 //  Created by User on 10/01/26.
 //
 
-
 import Games
 import Kingfisher
 import SwiftUI
@@ -25,7 +24,19 @@ struct TopSection: View {
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
                     .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
-                    .mask(LinearGradient(gradient: Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]), startPoint: .top, endPoint: .bottom)
+                    .mask(
+                        LinearGradient(
+                            gradient: Gradient(
+                                colors: [
+                                    Color.black,
+                                    Color.black,
+                                    Color.black,
+                                    Color.black.opacity(0)
+                                ]
+                            ),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
                     )
                     .overlay {
                         HeaderOverlay(game: presenter.detailGame)

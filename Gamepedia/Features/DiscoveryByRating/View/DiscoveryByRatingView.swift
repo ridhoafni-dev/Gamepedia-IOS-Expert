@@ -5,21 +5,20 @@
 //  Created by User on 04/01/26.
 //
 
-
-import Combine
-import Core
-import Favorite
-import Games
-import Genres
 import SwiftUI
-typealias FavoritePresenterType = GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
+import Combine
+import Games
+import Favorite
+import Genres
+import Core
 
 struct DiscoveryByRatingView: View {
     @ObservedObject var presenter: GamePresenter
     @ObservedObject var favoritePresenter: FavoritePresenterType
-
+    
     private var placeholder: String? = "Sort Game by Rating"
     private var onOptionSelected: ((_ _option: GenreFilterDropdownOptionDomainModel) -> Void)? = { option in
+        print("Option selected: \(option)")
     }
 
     var body: some View {
@@ -30,7 +29,7 @@ struct DiscoveryByRatingView: View {
     }
 
     init(presenter: GamePresenter, favoritePresenter: FavoritePresenterType) {
-
+        
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.largeTitleTextAttributes = [
             .foregroundColor: UIColor.white
@@ -54,28 +53,28 @@ struct DiscoveryContent: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var presenter: GamePresenter
     @ObservedObject var favoritePresenter: FavoritePresenterType
-
+    
     init(presenter: GamePresenter, favoritePresenter: FavoritePresenterType) {
         self.presenter = presenter
         self.favoritePresenter = favoritePresenter
     }
 
-
+    
     @State private var shouldShowDropdown = false
     @State private var selectedOption: GenreFilterDropdownOptionDomainModel? = nil
-
+    
     let options: [GenreFilterDropdownOptionDomainModel] = [
         GenreFilterDropdownOptionDomainModel(key: "1", value: "Best Rated"),
         GenreFilterDropdownOptionDomainModel(key: "2", value: "Worst Rated")
     ]
-
+    
     var onOptionSelected: ((_ _option: GenreFilterDropdownOptionDomainModel) -> Void)?
-
+    
     private var buttonHeight: CGFloat = 35
-
+    
     var body: some View {
         let router = DiscoveryByRatingRouter(presenter: presenter, favoritePresenter: favoritePresenter)
-
+        
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
@@ -85,7 +84,7 @@ struct DiscoveryContent: View {
                         options: options,
                         presenter: presenter
                     )
-
+                    
                     GameListSection(presenter: presenter, router: router)
                 }
                 .navigationBarTitle("Discovery Game")
@@ -103,11 +102,11 @@ struct DiscoveryContent: View {
             setupInitialState()
         }
     }
-
+    
     private func setupInitialState() {
         selectedOption = options.first
         presenter.games = []
-
+        
         let statusFilter = selectedOption?.value == options[0].value
         presenter.getGamesFromBest(isBest: statusFilter)
         presenter.objectWillChange.send()
@@ -119,7 +118,7 @@ struct DropdownSection: View {
     @Binding var selectedOption: GenreFilterDropdownOptionDomainModel?
     let options: [GenreFilterDropdownOptionDomainModel]
     let presenter: GamePresenter
-
+    
     var body: some View {
         VStack {
             DropdownButton(
@@ -133,7 +132,7 @@ struct DropdownSection: View {
                     onOptionSelected: { option in
                         shouldShowDropdown = false
                         selectedOption = option
-
+                        
                         presenter.games = []
                         let statusFilter = selectedOption?.value == options[0].value
                         presenter.getGamesFromBest(isBest: statusFilter)
@@ -152,7 +151,7 @@ struct DropdownSection: View {
 struct DropdownButton: View {
     @Binding var shouldShowDropdown: Bool
     let selectedOption: GenreFilterDropdownOptionDomainModel?
-
+    
     var body: some View {
         Button(action: {
             shouldShowDropdown.toggle()
@@ -162,9 +161,9 @@ struct DropdownButton: View {
                     .font(.system(size: 14))
                     .foregroundColor(selectedOption == nil ? .white : .yellow)
                     .fontWeight(.bold)
-
+                
                 Spacer()
-
+                
                 Image(systemName: shouldShowDropdown ? "arrowtriangle.up.fill" : "arrowtriangle.down.fill")
                     .resizable()
                     .frame(width: 9, height: 5)
@@ -187,7 +186,7 @@ struct DropdownOverlay: View {
     let shouldShowDropdown: Bool
     let options: [GenreFilterDropdownOptionDomainModel]
     let onOptionSelected: (GenreFilterDropdownOptionDomainModel) -> Void
-
+    
     var body: some View {
         VStack {
             if shouldShowDropdown {
@@ -253,7 +252,7 @@ struct LoadingView: View {
 
 struct BackButton: View {
     let action: () -> Void
-
+    
     var body: some View {
         Button(action: action) {
             HStack {
@@ -269,7 +268,7 @@ struct BackButton: View {
 struct Dropdown: View {
     var options: [GenreFilterDropdownOptionDomainModel]
     var onOptionSelected: (GenreFilterDropdownOptionDomainModel) -> Void
-
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -294,7 +293,7 @@ struct Dropdown: View {
 struct DropdownRow: View {
     var option: GenreFilterDropdownOptionDomainModel
     var onOptionSelected: (GenreFilterDropdownOptionDomainModel) -> Void
-
+    
     var body: some View {
         Button(action: {
             onOptionSelected(option)

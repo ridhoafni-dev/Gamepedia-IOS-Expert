@@ -5,17 +5,16 @@
 //  Created by User on 10/01/26.
 //
 
-
-
 import Combine
 import Core
 import Favorite
 import Games
 import SwiftUI
+
 struct DetailContent: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var presenter: GamePresenter
-    @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
+    @ObservedObject var favoritePresenter: DetailFavoritePresenterType
 
     @State var isFavorite: Bool = false
     @State var gameId: Int

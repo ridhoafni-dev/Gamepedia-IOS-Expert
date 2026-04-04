@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import Testing
+
 @testable import Core
 
 // MARK: - Mock Repository
@@ -200,15 +201,15 @@ public struct MockMapper: Mapper {
     }
 
     public func transformResponseToEntity(response: String) -> String {
-        return "\(responseToEntityPrefix)\(response)"
+        "\(responseToEntityPrefix)\(response)"
     }
 
     public func transformEntityToDomain(entity: String) -> String {
-        return "\(entityToDomainPrefix)\(entity)"
+        "\(entityToDomainPrefix)\(entity)"
     }
 
     public func transformResponseToDomain(response: String) -> String {
-        return "\(responseToDomainPrefix)\(response)"
+        "\(responseToDomainPrefix)\(response)"
     }
 }
 

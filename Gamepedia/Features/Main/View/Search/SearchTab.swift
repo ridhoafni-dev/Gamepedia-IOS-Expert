@@ -4,9 +4,6 @@
 //
 //  Created by User on 07/01/26.
 //
-
-
-
 import Combine
 import Core
 import Favorite
@@ -16,13 +13,12 @@ import Lottie
 import SearchGame
 import SwiftUI
 import UIKit
-typealias SearchPresenterType = GetListPresenter<Any, SearchDomainModel, Interactor<Any, [SearchDomainModel], GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>>>
 
 struct SearchTab: View {
     @State var pushNewView: Bool = false
     @ObservedObject var presenter: SearchPresenterType
     @ObservedObject var genrePresenter: GenrePresenter
-    @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
+    @ObservedObject var favoritePresenter: FavoritePresenterType
     @ObservedObject var gamePresenter: GamePresenter
 
     @State var keyword: String = ""

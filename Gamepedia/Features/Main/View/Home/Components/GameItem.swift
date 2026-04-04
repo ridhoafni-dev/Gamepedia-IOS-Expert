@@ -4,18 +4,16 @@
 //
 //  Created by User on 05/01/26.
 //
-
-
-
 import Core
 import Favorite
 import Games
 import Kingfisher
 import SkeletonUI
 import SwiftUI
+
 struct GameItem: View {
-    @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
-      @ObservedObject var gamePresenter: GamePresenter
+    @ObservedObject var favoritePresenter: FavoritePresenterType
+    @ObservedObject var gamePresenter: GamePresenter
     @State var game: Games.DetailGameDomainModel
     @State private var _isFavorite: Bool = false
 

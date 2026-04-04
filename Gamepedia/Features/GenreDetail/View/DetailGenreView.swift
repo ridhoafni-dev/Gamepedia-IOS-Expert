@@ -16,8 +16,6 @@ import Kingfisher
 import SkeletonUI
 import SwiftUI
 
-typealias FavoritePresenterType = GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
-
 struct DetailGenreView: View {
   @ObservedObject var presenter: GenrePresenter
   @ObservedObject var gamePresenter: GamePresenter
@@ -184,3 +182,4 @@ struct HeaderGenreOverlay: View{
         }
     }
 }
+

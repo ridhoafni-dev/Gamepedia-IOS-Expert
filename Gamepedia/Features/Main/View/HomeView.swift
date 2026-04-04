@@ -4,8 +4,6 @@
 //
 //  Created by User on 03/01/26.
 //
-
-
 import Core
 import Developers
 import Favorite
@@ -13,13 +11,14 @@ import Games
 import Genres
 import SearchGame
 import SwiftUI
+
 struct HomeView: View {
 
     @ObservedObject var gamePresenter: GamePresenter
     @ObservedObject var genrePresenter: GenrePresenter
-    @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
-    @ObservedObject var searchPresenter: GetListPresenter<Any, SearchDomainModel, Interactor<Any, [SearchDomainModel], GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>>>
-    @ObservedObject var developerPresenter: GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
+    @ObservedObject var favoritePresenter: FavoritePresenterType
+    @ObservedObject var searchPresenter: SearchPresenterType
+    @ObservedObject var developerPresenter: DeveloperPresenterType
 
     @State var tabSelection: Tabs = .tabHome
 

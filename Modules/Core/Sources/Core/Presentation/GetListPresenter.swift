@@ -5,16 +5,14 @@
 //  Created by User on 27/01/26.
 //
 
-
 import Combine
 import Foundation
 import SwiftUI
-public class GetListPresenter<Request, Response, Interactor: UseCase>:
+
+public class GetListPresenter<Request, Response, Interactor: UseCase> :
     ObservableObject
-where
-    Interactor.Request == Request,
-    Interactor.Response == [Response]
-{
+where Interactor.Request == Request,
+      Interactor.Response == [Response] {
 
     private var cancellables: Set<AnyCancellable> = []
 

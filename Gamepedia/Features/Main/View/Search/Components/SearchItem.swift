@@ -1,11 +1,9 @@
 //
-//  SearchItemm.swift
+//  SearchItem.swift
 //  Gamepedia
 //
 //  Created by User on 08/01/26.
 //
-
-
 
 import CachedAsyncImage
 import Core
@@ -14,21 +12,28 @@ import Kingfisher
 import SearchGame
 import SkeletonUI
 import SwiftUI
+
 struct SearchItem: View {
-    @ObservedObject var presenter: GetListPresenter<Any, SearchDomainModel, Interactor<Any, [SearchDomainModel], GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>>>
+    @ObservedObject var presenter: SearchPresenterType
     @State var game: SearchDomainModel?
 
     var body: some View {
-        HStack{
+        HStack {
 
-            CachedAsyncImage(url: URL(string: (game?.backgroundImage) ?? "")) { image in
+            CachedAsyncImage(
+                url: URL(string: (game?.backgroundImage) ?? "")
+            ) { image in
                 image.resizable()
             } placeholder: {
                 ProgressView()
-            }.cornerRadius(8).scaledToFit().frame(width: 80, height: 80).padding(.top)
+            }
+            .cornerRadius(8)
+            .scaledToFit()
+            .frame(width: 80, height: 80)
+            .padding(.top)
 
-            HStack{
-                VStack(alignment: .leading){
+            HStack {
+                VStack(alignment: .leading) {
                     Text(game?.name)
                         .lineLimit(1)
 
@@ -50,8 +55,9 @@ struct SearchItem: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 10)
+            .padding(.horizontal, 10)
         }
     }
 }
+
 

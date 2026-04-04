@@ -1,10 +1,9 @@
 //
-//  SplashScreen.swift
+//  SplashView.swift
 //  Gamepedia
 //
 //  Created by User on 02/01/26.
 //
-
 
 import Core
 import Developers
@@ -14,9 +13,39 @@ import Genres
 import SearchGame
 import SwiftUI
 
-typealias FavoritePresenterType = GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
-typealias SearchPresenterType = GetListPresenter<Any, SearchDomainModel, Interactor<Any, [SearchDomainModel], GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>>>
-typealias DeveloperPresenterType = GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
+typealias FavoritePresenterType = GetListPresenter<
+  Any,
+  Favorite.DetailGameDomainModel,
+  Interactor<
+    Any,
+    [Favorite.DetailGameDomainModel],
+    GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>
+  >
+>
+
+typealias SearchPresenterType = GetListPresenter<
+  Any,
+  SearchDomainModel,
+  Interactor<
+    Any,
+    [SearchDomainModel],
+    GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>
+  >
+>
+
+typealias DeveloperPresenterType = GetListPresenter<
+  Any,
+  DeveloperDomainModel,
+  Interactor<
+    Any,
+    [DeveloperDomainModel],
+    GetDevelopersRepository<
+      GetDevelopersLocaleDataSource,
+      GetDevelopersRemoteDataSource,
+      DeveloperTransformer
+    >
+  >
+>
 
 struct SplashView: View {
     @State var pushNewView: Bool = false
@@ -54,6 +83,7 @@ struct SplashView: View {
 
 struct SplashContent: View {
     @State var isAnimating = true
+
     var body: some View {
         VStack(alignment: .center) {
             Spacer()
@@ -64,9 +94,10 @@ struct SplashContent: View {
                     Animation.easeInOut(duration: 1)
                         .repeatForever(autoreverses: true),
                     value: isAnimating
-                ).onAppear(perform: {
+                )
+                .onAppear {
                     isAnimating.toggle()
-                })
+                }
 
             Spacer()
         }
