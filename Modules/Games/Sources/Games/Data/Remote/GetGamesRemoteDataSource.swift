@@ -5,19 +5,19 @@
 //  Created by User on 31/01/26.
 //
 
-import Core
-import Combine
-import Alamofire
-import Foundation
 
+import Alamofire
+import Combine
+import Core
+import Foundation
 public struct GetGamesRemoteDataSource {
     let apiKey = "57c0b6e9af804675b9d7e47496de41de" //Bundle.main.infoDictionary?["API_KEY"] as! String
     let orderByRatingAsc = "rating"
     let orderByRatingDesc = "-rating"
     let page = "1"
-    
+
     public init(){}
-    
+
     func getDiscoveryGames(sortFromBest: Bool) -> AnyPublisher<[GameResult], Error> {
         let param = ["key": apiKey, "ordering": sortFromBest == true ? orderByRatingDesc: orderByRatingAsc]
 
@@ -40,7 +40,7 @@ public struct GetGamesRemoteDataSource {
               }
             }.eraseToAnyPublisher()
     }
-    
+
     func getFewDiscoveryGames() -> AnyPublisher<[GameResult], Error> {
         let param = ["key": apiKey, "ordering": orderByRatingDesc, "page_size": "10"]
 
@@ -59,7 +59,7 @@ public struct GetGamesRemoteDataSource {
             }
         }.eraseToAnyPublisher()
     }
-    
+
     func getGameDetails(id: Int) -> AnyPublisher<DetailGameResponse, Error> {
         let param = ["key": apiKey]
 
@@ -78,6 +78,6 @@ public struct GetGamesRemoteDataSource {
             }
         }.eraseToAnyPublisher()
     }
-    
-    
+
+
 }

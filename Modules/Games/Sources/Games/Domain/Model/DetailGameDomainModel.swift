@@ -5,8 +5,8 @@
 //  Created by User on 02/02/26.
 //
 
-import Foundation
 
+import Foundation
 public struct DetailGameDomainModel: Equatable, Identifiable {
   public let id: Int?
   public let isFavorite: Bool?
@@ -30,7 +30,7 @@ public struct DetailGameDomainModel: Equatable, Identifiable {
   public let tags: [TagDomainModel]?
   public let publishers: [PublisherDomainModel]?
   public let descriptionRaw: String?
-  
+
   public init(id: Int?, isFavorite: Bool?, slug: String?, name: String?, nameOriginal: String?, description: String?, released: String?, updated: String?, backgroundImage: String?, backgroundImageAdditional: String?, website: String?, rating: Double?, added: Int?, playtime: Int?, achievementsCount: Int?, ratingsCount: Int?, suggestionsCount: Int?, reviewsCount: Int?, parentPlatforms: [PlatformDomainModel]?, platforms: [DetailPlatformDomainModel]?, stores: [StoreDetailsDomainModel]?, developers: [DeveloperInDetailGameDomainModel]?, genres: [GenreInDetailsDomainModel]?, tags: [TagDomainModel]?, publishers: [PublisherDomainModel]?, descriptionRaw: String?) {
       self.id = id
       self.isFavorite = isFavorite
@@ -66,7 +66,7 @@ public struct DetailPlatformDomainModel: Equatable, Identifiable {
     public let platform: PlatformDetailsDomainModel?
     public let releasedAt: String?
     public let requirements: PlatformRequirementDomainModel?
-    
+
     public init(id: UUID, platform: PlatformDetailsDomainModel?, releasedAt: String?, requirements: PlatformRequirementDomainModel?) {
         self.id = id
         self.platform = platform
@@ -82,7 +82,7 @@ public struct PlatformDetailsDomainModel: Equatable, Identifiable{
     public let yearEnd, yearStart: Int?
     public let gamesCount: Int?
     public let imageBackground: String?
-    
+
     public init(id: UUID, name: String?, slug: String?, image: String?, yearEnd: Int?, yearStart: Int?, gamesCount: Int?, imageBackground: String?) {
         self.id = id
         self.name = name
@@ -98,7 +98,7 @@ public struct PlatformDetailsDomainModel: Equatable, Identifiable{
 public struct PlatformRequirementDomainModel: Equatable, Identifiable{
   public let id: UUID
   public let minimum: String?
-  
+
   public init(id: UUID, minimum: String?) {
       self.id = id
       self.minimum = minimum
@@ -109,7 +109,7 @@ public struct StoreDetailsDomainModel: Equatable, Identifiable{
     public let id: UUID
     public let url: String?
     public let store: StoreDomainModel?
-    
+
     public init(id: UUID, url: String?, store: StoreDomainModel?) {
         self.id = id
         self.url = url
@@ -123,7 +123,7 @@ public struct StoreDomainModel: Equatable, Identifiable{
     public let gamesCount: Int?
     public let domain: String?
     public let imageBackground: String?
-    
+
     public init(id: UUID, name: String?, slug: String?, gamesCount: Int?, domain: String?, imageBackground: String?) {
         self.id = id
         self.name = name
@@ -139,7 +139,7 @@ public struct DeveloperInDetailGameDomainModel: Equatable, Identifiable{
     public let name, slug: String?
     public let gamesCount: Int?
     public let imageBackground: String?
-    
+
     public init(id: UUID, name: String?, slug: String?, gamesCount: Int?, imageBackground: String?) {
         self.id = id
         self.name = name
@@ -154,7 +154,7 @@ public struct PublisherDomainModel: Equatable, Identifiable{
     public let name, slug: String?
     public let gamesCount: Int?
     public let imageBackground: String?
-    
+
     public init(id: UUID, name: String?, slug: String?, gamesCount: Int?, imageBackground: String?) {
         self.id = id
         self.name = name
@@ -169,7 +169,7 @@ public struct GenreInDetailsDomainModel: Equatable, Identifiable{
     public let name, slug: String?
     public let gamesCount: Int?
     public let imageBackground: String?
-    
+
     public init(id: UUID, name: String?, slug: String?, gamesCount: Int?, imageBackground: String?) {
         self.id = id
         self.name = name
@@ -184,7 +184,7 @@ public struct TagDomainModel: Equatable, Identifiable{
     public let name, slug: String?
     public let gamesCount: Int?
     public let imageBackground: String?
-    
+
     public init(id: UUID, name: String?, slug: String?, gamesCount: Int?, imageBackground: String?) {
         self.id = id
         self.name = name

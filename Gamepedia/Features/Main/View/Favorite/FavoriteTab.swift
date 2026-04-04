@@ -5,19 +5,19 @@
 //  Created by User on 08/01/26.
 //
 
-import SwiftUI
-import Combine
 
+
+import Combine
 import Core
 import Favorite
 import Games
 import Genres
-
+import SwiftUI
 struct FavoriteTab: View {
     @ObservedObject var presenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
       @ObservedObject var genrePresenter: GenrePresenter
       @ObservedObject var gamePresenter: GamePresenter
-    
+
     var body: some View {
         let router = HomeRouter(gamePresenter: gamePresenter, favoritePresenter: presenter, genrePresenter: genrePresenter)
 
@@ -72,7 +72,7 @@ struct FavoriteTab: View {
         .onAppear{
             presenter.getList(request: nil, )
             self.presenter.objectWillChange.send()
-              
+
             //tab bar appearance
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()

@@ -5,21 +5,21 @@
 //  Created by User on 30/01/26.
 //
 
-import Core
-import Combine
-import RealmSwift
-import Foundation
 
+import Combine
+import Core
+import Foundation
+import RealmSwift
 public struct GetGameLocaleDataSource {
     public typealias Request = Any
     public typealias Response = GameModuleEntity
-      
+
     private let _realm: Realm
-    
+
     public init(realm: Realm) {
         self._realm = realm
     }
-    
+
     func getGames() -> AnyPublisher<[GameModuleEntity], Error> {
         return Future<[GameModuleEntity], Error> { completion in
             let detailGames: Results<GameModuleEntity> = {
@@ -27,10 +27,10 @@ public struct GetGameLocaleDataSource {
                     .sorted(byKeyPath: "name", ascending: true)
             }()
             completion(.success(detailGames.toArray(ofType: GameModuleEntity.self)))
-          
+
         }.eraseToAnyPublisher()
     }
-    
+
     func getBestRatingGames() -> AnyPublisher<[GameModuleEntity], Error> {
         return Future<[GameModuleEntity], Error> { completion in
             let detailGames: Results<GameModuleEntity> = {
@@ -38,10 +38,10 @@ public struct GetGameLocaleDataSource {
                     .sorted(byKeyPath: "rating", ascending: false)
             }()
             completion(.success(detailGames.toArray(ofType: GameModuleEntity.self)))
-          
+
         }.eraseToAnyPublisher()
     }
-    
+
     func addGames(
         from detailGames: [GameModuleEntity]
     ) -> AnyPublisher<Bool, Error> {
@@ -72,7 +72,7 @@ public struct GetGameLocaleDataSource {
                         temp.suggestionsCount = game.suggestionsCount
                         temp.reviewsCount = game.reviewsCount
                         temp.descriptionRaw = game.descriptionRaw
-                        
+
                         temp.parentPlatforms.append(objectsIn: game.parentPlatforms)
                         temp.platforms.append(objectsIn: game.platforms)
                         temp.stores.append(objectsIn: game.stores)
@@ -81,7 +81,7 @@ public struct GetGameLocaleDataSource {
                         temp.tags.append(objectsIn: game.tags)
                         temp.publishers.append(objectsIn: game.publishers)
                         temp.parentPlatforms.append(objectsIn: game.parentPlatforms)
-                        
+
                         self._realm.add(temp, update: .all)
                     }
                     completion(.success(true))
@@ -91,7 +91,7 @@ public struct GetGameLocaleDataSource {
             }
         }.eraseToAnyPublisher()
     }
-    
+
     func addGame(
         from game: GameModuleEntity
     ) -> AnyPublisher<Bool, Error> {
@@ -99,7 +99,7 @@ public struct GetGameLocaleDataSource {
             do {
                 try self._realm.write {
                     let temp = GameModuleEntity()
-                    
+
                     temp.id = game.id
                     // Preserve existing isFavorite value if the record already exists
                     let existing = self._realm.object(ofType: GameModuleEntity.self, forPrimaryKey: game.id)
@@ -130,7 +130,7 @@ public struct GetGameLocaleDataSource {
                     temp.tags.append(objectsIn: game.tags)
                     temp.publishers.append(objectsIn: game.publishers)
                     temp.parentPlatforms.append(objectsIn: game.parentPlatforms)
-                    
+
                     self._realm.add(temp, update: .all)
                     completion(.success(true))
                 }
@@ -140,21 +140,18 @@ public struct GetGameLocaleDataSource {
             }
         }.eraseToAnyPublisher()
     }
-    
+
     func getDetailGame(id: Int) -> AnyPublisher<GameModuleEntity, Error> {
         return Future<GameModuleEntity, Error> { completion in
             let detail: GameModuleEntity = {
                 self._realm.object(ofType: GameModuleEntity.self, forPrimaryKey: id)
             }() ?? GameModuleEntity()
-            
+
             completion(.success(detail))
-            
-            // print detail
-            print("Detail.log: \(detail)")
-            
+
         }.eraseToAnyPublisher()
     }
-    
+
     func updateGames(gameEntity: GameModuleEntity) -> AnyPublisher<Bool, Error> {
         return Future<Bool, Error> { completion in
             do {
@@ -162,7 +159,7 @@ public struct GetGameLocaleDataSource {
                 $0.id == gameEntity.id
               }.first!
               //Update the all data that not added before
-              
+
               try self._realm.write {
                 currentData.setValue(gameEntity.slug, forKey: "slug")
                 currentData.setValue(gameEntity.originalName, forKey: "originalName")
@@ -187,7 +184,7 @@ public struct GetGameLocaleDataSource {
               completion(.failure(DatabaseError.requestFailed))
             }
         }.eraseToAnyPublisher()
-        
+
     }
-    
+
 }

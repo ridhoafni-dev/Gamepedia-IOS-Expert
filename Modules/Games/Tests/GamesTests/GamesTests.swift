@@ -1,5 +1,5 @@
-import Testing
 import Foundation
+import Testing
 @testable import Games
 
 // MARK: - GameTransformer Tests
@@ -18,9 +18,9 @@ func testMapGameResponsesToDomains_singleItem() {
         reviewsCount: 300,
         communityRating: 5
     )
-    
+
     let domains = GameTransformer.mapGameResponsesToDomains(input: [response])
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 10)
@@ -42,9 +42,9 @@ func testMapGameResponsesToDomains_multipleItems() {
         GameResultFactory.make(id: 2, name: "Game Two"),
         GameResultFactory.make(id: 3, name: "Game Three")
     ]
-    
+
     let domains = GameTransformer.mapGameResponsesToDomains(input: responses)
-    
+
     #expect(domains.count == 3)
     #expect(domains[0].id == 1)
     #expect(domains[1].id == 2)
@@ -57,16 +57,16 @@ func testMapGameResponsesToDomains_multipleItems() {
 @Test("GameTransformer returns empty array for empty input")
 func testMapGameResponsesToDomains_emptyArray() {
     let domains = GameTransformer.mapGameResponsesToDomains(input: [])
-    
+
     #expect(domains.isEmpty)
 }
 
 @Test("GameTransformer uses default values for nil fields")
 func testMapGameResponsesToDomains_nilValues() {
     let response = GameResultFactory.makeNilFields()
-    
+
     let domains = GameTransformer.mapGameResponsesToDomains(input: [response])
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 0)
@@ -89,9 +89,9 @@ func testMapDetailGameResponseToEntities_fromGameResults() {
         GameResultFactory.make(id: 5, name: "Entity Game", released: "2023-03-15",
                                rating: 3.8, suggestionsCount: 20, reviewsCount: 10)
     ]
-    
+
     let entities = DetailGameTransformer.mapDetailGameResponseToEntities(input: responses)
-    
+
     #expect(entities.count == 1)
     let entity = entities[0]
     #expect(entity.id == 5)
@@ -109,9 +109,9 @@ func testMapDetailGameResponseToEntities_multiple() {
         GameResultFactory.make(id: 1, name: "Alpha"),
         GameResultFactory.make(id: 2, name: "Beta")
     ]
-    
+
     let entities = DetailGameTransformer.mapDetailGameResponseToEntities(input: responses)
-    
+
     #expect(entities.count == 2)
     #expect(entities[0].id == 1)
     #expect(entities[0].name == "Alpha")
@@ -137,9 +137,9 @@ func testMapDetailGameEntitiesToDomains_singleItem() {
         rating: 4.9,
         isFavorite: true
     )
-    
+
     let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [entity])
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 42)
@@ -158,9 +158,9 @@ func testMapDetailGameEntitiesToDomains_multipleItems() {
         GameModuleEntityFactory.make(id: 2, name: "Game B"),
         GameModuleEntityFactory.make(id: 3, name: "Game C")
     ]
-    
+
     let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: entities)
-    
+
     #expect(domains.count == 3)
     #expect(domains[0].id == 1)
     #expect(domains[0].name == "Game A")
@@ -177,9 +177,9 @@ func testMapDetailGameEntitiesToDomains_empty() {
 @Test("DetailGameTransformer maps isFavorite false correctly")
 func testMapDetailGameEntitiesToDomains_notFavorite() {
     let entity = GameModuleEntityFactory.make(id: 7, isFavorite: false)
-    
+
     let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [entity])
-    
+
     #expect(domains.count == 1)
     #expect(domains[0].isFavorite == false)
 }
@@ -192,9 +192,9 @@ func testMapDetailGameEntitiesToDomains_fieldsPreserved() {
     entity.ratingsCount = 5000
     entity.added = 999
     entity.website = "https://eldenring.com"
-    
+
     let domains = DetailGameTransformer.mapDetailGameEntitiesToDomains(input: [entity])
-    
+
     let domain = domains[0]
     #expect(domain.playtime == 100)
     #expect(domain.achievementsCount == 50)
@@ -223,7 +223,7 @@ func testGameDomainModelInitialization() {
         genres: nil,
         parentPlatforms: nil
     )
-    
+
     #expect(model.id == 1)
     #expect(model.name == "Portal 2")
     #expect(model.released == "2011-04-19")
@@ -257,7 +257,7 @@ func testGameDomainModelEquality() {
         suggestionsCount: 5, updated: "2023-01-01", reviewsCount: 2,
         communityRating: 3, platforms: nil, genres: nil, parentPlatforms: nil
     )
-    
+
     #expect(model1 == model2)
     #expect(model1 != model3)
 }
@@ -294,7 +294,7 @@ func testDetailGameDomainModelInitialization() {
         publishers: nil,
         descriptionRaw: "Raw text description"
     )
-    
+
     #expect(model.id == 100)
     #expect(model.isFavorite == false)
     #expect(model.slug == "test-game")
@@ -325,6 +325,6 @@ func testDetailGameDomainModelEquality() {
         parentPlatforms: nil, platforms: nil, stores: nil, developers: nil,
         genres: nil, tags: nil, publishers: nil, descriptionRaw: nil
     )
-    
+
     #expect(model1 == model2)
 }

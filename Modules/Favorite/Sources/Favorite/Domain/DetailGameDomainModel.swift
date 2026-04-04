@@ -5,9 +5,9 @@
 //  Created by User on 28/02/26.
 //
 
+
 import Foundation
 import Games
-
 public typealias DetailGameDomainModel = Games.DetailGameDomainModel
 public typealias DetailPlatformDomainModel = Games.DetailPlatformDomainModel
 public typealias PlatformDetailsDomainModel = Games.PlatformDetailsDomainModel

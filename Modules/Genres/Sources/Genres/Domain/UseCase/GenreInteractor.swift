@@ -6,9 +6,9 @@
 //
 
 
-import Foundation
-import Combine
 
+import Combine
+import Foundation
 public protocol GenreUseCase {
   func getListGenres() -> AnyPublisher<[GenreDomainModel], Error>
   func getDetailGenre(id: Int) -> AnyPublisher<GenreDomainModel, Error>
@@ -16,11 +16,11 @@ public protocol GenreUseCase {
 
 public class GenreInteractor: GenreUseCase {
   private let repository: GetGenresRepository
-  
+
   public init(repository: GetGenresRepository) {
     self.repository = repository
   }
-  
+
   public func getListGenres() -> AnyPublisher<[GenreDomainModel], Error> {
     return repository.getListGenres()
   }

@@ -5,22 +5,22 @@
 //  Created by User on 08/02/26.
 //
 
-import Foundation
-import Core
-import Combine
-import RealmSwift
-import Foundation
 
+import Combine
+import Core
+import Foundation
+import Foundation
+import RealmSwift
 public struct GetDevelopersLocaleDataSource: LocaleDataSource {
   public typealias Request = Any
   public typealias Response = DeveloperModuleEntity
-  
+
   private let _realm: Realm
-  
+
   public init(realm: Realm) {
     _realm = realm
   }
-  
+
   public func list(request: Any?) -> AnyPublisher<[DeveloperModuleEntity], Error> {
     return Future<[DeveloperModuleEntity], Error> { completion in
       let developers: Results<DeveloperModuleEntity> = {
@@ -28,10 +28,10 @@ public struct GetDevelopersLocaleDataSource: LocaleDataSource {
           .sorted(byKeyPath: "name", ascending: true)
       }()
       completion(.success(developers.toArray(ofType: DeveloperModuleEntity.self)))
-      
+
     }.eraseToAnyPublisher()
   }
-  
+
   public func add(entities: [DeveloperModuleEntity]) -> AnyPublisher<Bool, Error> {
     return Future<Bool, Error> { completion in
       do {
@@ -44,22 +44,22 @@ public struct GetDevelopersLocaleDataSource: LocaleDataSource {
       } catch {
         completion(.failure(DatabaseError.requestFailed))
       }
-      
+
     }.eraseToAnyPublisher()
   }
-  
+
   public func get(id: String) -> AnyPublisher<DeveloperModuleEntity, Error> {
     fatalError()
   }
-  
+
   public func update(id: Int, entity: DeveloperModuleEntity) -> AnyPublisher<Bool, Error> {
     fatalError()
   }
-  
+
   public func add(entities: DeveloperModuleEntity) -> AnyPublisher<Bool, Error> {
     fatalError()
   }
-  
+
   public func update(id: Int, isFavorite: Bool) -> AnyPublisher<Bool, Error> {
     fatalError()
   }

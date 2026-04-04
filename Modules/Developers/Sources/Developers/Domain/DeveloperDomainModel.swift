@@ -5,8 +5,8 @@
 //  Created by User on 08/02/26.
 //
 
-import Foundation
 
+import Foundation
 public struct DeveloperDomainModel: Equatable, Identifiable {
     public let id: Int?
     public let name, slug: String?

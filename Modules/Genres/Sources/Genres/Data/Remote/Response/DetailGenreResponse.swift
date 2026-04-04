@@ -5,8 +5,8 @@
 //  Created by User on 22/02/26.
 //
 
-import Foundation
 
+import Foundation
 nonisolated
 struct DetailGenreResponse: Decodable {
     var id: Int?
@@ -14,7 +14,7 @@ struct DetailGenreResponse: Decodable {
     var gamesCount: Int?
     var imageBackground: String?
     var description: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name

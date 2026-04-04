@@ -5,8 +5,8 @@
 //  Created by User on 02/02/26.
 //
 
-import Foundation
 
+import Foundation
 public struct GameDomainModel: Equatable {
     public let id: Int?
     public let name, released: String?
@@ -19,7 +19,7 @@ public struct GameDomainModel: Equatable {
     public let platforms: [PlatformDomainModel]?
     public let genres: [GenreInGameDomainModel]?
     public let parentPlatforms: [ParentPlatformPlatformDomainModel]?
-    
+
     public init(id: Int?, name: String?, released: String?, backgroundImage: String?, rating: Double?, ratingTop: Double?, suggestionsCount: Int?, updated: String?, reviewsCount: Int?, communityRating: Int?, platforms: [PlatformDomainModel]?, genres: [GenreInGameDomainModel]?, parentPlatforms: [ParentPlatformPlatformDomainModel]?) {
         self.id = id
         self.name = name
@@ -40,7 +40,7 @@ public struct GameDomainModel: Equatable {
 public struct PlatformsDomainModel: Equatable {
     public let platform: PlatformDomainModel?
     public let releasedAt: String?
-    
+
     public init(platform: PlatformDomainModel?, releasedAt: String?) {
         self.platform = platform
         self.releasedAt = releasedAt
@@ -50,7 +50,7 @@ public struct PlatformsDomainModel: Equatable {
 public struct PlatformDomainModel: Equatable, Identifiable {
     public let id: UUID
     public let name, slug: String?
-    
+
     public init(id: UUID, name: String?, slug: String?) {
         self.id = id
         self.name = name
@@ -61,7 +61,7 @@ public struct PlatformDomainModel: Equatable, Identifiable {
 public struct ParentPlatformPlatformDomainModel: Equatable, Identifiable {
     public let id: Int?
     public let name, slug: String?
-    
+
     public init(id: Int?, name: String?, slug: String?) {
         self.id = id
         self.name = name
@@ -75,7 +75,7 @@ public struct GenreInGameDomainModel: Equatable, Identifiable {
     public let gamesCount: Int?
     public let imageBackground: String?
     public let language: String?
-    
+
     public init(id: Int?, name: String?, slug: String?, gamesCount: Int?, imageBackground: String?, language: String?) {
         self.id = id
         self.name = name

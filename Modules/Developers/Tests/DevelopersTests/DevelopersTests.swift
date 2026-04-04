@@ -1,5 +1,5 @@
-import Testing
 import Foundation
+import Testing
 @testable import Developers
 
 // MARK: - Test Data Helpers
@@ -40,9 +40,9 @@ func testTransformResponseToEntity_basicFields() {
         imageBackground: "https://example.com/cdpr.jpg",
         games: [gameInDev]
     )
-    
+
     let entities = transformer.transformResponseToEntity(response: [result])
-    
+
     #expect(entities.count == 1)
     let entity = entities[0]
     #expect(entity.id == "10")
@@ -63,9 +63,9 @@ func testTransformResponseToEntity_multipleItems() {
         makeDeveloperResult(id: 1, name: "Naughty Dog", games: [makeGameInDeveloper()]),
         makeDeveloperResult(id: 2, name: "Rockstar Games", games: [makeGameInDeveloper()])
     ]
-    
+
     let entities = transformer.transformResponseToEntity(response: responses)
-    
+
     #expect(entities.count == 2)
     #expect(entities[0].id == "1")
     #expect(entities[0].name == "Naughty Dog")
@@ -84,9 +84,9 @@ func testTransformResponseToEntity_empty() {
 func testTransformResponseToEntity_nilFields() {
     let transformer = DeveloperTransformer()
     let result = DeveloperResult(id: nil, name: nil, slug: nil, gamesCount: nil, imageBackground: nil, games: [])
-    
+
     let entities = transformer.transformResponseToEntity(response: [result])
-    
+
     #expect(entities.count == 1)
     let entity = entities[0]
     #expect(entity.id == "0")
@@ -104,9 +104,9 @@ func testTransformResponseToEntity_multipleGames() {
         makeGameInDeveloper(id: 2, name: "Uncharted 4", slug: "uncharted-4", added: 250)
     ]
     let result = makeDeveloperResult(id: 7, name: "Naughty Dog", games: games)
-    
+
     let entities = transformer.transformResponseToEntity(response: [result])
-    
+
     #expect(entities.count == 1)
     #expect(entities[0].games.count == 2)
     #expect(entities[0].games[0].name == "The Last of Us")
@@ -121,9 +121,9 @@ func testTransformEntityToDomain_basicFields() {
     let gameInDev = makeGameInDeveloper(id: 3, name: "GTA V", slug: "gta-v", added: 150)
     let result = makeDeveloperResult(id: 20, name: "Rockstar", slug: "rockstar", gamesCount: 8, games: [gameInDev])
     let entities = transformer.transformResponseToEntity(response: [result])
-    
+
     let domains = transformer.transformEntityToDomain(entity: entities)
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 20)
@@ -146,7 +146,7 @@ func testTransformEntityToDomain_multipleItems() {
     ]
     let entities = transformer.transformResponseToEntity(response: responses)
     let domains = transformer.transformEntityToDomain(entity: entities)
-    
+
     #expect(domains.count == 2)
     #expect(domains[0].id == 1)
     #expect(domains[0].name == "Epic Games")
@@ -176,7 +176,7 @@ func testDeveloperDomainModelInitialization() {
         imageBackground: "https://example.com/bethesda.jpg",
         games: games
     )
-    
+
     #expect(developer.id == 42)
     #expect(developer.name == "Bethesda")
     #expect(developer.slug == "bethesda")
@@ -192,7 +192,7 @@ func testDeveloperDomainModelEquality() {
     let dev1 = DeveloperDomainModel(id: 1, name: "Dev", slug: "dev", gamesCount: 5, imageBackground: "", games: games)
     let dev2 = DeveloperDomainModel(id: 1, name: "Dev", slug: "dev", gamesCount: 5, imageBackground: "", games: games)
     let dev3 = DeveloperDomainModel(id: 2, name: "Other", slug: "other", gamesCount: 3, imageBackground: "", games: [])
-    
+
     #expect(dev1 == dev2)
     #expect(dev1 != dev3)
 }
@@ -200,7 +200,7 @@ func testDeveloperDomainModelEquality() {
 @Test("GameInDeveloperDomainModel initializes with correct values")
 func testGameInDeveloperDomainModelInitialization() {
     let game = GameInDeveloperDomainModel(id: 7, name: "Horizon Zero Dawn", slug: "horizon-zero-dawn", added: 500)
-    
+
     #expect(game.id == 7)
     #expect(game.name == "Horizon Zero Dawn")
     #expect(game.slug == "horizon-zero-dawn")

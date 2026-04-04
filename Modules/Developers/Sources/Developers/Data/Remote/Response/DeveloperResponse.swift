@@ -5,8 +5,8 @@
 //  Created by User on 08/02/26.
 //
 
-import Foundation
 
+import Foundation
 nonisolated
 public struct DeveloperResponse: Decodable, Sendable {
     public let count: Int?
@@ -27,7 +27,7 @@ public struct DeveloperResult: Decodable, Sendable {
     public let gamesCount: Int?
     public let imageBackground: String?
     public let games: [GameInDeveloper]?
-    
+
     enum CodingKeys: String, CodingKey {
         case id, name, slug, gamesCount = "games_count", imageBackground = "image_background", games
     }

@@ -5,9 +5,9 @@
 //  Created by User on 26/02/26.
 //
 
-import RealmSwift
-import Foundation
 
+import Foundation
+import RealmSwift
 public class SearchModuleEntity: Object {
     @Persisted(primaryKey: true) public var id: Int = 0
     @Persisted public var slug = ""
@@ -17,5 +17,5 @@ public class SearchModuleEntity: Object {
     @Persisted public var rating = 0.0
     @Persisted public var score = ""
     @Persisted public var backgroundImage = ""
-    
+
 }

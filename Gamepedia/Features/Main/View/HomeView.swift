@@ -5,24 +5,24 @@
 //  Created by User on 03/01/26.
 //
 
-import SwiftUI
-import Core
-import Games
-import Favorite
-import SearchGame
-import Developers
-import Genres
 
+import Core
+import Developers
+import Favorite
+import Games
+import Genres
+import SearchGame
+import SwiftUI
 struct HomeView: View {
-    
+
     @ObservedObject var gamePresenter: GamePresenter
     @ObservedObject var genrePresenter: GenrePresenter
     @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
     @ObservedObject var searchPresenter: GetListPresenter<Any, SearchDomainModel, Interactor<Any, [SearchDomainModel], GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>>>
     @ObservedObject var developerPresenter: GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
-    
+
     @State var tabSelection: Tabs = .tabHome
-    
+
     enum Tabs {
         case tabHome, tabSearch, tabFavorite, tabProfile
     }
@@ -40,7 +40,7 @@ struct HomeView: View {
                         Text("Home")
                     }
                     .tag(Tabs.tabHome)
-                
+
                 SearchTab(
                     presenter: searchPresenter,
                     genrePresenter: genrePresenter,
@@ -52,7 +52,7 @@ struct HomeView: View {
                     Text("Search")
                 }
                 .tag(Tabs.tabSearch)
-                
+
                 FavoriteTab(
                     presenter: favoritePresenter,
                     genrePresenter: genrePresenter,
@@ -63,7 +63,7 @@ struct HomeView: View {
                         Text("Favorites")
                     }
                     .tag(Tabs.tabFavorite)
-                
+
                 ProfileTab()
                     .tabItem {
                         Image(systemName: "person.circle")

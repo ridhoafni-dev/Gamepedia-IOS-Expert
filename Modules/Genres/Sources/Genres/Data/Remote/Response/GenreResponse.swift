@@ -5,8 +5,8 @@
 //  Created by User on 22/02/26.
 //
 
-import Foundation
 
+import Foundation
 nonisolated
 struct GenreResponse: Decodable {
     let count: Int?
@@ -27,7 +27,7 @@ struct GenreResult: Decodable {
     let gamesCount: Int?
     let imageBackground: String?
     let games: [GameInGenre]?
-    
+
     enum CodingKeys: String, CodingKey {
         case id, name, slug
         case gamesCount = "games_count"

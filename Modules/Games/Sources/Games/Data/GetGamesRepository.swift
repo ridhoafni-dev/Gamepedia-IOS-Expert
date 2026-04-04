@@ -5,9 +5,9 @@
 //  Created by User on 31/01/26.
 //
 
+
 import Combine
 import ObjectiveC
-
 public class GetGamesRepository: NSObject {
     public typealias GamepediaInstance = (
         GetGameLocaleDataSource, GetGamesRemoteDataSource
@@ -56,7 +56,7 @@ public class GetGamesRepository: NSObject {
 
             }.eraseToAnyPublisher()
     }
-    
+
     public func getGameDetail(id: Int, isAdd: Bool = false) -> AnyPublisher<DetailGameDomainModel, Error> {
         return self.locale.getDetailGame(id: id)
             .flatMap { result -> AnyPublisher<DetailGameDomainModel, Error> in

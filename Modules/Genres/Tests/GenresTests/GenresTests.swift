@@ -1,5 +1,5 @@
-import Testing
 import Foundation
+import Testing
 @testable import Genres
 
 // MARK: - GenreTransformer Tests
@@ -15,9 +15,9 @@ func testMapGenresResponsesToEntities_basicFields() {
         imageBackground: "https://example.com/action.jpg",
         games: [gameInGenre]
     )
-    
+
     let entities = GenreTransformer.mapGenresResponsesToEntities(input: [result])
-    
+
     #expect(entities.count == 1)
     let entity = entities[0]
     #expect(entity.id == 10)
@@ -37,9 +37,9 @@ func testMapGenresResponsesToEntities_multipleItems() {
         GenreResult(id: 2, name: "RPG", slug: "rpg", gamesCount: 80, imageBackground: "", games: []),
         GenreResult(id: 3, name: "Strategy", slug: "strategy", gamesCount: 60, imageBackground: "", games: [])
     ]
-    
+
     let entities = GenreTransformer.mapGenresResponsesToEntities(input: results)
-    
+
     #expect(entities.count == 3)
     #expect(entities[0].id == 1)
     #expect(entities[0].name == "Action")
@@ -56,9 +56,9 @@ func testMapGenresResponsesToEntities_empty() {
 @Test("GenreTransformer uses default values for nil genre response fields")
 func testMapGenresResponsesToEntities_nilFields() {
     let result = GenreResult(id: nil, name: nil, slug: nil, gamesCount: nil, imageBackground: nil, games: nil)
-    
+
     let entities = GenreTransformer.mapGenresResponsesToEntities(input: [result])
-    
+
     #expect(entities.count == 1)
     let entity = entities[0]
     #expect(entity.id == 0)
@@ -79,9 +79,9 @@ func testMapGenresResponsesToEntity_detailResponse() {
         imageBackground: "https://example.com/indie.jpg",
         description: "Independent games made by small studios"
     )
-    
+
     let entity = GenreTransformer.mapGenresResponsesToEntity(input: detail)
-    
+
     #expect(entity.id == 5)
     #expect(entity.name == "Indie")
     #expect(entity.slug == "indie")
@@ -101,9 +101,9 @@ func testMapGenresEntitiesToDomains_basicFields() {
         games: [GameInGenre(id: 2, name: "Cities Skylines", slug: "cities-skylines", added: 50)]
     )
     let entities = GenreTransformer.mapGenresResponsesToEntities(input: [result])
-    
+
     let domains = GenreTransformer.mapGenresEntitiesToDomains(input: entities)
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 15)
@@ -131,9 +131,9 @@ func testMapGenresEntityToDomains_withDescription() {
         description: "Story-driven exploration games"
     )
     let entity = GenreTransformer.mapGenresResponsesToEntity(input: detail)
-    
+
     let domain = GenreTransformer.mapGenresEntityToDomains(input: entity)
-    
+
     #expect(domain.id == 7)
     #expect(domain.name == "Adventure")
     #expect(domain.slug == "adventure")
@@ -147,9 +147,9 @@ func testMapGenreResponsesToDomains_basicFields() {
         GenreResult(id: 1, name: "Action", slug: "action", gamesCount: 100, imageBackground: "https://example.com/action.jpg",
                     games: [GameInGenre(id: 5, name: "Call of Duty", slug: "cod", added: 300)])
     ]
-    
+
     let domains = GenreTransformer.mapGenreResponsesToDomains(input: results)
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 1)
@@ -169,9 +169,9 @@ func testMapGenreResponsesToDomains_multipleItems() {
         GenreResult(id: 1, name: "Action", slug: "action", gamesCount: 100, imageBackground: "", games: []),
         GenreResult(id: 2, name: "Sports", slug: "sports", gamesCount: 70, imageBackground: "", games: [])
     ]
-    
+
     let domains = GenreTransformer.mapGenreResponsesToDomains(input: results)
-    
+
     #expect(domains.count == 2)
     #expect(domains[0].name == "Action")
     #expect(domains[1].name == "Sports")
@@ -189,9 +189,9 @@ func testMapGenreResponsesToDomains_nilGameFields() {
         GenreResult(id: 1, name: "Puzzle", slug: "puzzle", gamesCount: 50, imageBackground: "",
                     games: [GameInGenre(id: nil, name: nil, slug: nil, added: nil)])
     ]
-    
+
     let domains = GenreTransformer.mapGenreResponsesToDomains(input: results)
-    
+
     #expect(domains.count == 1)
     #expect(domains[0].games.count == 1)
     let game = domains[0].games[0]
@@ -214,7 +214,7 @@ func testGenreDomainModelInitialization() {
         imageBackground: "https://example.com/puzzle.jpg",
         games: games
     )
-    
+
     #expect(model.id == 3)
     #expect(model.name == "Puzzle")
     #expect(model.slug == "puzzle")
@@ -235,7 +235,7 @@ func testGenreDomainModelWithCustomDescription() {
         desc: "Terrifying survival games",
         games: []
     )
-    
+
     #expect(model.desc == "Terrifying survival games")
 }
 
@@ -245,7 +245,7 @@ func testGenreDomainModelEquality() {
     let model1 = GenreDomainModel(id: 1, name: "Action", slug: "action", gamesCount: 100, imageBackground: "", games: games)
     let model2 = GenreDomainModel(id: 1, name: "Action", slug: "action", gamesCount: 100, imageBackground: "", games: games)
     let model3 = GenreDomainModel(id: 2, name: "RPG", slug: "rpg", gamesCount: 50, imageBackground: "", games: [])
-    
+
     #expect(model1 == model2)
     #expect(model1 != model3)
 }

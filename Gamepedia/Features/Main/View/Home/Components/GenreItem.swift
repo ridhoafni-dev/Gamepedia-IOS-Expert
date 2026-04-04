@@ -5,13 +5,13 @@
 //  Created by User on 16/01/26.
 //
 
-import SwiftUI
-import Kingfisher
-import Genres
 
+import Genres
+import Kingfisher
+import SwiftUI
 struct GenreItem: View {
     var genre: GenreDomainModel
-  
+
     var body: some View {
       ZStack{
           GeometryReader { geometry in
@@ -33,7 +33,7 @@ struct GenreItem: View {
                       GenreHeaderOverlay(genre: genre)
                   }
           }
-          
+
       }
       .frame(height: 150.0)
     }
@@ -41,7 +41,7 @@ struct GenreItem: View {
 
 private struct GenreHeaderOverlay: View{
     var genre: GenreDomainModel
-    
+
     var gradient: LinearGradient {
         .linearGradient(
             Gradient(colors: [.black.opacity(0.8), .black.opacity(0)]),

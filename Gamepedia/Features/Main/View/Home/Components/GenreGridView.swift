@@ -5,15 +5,15 @@
 //  Created by User on 16/01/26.
 //
 
-import SwiftUI
-import Genres
-import Games
-import Core
 
+import Core
+import Games
+import Genres
+import SwiftUI
 struct GenreGridView: View {
     @ObservedObject var presenter: GenrePresenter
     var router: HomeRouter
-    
+
     var body: some View {
         let columns = [
             GridItem(.flexible()),

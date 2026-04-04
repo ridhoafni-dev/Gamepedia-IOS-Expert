@@ -5,19 +5,19 @@
 //  Created by User on 22/02/26.
 //
 
-import Core
-import Combine
-import Alamofire
-import Foundation
 
+import Alamofire
+import Combine
+import Core
+import Foundation
 public struct GetGenresRemoteDataSource {
     let apiKey = "57c0b6e9af804675b9d7e47496de41de" //Bundle.main.infoDictionary?["API_KEY"] as! String
     let orderByRatingAsc = "rating"
     let orderByRatingDesc = "-rating"
     let page = "1"
-    
+
     public init() {}
-    
+
     func getListGenres() -> AnyPublisher<[GenreResult], Error> {
         return Future<[GenreResult], Error> { completion in
             if let url = URL(string: "https://api.rawg.io/api/genres") {
@@ -37,7 +37,7 @@ public struct GetGenresRemoteDataSource {
         }
         .eraseToAnyPublisher()
     }
-    
+
     func getGenreDetails(id: Int) -> AnyPublisher<DetailGenreResponse, Error> {
         return Future<DetailGenreResponse, Error> { completion in
           if let url = URL(string: "https://api.rawg.io/api/genres/\(id)") {

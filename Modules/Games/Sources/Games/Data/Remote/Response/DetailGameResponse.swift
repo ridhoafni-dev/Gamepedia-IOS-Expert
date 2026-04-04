@@ -5,8 +5,8 @@
 //  Created by User on 29/12/25.
 //
 
-import Foundation
 
+import Foundation
 nonisolated
 struct DetailGameResponse: Decodable, Sendable {
   let id: Int?
@@ -30,7 +30,7 @@ struct DetailGameResponse: Decodable, Sendable {
   let tags: [Tag]?
   let publishers: [Publisher]?
   let descriptionRaw: String?
-    
+
   private enum CodingKeys: String, CodingKey {
     case id, slug, name, description, released, updated
     case originalName = "name_original"
@@ -60,7 +60,7 @@ struct DetailPlatform: Decodable {
     let platform: PlatformDetails?
     let releasedAt: String?
     let requirements: PlatformRequirement?
-    
+
     private enum CodingKeys: String, CodingKey {
         case platform, requirements
         case releasedAt = "released_at"
@@ -74,7 +74,7 @@ struct PlatformDetails: Decodable {
     let yearEnd, yearStart: Int?
     let gamesCount: Int?
     let imageBackground: String?
-    
+
     private enum CodingKeys: String, CodingKey {
         case id, name, slug, image
         case yearEnd = "year_end"
@@ -100,7 +100,7 @@ struct Store: Decodable, Sendable{
     let gamesCount: Int?
     let domain: String?
     let imageBackground: String?
-    
+
     private enum CodingKeys: String, CodingKey {
         case id, name, slug
         case gamesCount = "games_count"
@@ -114,7 +114,7 @@ struct Developer: Decodable {
     let name, slug: String?
     let gamesCount: Int?
     let imageBackground: String?
-    
+
     private enum CodingKeys: String, CodingKey {
         case id, name, slug
         case gamesCount = "games_count"
@@ -127,7 +127,7 @@ struct Publisher: Decodable {
     let name, slug: String?
     let gamesCount: Int?
     let imageBackground: String?
-    
+
     private enum CodingKeys: String, CodingKey {
         case id, name, slug
         case gamesCount = "games_count"
@@ -140,7 +140,7 @@ struct GenreInDetails: Decodable, Sendable{
     let name, slug: String?
     let gamesCount: Int?
     let imageBackground: String?
-    
+
     private enum CodingKeys: String, CodingKey {
         case id, name, slug
         case gamesCount = "games_count"
@@ -153,7 +153,7 @@ struct Tag: Decodable {
     let name, slug: String?
     let gamesCount: Int?
     let imageBackground: String?
-    
+
     private enum CodingKeys: String, CodingKey {
         case id, name, slug
         case gamesCount = "games_count"

@@ -5,10 +5,10 @@
 //  Created by User on 08/02/26.
 //
 
-import Foundation
-import Core
-import Combine
 
+import Combine
+import Core
+import Foundation
 public struct GetDevelopersRepository<
   DeveloperLocaleDataSource: LocaleDataSource,
   RemoteDataSource: DataSource,
@@ -19,14 +19,14 @@ RemoteDataSource.Response == [DeveloperResult],
 Transformer.Response == [DeveloperResult],
 Transformer.Entity == [DeveloperModuleEntity],
 Transformer.Domain == [DeveloperDomainModel] {
-    
+
     public typealias Request = Any
      public typealias Response = [DeveloperDomainModel]
-     
+
      private let _localeDataSource: DeveloperLocaleDataSource
      private let _remoteDataSource: RemoteDataSource
      private let _mapper: Transformer
-     
+
      public init(
        localeDataSource: DeveloperLocaleDataSource,
        remoteDataSource: RemoteDataSource,
@@ -36,7 +36,7 @@ Transformer.Domain == [DeveloperDomainModel] {
          _remoteDataSource = remoteDataSource
          _mapper = mapper
        }
-    
+
     public func execute(request: Any?) -> AnyPublisher<[DeveloperDomainModel], Error> {
         return _localeDataSource.list(request: nil)
           .flatMap { result -> AnyPublisher<[DeveloperDomainModel], Error> in
@@ -57,15 +57,15 @@ Transformer.Domain == [DeveloperDomainModel] {
             }
           }.eraseToAnyPublisher()
       }
-    
+
     public func execute(request: Request?, keyword: String) -> AnyPublisher<Response, Error> {
             fatalError()
     }
-    
+
     public func execute(request: Request?, id: Int, isFavorite: Bool) -> AnyPublisher<Bool, Error> {
         fatalError()
     }
-        
-    
+
+
 }
 

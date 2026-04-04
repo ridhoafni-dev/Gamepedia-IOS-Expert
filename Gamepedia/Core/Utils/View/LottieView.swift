@@ -5,9 +5,9 @@
 //  Created by Patricia Fiona on 19/11/22.
 //
 
-import SwiftUI
-import Lottie
 
+import Lottie
+import SwiftUI
 struct LottieView: UIViewRepresentable {
     var name = "success"
     var loopMode: LottieLoopMode = .loop

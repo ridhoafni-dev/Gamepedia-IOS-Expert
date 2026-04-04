@@ -105,7 +105,6 @@ type_name:
 
 force_cast: warning
 force_try: warning
-implicitly_unwrapped_optional: warning
 
 unused_closure_parameter: warning
 

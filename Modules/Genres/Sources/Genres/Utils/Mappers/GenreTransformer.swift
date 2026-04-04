@@ -5,23 +5,23 @@
 //  Created by User on 25/02/26.
 //
 
+
 import Foundation
 import RealmSwift
-
 final class GenreTransformer {
-  
+
   static func mapGenresResponsesToEntities(
     input genreResponses: [GenreResult]
   ) -> [GenreModuleEntity] {
     return genreResponses.map { result in
       let newGenre = GenreModuleEntity()
-      
+
       newGenre.id = result.id ?? 0
       newGenre.name = result.name ?? "Unknown Name"
       newGenre.slug = result.slug ?? "Unknown Slug"
       newGenre.gameCount = result.gamesCount ?? 0
       newGenre.imageBackground = result.imageBackground ?? ""
-      
+
       let temp = List<GameInGenreEntity>()
       for game in (result.games ?? []) {
         let gameTemp = GameInGenreEntity()
@@ -35,12 +35,12 @@ final class GenreTransformer {
       return newGenre
     }
   }
-  
+
   static func mapGenresResponsesToEntity(
     input result: DetailGenreResponse
   ) -> GenreModuleEntity {
     let newGenre = GenreModuleEntity()
-    
+
     newGenre.id = result.id ?? 0
     newGenre.name = result.name ?? "Unknown Name"
     newGenre.slug = result.slug ?? "Unknown Slug"
@@ -71,7 +71,7 @@ final class GenreTransformer {
       )
     }
   }
-  
+
   static func mapGenresEntityToDomains(
     input result: GenreModuleEntity
   ) -> GenreDomainModel {
@@ -92,7 +92,7 @@ final class GenreTransformer {
       }
     )
   }
-  
+
   static func mapGenreResponsesToDomains(
     input genreResponses: [GenreResult]
   ) -> [GenreDomainModel] {

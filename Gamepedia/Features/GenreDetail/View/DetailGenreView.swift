@@ -5,39 +5,42 @@
 //  Created by User on 16/01/26.
 //
 
-import SwiftUI
-import Kingfisher
-import SkeletonUI
-import Combine
 
+
+import Combine
+import Core
+import Favorite
 import Games
 import Genres
-import Favorite
-import Core
+import Kingfisher
+import SkeletonUI
+import SwiftUI
+
+typealias FavoritePresenterType = GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
 
 struct DetailGenreView: View {
   @ObservedObject var presenter: GenrePresenter
   @ObservedObject var gamePresenter: GamePresenter
-  @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
+  @ObservedObject var favoritePresenter: FavoritePresenterType
   @State var genreId: Int
-    
-  
-  init(presenter: GenrePresenter, gamePresenter: GamePresenter, favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>, genreId: Int) {
-      
+
+
+  init(presenter: GenrePresenter, gamePresenter: GamePresenter, favoritePresenter: FavoritePresenterType, genreId: Int) {
+
       self.presenter = presenter
       self.gamePresenter = gamePresenter
       self.genreId = genreId
       self.favoritePresenter = favoritePresenter
-      
+
       let navBarAppearance = UINavigationBarAppearance()
       navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
       navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
       navBarAppearance.backgroundColor = UIColor.black
-      
+
       UINavigationBar.appearance().standardAppearance = navBarAppearance
       UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
   }
-  
+
   var body: some View {
       RootGenreContent(presenter: presenter, gamePresenter: gamePresenter, favoritePresenter: favoritePresenter, genreId: genreId)
   }
@@ -47,12 +50,12 @@ struct RootGenreContent: View{
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var presenter: GenrePresenter
     @ObservedObject var gamePresenter: GamePresenter
-    @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
+    @ObservedObject var favoritePresenter: FavoritePresenterType
     var genreId: Int
 
     @State private var htmlHeight: CGFloat = 100
 
-    
+
     var body: some View{
         let router = DetailGenreRouter(presenter: gamePresenter, favoritePresenter: favoritePresenter)
         NavigationView {
@@ -72,29 +75,41 @@ struct RootGenreContent: View{
                                 .frame(maxWidth: geometry.size.width,
                                        maxHeight: geometry.size.height)
                                 .mask(
-                                    LinearGradient(gradient: Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]), startPoint: .top, endPoint: .bottom)
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [
+                                            Color.black,
+                                            Color.black,
+                                            Color.black,
+                                            Color.black.opacity(0)
+                                        ]),
+                                        startPoint: .top,
+                                        endPoint: .bottom
+                                    )
                                 )
                                 .overlay{
-                                  HeaderGenreOverlay(name: presenter.detailGenre?.name, gamesCount: presenter.detailGenre?.gamesCount)
+                                  HeaderGenreOverlay(
+                                    name: presenter.detailGenre?.name,
+                                    gamesCount: presenter.detailGenre?.gamesCount
+                                  )
                                 }
                         }
-                        
+
                     }
                     .frame(height: 450.0)
-                    
+
                     Text("About")
                         .font(.system(size: 24))
                         .foregroundColor(.yellow)
-                    
+
                     HTMLStringView(htmlContent: presenter.detailGenre?.desc ?? "-", contentHeight: $htmlHeight)
                         .frame(height: htmlHeight)
                         .animation(.easeInOut(duration: 0.3), value: htmlHeight)
                         .padding(.bottom, 20)
-                    
+
                     Text("Popular Games")
                         .font(.system(size: 24))
                         .foregroundColor(.yellow)
-                    
+
                     if(presenter.detailGenre?.games != nil){
                         LazyVStack(alignment: .leading){
                           ForEach(presenter.detailGenre!.games, id: \.id){ game in
@@ -144,7 +159,7 @@ struct RootGenreContent: View{
 struct HeaderGenreOverlay: View{
     var name: String?
     var gamesCount: Int?
-    
+
     var gradient: LinearGradient {
         .linearGradient(
             Gradient(colors: [.black.opacity(0.6), .black.opacity(0)]),
@@ -160,7 +175,7 @@ struct HeaderGenreOverlay: View{
                     .font(.system(size: 32))
                     .foregroundColor(.white)
                     .shadow(color: .black, radius: 5)
-                
+
                 Text("Total games: \(gamesCount ?? 0)")
                     .foregroundColor(Color(red: 241 / 255, green: 242 / 255, blue: 246 / 255))
                     .font(.caption)

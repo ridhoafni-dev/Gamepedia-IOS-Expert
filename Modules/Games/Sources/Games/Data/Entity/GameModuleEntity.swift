@@ -5,9 +5,9 @@
 //  Created by User on 30/01/26.
 //
 
-import RealmSwift
-import Foundation
 
+import Foundation
+import RealmSwift
 public class GameModuleEntity: Object {
     @Persisted(primaryKey: true) public var id = 0
     @Persisted public var isFavorite: Bool = false

@@ -5,13 +5,13 @@
 //  Created by User on 29/12/25.
 //
 
-import Foundation
 
+import Foundation
 enum URLError: LocalizedError {
 
   case invalidResponse
   case addressUnreachable(URL)
-  
+
   var errorDescription: String? {
     switch self {
     case .invalidResponse: return "The server responded with garbage."
@@ -25,7 +25,7 @@ enum DatabaseError: LocalizedError {
 
   case invalidInstance
   case requestFailed
-  
+
   var errorDescription: String? {
     switch self {
     case .invalidInstance: return "Database can't instance."

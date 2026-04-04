@@ -5,15 +5,15 @@
 //  Created by User on 03/01/26.
 //
 
-import SwiftUI
+
+
 import Combine
-
 import Core
-import Games
-import Favorite
-import Genres
 import Developers
-
+import Favorite
+import Games
+import Genres
+import SwiftUI
 struct HomeTab: View {
     @ObservedObject var genrePresenter: GenrePresenter
       @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
@@ -50,9 +50,9 @@ struct HomeTab: View {
                                  .clipShape(Circle())
                          }
                        }
-                        
+
                         Spacer().frame(height: 20)
-                        
+
                         Group {
                             HStack {
                                 TitleSubtitle(title: "Discovery", subtitle: "Based on best rating")
@@ -67,7 +67,7 @@ struct HomeTab: View {
                                 }.buttonStyle(PlainButtonStyle())
                             }
                         }
-                        
+
                         ScrollView(.horizontal, showsIndicators: false) {
                             if gamePresenter.discoveryLoadingState {
                                 ZStack {
@@ -100,19 +100,19 @@ struct HomeTab: View {
                                 }
                             }
                         }
-                        
+
                         Spacer().frame(height: 20)
-                        
+
                         //Genre section
                         Group{
                             TitleSubtitle(title: "Genres", subtitle: "Find your favorite genre here")
                             GenreGridView(presenter: genrePresenter, router: router)
                         }
-                        
+
                         //Developer section
                         Group{
                           TitleSubtitle(title: "Developers", subtitle: "Find your favorite developer here")
-                          
+
                           ScrollView(.vertical, showsIndicators: false){
                             LazyVStack{
                               ForEach(
@@ -130,7 +130,7 @@ struct HomeTab: View {
                             }
                           }.frame(maxHeight: 800)
                         }
-                        
+
                     }.frame(
                         minWidth: 0,
                         maxWidth: .infinity,
@@ -145,11 +145,11 @@ struct HomeTab: View {
             gamePresenter.getGames()
             genrePresenter.getGenres()
             developerPresenter.getList(request: nil)
-            
+
             gamePresenter.objectWillChange.send()
             genrePresenter.objectWillChange.send()
             developerPresenter.objectWillChange.send()
-            
+
             //tab bar appearance
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()

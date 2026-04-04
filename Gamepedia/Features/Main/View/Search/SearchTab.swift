@@ -5,17 +5,17 @@
 //  Created by User on 07/01/26.
 //
 
-import SwiftUI
-import UIKit
 
-import Games
-import SearchGame
+
+import Combine
 import Core
 import Favorite
+import Games
 import Genres
-import Combine
 import Lottie
-
+import SearchGame
+import SwiftUI
+import UIKit
 typealias SearchPresenterType = GetListPresenter<Any, SearchDomainModel, Interactor<Any, [SearchDomainModel], GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>>>
 
 struct SearchTab: View {
@@ -24,10 +24,10 @@ struct SearchTab: View {
     @ObservedObject var genrePresenter: GenrePresenter
     @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
     @ObservedObject var gamePresenter: GamePresenter
-    
+
     @State var keyword: String = ""
     @State var isLoading = false
-    
+
     var body: some View {
         let router = HomeRouter(gamePresenter: gamePresenter, favoritePresenter: favoritePresenter, genrePresenter: genrePresenter)
         VStack(alignment: .leading) {
@@ -48,7 +48,7 @@ struct SearchTab: View {
             }
             .padding(10)
             .background(Color(red: 68/255, green: 68/255, blue: 68/255))
-            
+
             if(presenter.isLoading) {
                 Loading()
             } else {
@@ -108,7 +108,7 @@ struct SearchTab: View {
           )
         .onAppear {
             self.presenter.objectWillChange.send()
-            
+
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance

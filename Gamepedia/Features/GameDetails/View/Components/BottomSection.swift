@@ -5,10 +5,10 @@
 //  Created by User on 12/01/26.
 //
 
+
+import Games
 import SkeletonUI
 import SwiftUI
-import Games
-
 struct BottomSection: View {
     @ObservedObject var presenter: GamePresenter
     @State private var htmlHeight: CGFloat = 100
@@ -50,7 +50,7 @@ struct BottomSection: View {
             )
             .frame(height: htmlHeight)
             .animation(.easeInOut(duration: 0.3), value: htmlHeight)
-            
+
             Text("Platform")
                 .font(.system(size: 24))
                 .foregroundColor(.yellow)

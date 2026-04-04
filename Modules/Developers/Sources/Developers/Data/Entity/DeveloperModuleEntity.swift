@@ -5,9 +5,9 @@
 //  Created by User on 08/02/26.
 //
 
+
 import Foundation
 import RealmSwift
-
 public class DeveloperModuleEntity: Object {
   @Persisted(primaryKey: true) public var id = ""
   @Persisted dynamic public var name: String = ""

@@ -1,14 +1,14 @@
-import Testing
 import Foundation
+import Testing
 @testable import Favorite
-import Games
 
+import Games
 // MARK: - FavoriteTransformer Tests
 
 @Test("FavoriteTransformer transforms entity list to domain list correctly")
 func testTransformEntityToDomain_basicFields() {
     let transformer = FavoriteTransformer()
-    
+
     let entity = GameModuleEntity()
     entity.id = 1
     entity.name = "The Witcher 3"
@@ -22,9 +22,9 @@ func testTransformEntityToDomain_basicFields() {
     entity.isFavorite = true
     entity.playtime = 200
     entity.added = 1000
-    
+
     let domains = transformer.transformEntityToDomain(entity: [entity])
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 1)
@@ -39,24 +39,24 @@ func testTransformEntityToDomain_basicFields() {
 @Test("FavoriteTransformer transforms multiple entities to domains")
 func testTransformEntityToDomain_multipleEntities() {
     let transformer = FavoriteTransformer()
-    
+
     let entity1 = GameModuleEntity()
     entity1.id = 1
     entity1.name = "Game Alpha"
     entity1.isFavorite = true
-    
+
     let entity2 = GameModuleEntity()
     entity2.id = 2
     entity2.name = "Game Beta"
     entity2.isFavorite = false
-    
+
     let entity3 = GameModuleEntity()
     entity3.id = 3
     entity3.name = "Game Gamma"
     entity3.isFavorite = true
-    
+
     let domains = transformer.transformEntityToDomain(entity: [entity1, entity2, entity3])
-    
+
     #expect(domains.count == 3)
     #expect(domains[0].id == 1)
     #expect(domains[0].name == "Game Alpha")
@@ -78,7 +78,7 @@ func testTransformEntityToDomain_empty() {
 @Test("FavoriteTransformer preserves all entity fields in domain")
 func testTransformEntityToDomain_allFieldsPreserved() {
     let transformer = FavoriteTransformer()
-    
+
     let entity = GameModuleEntity()
     entity.id = 99
     entity.slug = "elden-ring"
@@ -99,9 +99,9 @@ func testTransformEntityToDomain_allFieldsPreserved() {
     entity.reviewsCount = 1500
     entity.descriptionRaw = "FromSoftware's open-world RPG."
     entity.isFavorite = true
-    
+
     let domains = transformer.transformEntityToDomain(entity: [entity])
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 99)

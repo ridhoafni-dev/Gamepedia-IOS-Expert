@@ -5,13 +5,13 @@
 //  Created by User on 27/01/26.
 //
 
-import Foundation
-import Combine
 
+import Combine
+import Foundation
 public protocol LocaleDataSource {
     associatedtype Request
     associatedtype Response
-    
+
     func list(request: Request?) -> AnyPublisher<[Response], Error>
     func add(entities: [Response]) -> AnyPublisher<Bool, Error>
     func add(entities: Response) -> AnyPublisher<Bool, Error>

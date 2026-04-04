@@ -5,8 +5,8 @@
 //  Created by User on 27/01/26.
 //
 
-import RealmSwift
 
+import RealmSwift
 extension Results {
 
   public func toArray<T>(ofType: T.Type) -> [T] {
@@ -18,7 +18,7 @@ extension Results {
     }
     return array
   }
-  
+
   public func toArray<T>(ofType: T.Type, limits: Int) -> [T] {
     var array = [T]()
     if(count != 0){

@@ -5,21 +5,21 @@
 //  Created by User on 25/02/26.
 //
 
-import Foundation
-import Core
-import Combine
 
+import Combine
+import Core
+import Foundation
 public class GetGenresRepository: NSObject {
   public typealias GamepediaInstance = (GetGenresLocaleDataSource, GetGenresRemoteDataSource) -> GetGenresRepository
-  
+
   let remote: GetGenresRemoteDataSource
   let locale: GetGenresLocaleDataSource
-  
+
   public init(locale: GetGenresLocaleDataSource, remote: GetGenresRemoteDataSource) {
     self.locale = locale
     self.remote = remote
   }
-  
+
   public func getListGenres() -> AnyPublisher<[GenreDomainModel], Error> {
     return self.locale.getGenres()
       .flatMap { result -> AnyPublisher<[GenreDomainModel], Error> in
@@ -39,7 +39,7 @@ public class GetGenresRepository: NSObject {
         }
       }.eraseToAnyPublisher()
   }
-  
+
   public func getGenreDetail(id: Int) -> AnyPublisher<GenreDomainModel, Error> {
     return self.locale.getDetailGenre(id: id )
       .flatMap { result -> AnyPublisher<GenreDomainModel, Error> in

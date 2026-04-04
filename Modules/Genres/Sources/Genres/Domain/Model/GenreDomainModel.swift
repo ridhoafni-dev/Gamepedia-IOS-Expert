@@ -5,8 +5,8 @@
 //  Created by User on 25/02/26.
 //
 
-import Foundation
 
+import Foundation
 public struct GenreDomainModel: Equatable, Identifiable {
     public let id: Int?
     public let name, slug: String?

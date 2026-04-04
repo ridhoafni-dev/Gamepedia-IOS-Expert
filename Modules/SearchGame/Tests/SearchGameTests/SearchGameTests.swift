@@ -1,5 +1,5 @@
-import Testing
 import Foundation
+import Testing
 @testable import SearchGame
 
 // MARK: - Test Data Helpers
@@ -41,9 +41,9 @@ func testTransformResponseToDomain_singleItem() {
         score: "meh",
         backgroundImage: "https://example.com/cyberpunk.jpg"
     )
-    
+
     let domains = transformer.transformResponseToDomain(response: [result])
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 5)
@@ -64,9 +64,9 @@ func testTransformResponseToDomain_multipleItems() {
         makeSearchResult(id: 2, name: "Game B"),
         makeSearchResult(id: 3, name: "Game C")
     ]
-    
+
     let domains = transformer.transformResponseToDomain(response: results)
-    
+
     #expect(domains.count == 3)
     #expect(domains[0].id == 1)
     #expect(domains[0].name == "Game A")
@@ -96,9 +96,9 @@ func testTransformResponseToDomain_nilFields() {
         score: nil,
         backgroundImage: nil
     )
-    
+
     let domains = transformer.transformResponseToDomain(response: [result])
-    
+
     #expect(domains.count == 1)
     let domain = domains[0]
     #expect(domain.id == 0)
@@ -117,9 +117,9 @@ func testTransformResponseToDomain_nilFields() {
 func testTransformResponseToEntity_alwaysEmpty() {
     let transformer = SearchTransformer()
     let results = [makeSearchResult(), makeSearchResult(id: 2, name: "Another Game")]
-    
+
     let entities = transformer.transformResponseToEntity(response: results)
-    
+
     // SearchTransformer.transformResponseToEntity is not implemented (returns [])
     #expect(entities.isEmpty)
 }
@@ -132,9 +132,9 @@ func testTransformEntityToDomain_alwaysEmpty() {
     let entity = SearchModuleEntity()
     entity.id = 1
     entity.name = "Test"
-    
+
     let domains = transformer.transformEntityToDomain(entity: [entity])
-    
+
     // SearchTransformer.transformEntityToDomain is not implemented (returns [])
     #expect(domains.isEmpty)
 }
@@ -153,7 +153,7 @@ func testSearchDomainModelInitialization() {
         score: "exceptional",
         backgroundImage: "https://example.com/hl3.jpg"
     )
-    
+
     #expect(model.id == 42)
     #expect(model.name == "Half-Life 3")
     #expect(model.slug == "half-life-3")
@@ -167,7 +167,7 @@ func testSearchDomainModelInitialization() {
 @Test("SearchDomainModel initializes with nil defaults")
 func testSearchDomainModelDefaultInit() {
     let model = SearchDomainModel()
-    
+
     #expect(model.id == nil)
     #expect(model.name == nil)
     #expect(model.slug == nil)
@@ -183,7 +183,7 @@ func testSearchDomainModelEquality() {
     let model1 = SearchDomainModel(id: 1, name: "Game", slug: "game", playtime: 10, released: "2024-01-01", rating: 4.0, score: "good", backgroundImage: "")
     let model2 = SearchDomainModel(id: 1, name: "Game", slug: "game", playtime: 10, released: "2024-01-01", rating: 4.0, score: "good", backgroundImage: "")
     let model3 = SearchDomainModel(id: 2, name: "Different", slug: "different", playtime: 5, released: "2023-01-01", rating: 3.0, score: "meh", backgroundImage: "")
-    
+
     #expect(model1 == model2)
     #expect(model1 != model3)
 }
@@ -200,7 +200,7 @@ func testSearchDomainModelIdentifiable() {
 func testSearchResponseInitialization() {
     let results = [makeSearchResult(id: 1, name: "Test")]
     let response = SearchResponse(count: 1, next: nil, previous: nil, results: results)
-    
+
     #expect(response.count == 1)
     #expect(response.next == nil)
     #expect(response.previous == nil)

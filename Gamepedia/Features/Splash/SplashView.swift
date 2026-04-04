@@ -5,22 +5,27 @@
 //  Created by User on 02/01/26.
 //
 
-import SwiftUI
+
 import Core
+import Developers
 import Favorite
-import SearchGame
 import Games
 import Genres
-import Developers
+import SearchGame
+import SwiftUI
+
+typealias FavoritePresenterType = GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
+typealias SearchPresenterType = GetListPresenter<Any, SearchDomainModel, Interactor<Any, [SearchDomainModel], GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>>>
+typealias DeveloperPresenterType = GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
 
 struct SplashView: View {
     @State var pushNewView: Bool = false
     @EnvironmentObject var gamePresenter: GamePresenter
     @EnvironmentObject var genrePresenter: GenrePresenter
-    @EnvironmentObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
-    @EnvironmentObject var searchPresenter: GetListPresenter<Any, SearchDomainModel, Interactor<Any, [SearchDomainModel], GetSearchRepository<GetSearchRemoteDataSource, SearchTransformer>>>
-    @EnvironmentObject var developerPresenter: GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
-    
+    @EnvironmentObject var favoritePresenter: FavoritePresenterType
+    @EnvironmentObject var searchPresenter: SearchPresenterType
+    @EnvironmentObject var developerPresenter: DeveloperPresenterType
+
     var body: some View {
         NavigationView {
             NavigationLink(isActive: $pushNewView) {
@@ -62,7 +67,7 @@ struct SplashContent: View {
                 ).onAppear(perform: {
                     isAnimating.toggle()
                 })
-            
+
             Spacer()
         }
         .background(.black)

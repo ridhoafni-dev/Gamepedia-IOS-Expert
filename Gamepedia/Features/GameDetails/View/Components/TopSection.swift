@@ -5,13 +5,13 @@
 //  Created by User on 10/01/26.
 //
 
-import SwiftUI
-import Kingfisher
-import Games
 
+import Games
+import Kingfisher
+import SwiftUI
 struct TopSection: View {
     @ObservedObject var presenter: GamePresenter
-    
+
     var body: some View {
         ZStack{
             GeometryReader { geometry in
@@ -30,7 +30,7 @@ struct TopSection: View {
                     .overlay {
                         HeaderOverlay(game: presenter.detailGame)
                     }
-                
+
             }
         }.frame(height: 450.0)
     }

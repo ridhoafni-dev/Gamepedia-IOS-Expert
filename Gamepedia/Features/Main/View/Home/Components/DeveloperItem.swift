@@ -5,25 +5,33 @@
 //  Created by User on 05/01/26.
 //
 
-import SwiftUI
-import SkeletonUI
-import Kingfisher
+
 
 import Core
 import Developers
-import Games
 import Favorite
+import Games
 import Genres
+import Kingfisher
+import SkeletonUI
+import SwiftUI
+
+typealias DeveloperPresenterType = GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
+typealias FavoritePresenterType = GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
 
 struct DeveloperItem: View {
     var developer: DeveloperDomainModel
-     @ObservedObject var presenter: GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
+     @ObservedObject var presenter: DeveloperPresenterType
      @ObservedObject var genrePresenter: GenrePresenter
-     @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
+     @ObservedObject var favoritePresenter: FavoritePresenterType
      @ObservedObject var gamePresenter: GamePresenter
-      
+
       var body: some View {
-          let router = HomeRouter(gamePresenter: gamePresenter, favoritePresenter: favoritePresenter, genrePresenter: genrePresenter)
+          let router = HomeRouter(
+            gamePresenter: gamePresenter,
+            favoritePresenter: favoritePresenter,
+            genrePresenter: genrePresenter
+          )
 
         ZStack {
           GeometryReader { geometry in
@@ -39,7 +47,16 @@ struct DeveloperItem: View {
               .frame(maxWidth: geometry.size.width,
                      maxHeight: geometry.size.height)
               .mask(
-                LinearGradient(gradient: Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]), startPoint: .top, endPoint: .bottom)
+                LinearGradient(
+                  gradient: Gradient(colors: [
+                    Color.black,
+                    Color.black,
+                    Color.black,
+                    Color.black.opacity(0)
+                  ]),
+                  startPoint: .top,
+                  endPoint: .bottom
+                )
               )
               .overlay{
                   DeveloperHeaderOverlay(presenter: presenter, developer: developer, router: router)
@@ -54,7 +71,7 @@ struct DeveloperItem: View {
 
 
 private struct DeveloperHeaderOverlay: View{
-    @ObservedObject var presenter: GetListPresenter<Any, DeveloperDomainModel, Interactor<Any, [DeveloperDomainModel], GetDevelopersRepository<GetDevelopersLocaleDataSource, GetDevelopersRemoteDataSource, DeveloperTransformer>>>
+    @ObservedObject var presenter: DeveloperPresenterType
   var developer: DeveloperDomainModel
     var router: HomeRouter
 
@@ -64,7 +81,7 @@ private struct DeveloperHeaderOverlay: View{
       startPoint: .bottom,
       endPoint: .top)
   }
-  
+
   var body: some View {
     ZStack(alignment: .center) {
       gradient
@@ -73,9 +90,9 @@ private struct DeveloperHeaderOverlay: View{
               .font(.gameTitle)
           .foregroundColor(.white)
           .shadow(color: .black, radius: 5)
-          
+
         Spacer().frame(height: 50)
-          
+
         VStack(alignment: .leading) {
           Text("Popular Games: ")
             .font(Font.system(size: 18))
@@ -107,7 +124,7 @@ private struct DeveloperHeaderOverlay: View{
 
 struct DeveloperGameItem: View{
   var game: GameInDeveloperDomainModel
-  
+
   var body: some View {
     GeometryReader { geo in
       HStack{

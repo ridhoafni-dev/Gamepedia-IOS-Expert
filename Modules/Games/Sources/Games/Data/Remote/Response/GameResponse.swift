@@ -5,8 +5,8 @@
 //  Created by User on 29/12/25.
 //
 
-import Foundation
 
+import Foundation
 nonisolated
 struct GamesResponse: Decodable, Sendable {
     let games: GameResponse
@@ -72,7 +72,7 @@ public struct Genre: Decodable, Sendable {
     public let gamesCount: Int?
     public let imageBackground: String?
     public let language: String?
-    
+
     private enum CodingKeys: String, CodingKey {
         case id
         case name

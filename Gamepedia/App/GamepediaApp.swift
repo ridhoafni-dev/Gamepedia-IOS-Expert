@@ -5,59 +5,108 @@
 //  Created by User on 29/12/25.
 //
 
-import SwiftUI
-import Genres
-import Games
-import Favorite
-import Developers
-import SearchGame
-import Core
 
+import Core
+import Developers
+import Favorite
+import Games
+import Genres
+import SearchGame
+import SwiftUI
 @main
 struct GamepediaApp: App {
     @Environment(\.scenePhase) var scenePhase
-    
+
+    // Keep a single Injection instance
+    private let injection = Injection()
+
+    // Create use cases and presenters outside the ViewBuilder to avoid compiler crashes
+    private let genrePresenter: GenrePresenter
+    private let gamePresenter: GamePresenter
+
+    private let developerPresenter: GetListPresenter<
+        Any,
+        DeveloperDomainModel,
+        Interactor<
+            Any,
+            [DeveloperDomainModel],
+            GetDevelopersRepository<
+                GetDevelopersLocaleDataSource,
+                GetDevelopersRemoteDataSource,
+                DeveloperTransformer
+            >
+        >
+    >
+
+    private let favoritePresenter: GetListPresenter<
+        Any,
+        Favorite.DetailGameDomainModel,
+        Interactor<
+            Any,
+            [Favorite.DetailGameDomainModel],
+            GetFavoritiesRepository<
+                GetFavoriteLocaleDataSource,
+                FavoriteTransformer
+            >
+        >
+    >
+
+    private let searchPresenter: GetListPresenter<
+        Any,
+        SearchDomainModel,
+        Interactor<
+            Any,
+            [SearchDomainModel],
+            GetSearchRepository<
+                GetSearchRemoteDataSource,
+                SearchTransformer
+            >
+        >
+    >
+
+    init() {
+        // Build use cases
+        let genreUseCase: GenreInteractor = injection.provideGenre()
+        let gameUseCase: GameInteractor = injection.provideGame()
+
+        let developerUseCase: Interactor<
+            Any,
+            [DeveloperDomainModel],
+            GetDevelopersRepository<
+                GetDevelopersLocaleDataSource,
+                GetDevelopersRemoteDataSource,
+                DeveloperTransformer
+            >
+        > = injection.provideDeveloper()
+
+        let favoriteUseCase: Interactor<
+            Any,
+            [Favorite.DetailGameDomainModel],
+            GetFavoritiesRepository<
+                GetFavoriteLocaleDataSource,
+                FavoriteTransformer
+            >
+        > = injection.provideFavorite()
+
+        let searchUseCase: Interactor<
+            Any,
+            [SearchDomainModel],
+            GetSearchRepository<
+                GetSearchRemoteDataSource,
+                SearchTransformer
+            >
+        > = injection.provideSearch()
+
+        // Build presenters
+        self.genrePresenter = GenrePresenter(useCase: genreUseCase)
+        self.gamePresenter = GamePresenter(useCase: gameUseCase)
+        self.developerPresenter = GetListPresenter(useCase: developerUseCase)
+        self.favoritePresenter = GetListPresenter(useCase: favoriteUseCase)
+        self.searchPresenter = GetListPresenter(useCase: searchUseCase)
+    }
+
     var body: some Scene {
         WindowGroup {
-            
-            let genreUseCase: GenreInteractor = Injection.init().provideGenre()
-            let genrePresenter = GenrePresenter(useCase: genreUseCase)
-            
-            let gameUseCase: GameInteractor = Injection.init().provideGame()
-            let gamePresenter = GamePresenter(useCase: gameUseCase)
-            
-            let developerUseCase: Interactor<
-                Any,
-                [DeveloperDomainModel],
-                GetDevelopersRepository<
-                    GetDevelopersLocaleDataSource,
-                    GetDevelopersRemoteDataSource,
-                    DeveloperTransformer
-                >
-            > = Injection.init().provideDeveloper()
-            
-            let developerPresenter = GetListPresenter(useCase: developerUseCase)
-            
-            let favoriteUseCase: Interactor<
-                      Any,
-                      [Favorite.DetailGameDomainModel],
-                      GetFavoritiesRepository<
-                          GetFavoriteLocaleDataSource,
-                          FavoriteTransformer
-                      >
-                    > = Injection.init().provideFavorite()
-            
-            let favoritePresenter = GetListPresenter(useCase: favoriteUseCase)
-            
-            let seachUseCase: Interactor<
-                Any,
-                [SearchDomainModel],
-                GetSearchRepository<
-                    GetSearchRemoteDataSource,
-                    SearchTransformer>
-            > = Injection.init().provideSearch()
-            let searchPresenter = GetListPresenter(useCase: seachUseCase)
-            
             SplashView()
                 .environmentObject(gamePresenter)
                 .environmentObject(genrePresenter)

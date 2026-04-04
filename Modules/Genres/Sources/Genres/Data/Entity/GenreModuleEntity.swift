@@ -5,9 +5,9 @@
 //  Created by User on 22/02/26.
 //
 
+
 import Foundation
 import RealmSwift
-
 class GenreModuleEntity: Object {
   @Persisted(primaryKey: true) var id = 0
   @Persisted var name: String = ""

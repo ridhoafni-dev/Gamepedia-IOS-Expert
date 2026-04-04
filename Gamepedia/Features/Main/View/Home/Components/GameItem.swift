@@ -5,20 +5,20 @@
 //  Created by User on 05/01/26.
 //
 
-import SwiftUI
-import Kingfisher
-import SkeletonUI
+
 
 import Core
-import Games
 import Favorite
-
+import Games
+import Kingfisher
+import SkeletonUI
+import SwiftUI
 struct GameItem: View {
     @ObservedObject var favoritePresenter: GetListPresenter<Any, Favorite.DetailGameDomainModel, Interactor<Any, [Favorite.DetailGameDomainModel], GetFavoritiesRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
       @ObservedObject var gamePresenter: GamePresenter
     @State var game: Games.DetailGameDomainModel
     @State private var _isFavorite: Bool = false
-    
+
     var body: some View {
           VStack(alignment: .leading, spacing: 0){
             KFImage.url(URL(string: (game.backgroundImage) ?? ""))
@@ -46,14 +46,14 @@ struct GameItem: View {
                                 Color(red: 209/255, green: 209/255, blue: 209/255)
                             )
                     }
-                    
+
                     Spacer().frame(height: 3)
                     Text(game.name)
                         .font(.gameBody)
                         .foregroundColor(.white)
                         .lineLimit(2)
                         .fixedSize(horizontal: false, vertical: true)
-                    
+
                     HStack{
                         Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
@@ -63,7 +63,7 @@ struct GameItem: View {
                             .foregroundColor(.white)
                     }
                 }
-                
+
               Button(action: {
                 _isFavorite = !_isFavorite
                   favoritePresenter.updateFavorite(request: nil, id: game.id!, isFavorite: _isFavorite)

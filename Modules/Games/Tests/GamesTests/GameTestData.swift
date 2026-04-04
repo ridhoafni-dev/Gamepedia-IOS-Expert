@@ -37,7 +37,7 @@ struct GameResultFactory {
             parentPlatforms: nil
         )
     }
-    
+
     static func makeNilFields() -> GameResult {
         return GameResult(
             id: nil,

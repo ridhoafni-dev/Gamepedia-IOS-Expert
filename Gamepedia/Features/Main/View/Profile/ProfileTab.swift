@@ -5,8 +5,8 @@
 //  Created by User on 10/01/26.
 //
 
-import SwiftUI
 
+import SwiftUI
 struct ProfileTab: View {
     var body: some View {
         ScrollView{
@@ -16,19 +16,19 @@ struct ProfileTab: View {
                     .scaledToFill()
                     .frame(width: 150, height: 150)
                     .clipShape(Circle())
-                
+
                 Spacer().frame(height: 14)
-                
+
                 Text("Ridho Afni")
                     .foregroundColor(.gray)
                     .font(.headline)
-                
+
                 Spacer().frame(height: 14)
-                
+
                 Text("ridhoafni.dev@gmail.com")
                     .foregroundColor(.gray)
                     .font(.headline)
-                
+
                 Spacer().frame(height: 14)
             }
             .frame(

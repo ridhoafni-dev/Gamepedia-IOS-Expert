@@ -5,9 +5,9 @@
 //  Created by Testing Framework on 01/04/26.
 //
 
-import Testing
 import Combine
 import Foundation
+import Testing
 @testable import Core
 
 // MARK: - Test Utilities and Extensions
@@ -52,7 +52,7 @@ enum TestError: Error, Equatable {
     case parsingError
     case notFound
     case unauthorized
-    
+
     var localizedDescription: String {
         switch self {
         case .networkError:
@@ -73,11 +73,11 @@ class TestDataFactory {
     static func createTestString(_ suffix: String = "") -> String {
         return "TestData\(suffix.isEmpty ? "" : "_\(suffix)")"
     }
-    
+
     static func createTestArray<T>(_ element: T, count: Int = 3) -> [T] {
         return Array(repeating: element, count: count)
     }
-    
+
     static func createTestDictionary() -> [String: Any] {
         return [
             "id": 1,

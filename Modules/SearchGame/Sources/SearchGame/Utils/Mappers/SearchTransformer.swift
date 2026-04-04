@@ -5,16 +5,16 @@
 //  Created by User on 28/02/26.
 //
 
-import Foundation
-import Core
 
+import Core
+import Foundation
 public struct SearchTransformer: Mapper {
   public typealias Entity = [SearchModuleEntity]
   public typealias Response = [SearchResult]
   public typealias Domain = [SearchDomainModel]
-  
+
   public init() {}
-  
+
   public func transformResponseToDomain(response: [SearchResult]) -> [SearchDomainModel] {
     return response.map { result in
       return SearchDomainModel(
@@ -29,11 +29,11 @@ public struct SearchTransformer: Mapper {
       )
     }
   }
-  
+
   public func transformResponseToEntity(response: [SearchResult]) -> [SearchModuleEntity] {
     return []
   }
-  
+
   public func transformEntityToDomain(entity: [SearchModuleEntity]) -> [SearchDomainModel] {
     return []
   }

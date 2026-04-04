@@ -5,19 +5,19 @@
 //  Created by User on 22/02/26.
 //
 
-import Foundation
+
+
 import Combine
-import RealmSwift
 import Core
-
-
+import Foundation
+import RealmSwift
 public struct GetGenresLocaleDataSource {
     private let _realm: Realm
-    
+
     public init(realm: Realm) {
         self._realm = realm
     }
-    
+
     func getDetailGenre(id: Int) -> AnyPublisher<GenreModuleEntity, Error> {
         return Future<GenreModuleEntity, Error> { completion in
             let genre: GenreModuleEntity = {
@@ -26,14 +26,14 @@ public struct GetGenresLocaleDataSource {
             completion(.success(genre))
         }.eraseToAnyPublisher()
     }
-    
+
     func updateGenre(id: Int, desc: String) -> AnyPublisher<Bool, Error> {
         return Future<Bool, Error> { completion in
             do {
                 let currentData = _realm.objects(GenreModuleEntity.self).where {
                           $0.id == id
                       }.first!
-                
+
                 try _realm.write {
                     currentData.setValue(desc, forKey: "desc")
                 }
@@ -43,18 +43,18 @@ public struct GetGenresLocaleDataSource {
             }
         }.eraseToAnyPublisher()
     }
-    
+
     func getGenres() -> AnyPublisher<[GenreModuleEntity], Error> {
         return Future<[GenreModuleEntity], Error> { completion in
             let genres: Results<GenreModuleEntity> = {
                 _realm.objects(GenreModuleEntity.self)
                     .sorted(byKeyPath: "name", ascending: true)
             }()
-            
+
             completion(.success(genres.toArray(ofType: GenreModuleEntity.self)))
         }.eraseToAnyPublisher()
     }
-    
+
     func addGenres(
       from genres: [GenreModuleEntity]
     ) -> AnyPublisher<Bool, Error> {
@@ -79,6 +79,6 @@ public struct GetGenresLocaleDataSource {
         }
       }.eraseToAnyPublisher()
     }
-    
-    
+
+
 }
