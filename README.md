@@ -1,295 +1,259 @@
-# Gamepedia iOS Expert
+# Gamepedia-IOS-Expert
 
-[![Codemagic build status](https://api.codemagic.io/apps/69cf9432c67af7fcb8ff114c/ios-project-debug/status_badge.svg)](https://codemagic.io/app/69cf9432c67af7fcb8ff114c/ios-project-debug/latest_build)
+[![Codemagic build status](https://api.codemagic.io/apps/69cf9432c67af7fcb8ff114c/69cfd0db38bc9009f1cb6921/status_badge.svg)](https://codemagic.io/apps/69cf9432c67af7fcb8ff114c//latest_build)
 
-A modern, feature-rich iOS application for discovering and exploring video games. Built with **SwiftUI**, **Combine**, and **Clean Architecture** principles, Gamepedia demonstrates advanced iOS development practices with modular design and reactive programming.
+Gamepedia is a modern iOS application built with SwiftUI that provides comprehensive game information, ratings, and discovery features. The project demonstrates clean architecture principles, modular design, and strict code quality standards enforced through SwiftLint.
 
-## 📱 Overview
+## Table of Contents
 
-**Gamepedia** is an iOS app that integrates with the [RAWG.io Video Games Database API](https://rawg.io/api) to provide comprehensive game discovery and exploration features. The app showcases best practices in modern Swift development with a focus on scalability, testability, and user experience.
+- [Features](#features)
+- [Architecture](#architecture)
+- [SwiftLint Configuration](#swiftlint-configuration)
+- [Setup & Installation](#setup--installation)
+- [Building & Running](#building--running)
+- [Code Quality](#code-quality)
+- [Project Structure](#project-structure)
 
-### Key Features
+## Features
 
-✨ **Game Discovery** - Browse games sorted by rating (best to worst) with detailed information  
-🔍 **Advanced Search** - Real-time search functionality for games by title and keywords  
-📂 **Genre Exploration** - Browse and filter games by genre with visual grid display  
-👥 **Developer Browsing** - Discover game developers and their associated titles  
-❤️ **Favorites Management** - Save favorite games locally with persistent storage (Realm)  
-📊 **Detailed Game Views** - Comprehensive game information including ratings, platforms, and metadata  
-📲 **Tab-Based Navigation** - Intuitive tab-based interface (Home, Search, Favorites, Profile)  
-🏠 **Offline Support** - Hybrid caching strategy with local-first data access  
+- 🎮 Browse and discover games by rating, genre, and developer
+- ⭐ Rate games and manage favorites
+- 🔍 Advanced search functionality
+- 📱 Native SwiftUI interface
+- 🏗️ Modular architecture with Swift Package Manager
+- ✅ 100% SwiftLint compliant codebase
 
-## 🏗️ Architecture
+## Architecture
 
-Gamepedia follows a **Clean Architecture** pattern with modular design using **Swift Package Manager (SPM)**:
+The project follows a clean, modular architecture with:
 
-```
-Gamepedia-IOS-Expert/
-├── Gamepedia/                    # Main app target (Presentation)
-│   ├── App/                      # App entry point & DI setup
-│   ├── Features/                 # Feature modules (UI & Routing)
-│   │   ├── Main/                 # Tab navigation
-│   │   ├── GameDetails/          # Game detail feature
-│   │   ├── GenreDetail/          # Genre detail feature
-│   │   ├── DiscoveryByRating/   # Rating-based discovery
-│   │   └── Splash/              # Splash screen
-│   └── Core/                     # Utilities, extensions, DI container
-│
-└── Modules/                      # SPM Feature Modules (Domain + Data)
-    ├── Core/                     # Shared abstractions & protocols
-    ├── Games/                    # Games feature module
-    ├── Genres/                   # Genres feature module
-    ├── Developers/              # Developers feature module
-    ├── Favorite/                # Favorites feature module
-    └── SearchGame/              # Search feature module
-```
+- **MVVM Pattern**: Model-View-ViewModel for UI logic separation
+- **Repository Pattern**: Abstraction layer for data access
+- **Dependency Injection**: Centralized injection container
+- **Modular SPM Packages**: Separate modules for Games, Genres, Developers, Favorite, and Search
 
-### Architecture Layers
+### Modules
 
-| Layer | Purpose | Components |
-|-------|---------|-----------|
-| **Presentation** | UI & Navigation | SwiftUI Views, Presenters, Routers |
-| **Domain** | Business Logic | Use Cases (Interactors), Domain Models, Protocols |
-| **Data** | Data Access | Repositories, Data Sources (Remote/Local), Entities |
+- **Core**: Shared utilities, networking, and base classes
+- **Games**: Game browsing and detail functionality
+- **Genres**: Genre browsing and filtering
+- **Developers**: Developer information and details
+- **Favorite**: Favorite games management
+- **SearchGame**: Game search functionality
 
-### Design Patterns
+## SwiftLint Configuration
 
-- **MVVM-C** - Model-View-ViewModel with Coordinators/Routers
-- **Repository Pattern** - Abstract data access logic
-- **Dependency Injection** - Loose coupling and testability
-- **Reactive Programming** - Combine framework for asynchronous operations
-- **Generic Presenter** - Reusable presenter for multiple features
-- **Protocol-Based Design** - Type-safe abstractions
-
-## 🛠️ Technology Stack
-
-### Languages & Frameworks
-- **Swift 6.2+**
-- **SwiftUI** - Declarative UI framework
-- **Combine** - Reactive programming framework
-- **iOS 16+** (minimum deployment target)
-
-### Dependencies (Swift Package Manager)
-| Package | Version | Purpose |
-|---------|---------|---------|
-| **RealmSwift** | 10.50.0+ | Local data persistence & caching |
-| **Alamofire** | 5.2.0+ | HTTP networking & API calls |
-
-### Build & CI/CD
-- **Xcode** (latest)
-- **CodeMagic** - Automated CI/CD pipeline
-- **CocoaPods** - Dependency management
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Xcode 14.0 or later
-- iOS 16.0 or later
-- CocoaPods
+Gamepedia uses SwiftLint to maintain consistent code quality and style across the entire project. The configuration is strictly enforced with a `warning_threshold` of 1, meaning any warning will fail the build.
 
 ### Installation
 
-1. **Clone the repository**
+SwiftLint is required for development. Install it using Homebrew:
+
 ```bash
-git clone https://github.com/ridhoafni-dev/Gamepedia-IOS-Expert.git
+brew install swiftlint
+```
+
+### Configuration File
+
+The project includes a comprehensive `.swiftlint.yml` configuration file with:
+
+- **23 disabled rules**: Rules that are not applicable to this project
+- **49 opt-in rules**: Stricter rules that are explicitly enabled
+- **Analyzer rules**: Static analysis rules for deeper code inspection
+
+### Running SwiftLint
+
+To lint all Swift files in the project:
+
+```bash
+swiftlint lint
+```
+
+To lint with a specific configuration:
+
+```bash
+swiftlint lint --config .swiftlint.yml
+```
+
+To automatically fix violations:
+
+```bash
+swiftlint --fix
+```
+
+### Build Phase Integration
+
+SwiftLint is integrated into the Xcode build phase via `build-phase-swiftlint.sh` script:
+
+```bash
+#!/bin/bash
+if which swiftlint > /dev/null; then
+    swiftlint lint --config "${PROJECT_DIR}/.swiftlint.yml" --reporter xcode
+fi
+```
+
+This ensures SwiftLint runs automatically on every build, preventing violations from being committed.
+
+### Key Rules Enforced
+
+#### Access Control
+- `lower_acl_than_parent`: Ensures declarations have lower access control than their parent
+- `strict_fileprivate`: Encourages use of `private` over `fileprivate`
+
+#### Type Safety
+- `force_cast`: Discourages unsafe force casts (`as!`)
+- `force_try`: Discourages unsafe force tries (`try!`)
+- `force_unwrapping`: Discourages force unwrapping (`!`)
+- `implicitly_unwrapped_optional`: Avoids implicit optionals
+
+#### Code Quality
+- `implicit_return`: Functions should use implicit returns for single expressions
+- `redundant_nil_coalescing`: Removes unnecessary nil coalescing
+- `redundant_type_annotation`: Removes redundant type annotations
+- `multiline_function_chains`: Ensures proper formatting of chained functions
+
+#### Naming
+- `type_name`: Type names must be 4-50 characters long
+- `identifier_name`: Identifiers must be at least 3 characters (except common vars: x, y, id, url)
+
+#### Formatting
+- `opening_brace`: Opening braces must be on the same line as declarations
+- `colon`: Proper spacing around colons
+- `line_length`: Lines should not exceed 180 characters
+- `indentation_width`: Uses 4-space indentation
+
+#### Performance
+- `empty_count`: Uses `.isEmpty` instead of `.count == 0`
+- `empty_string`: Uses `isEmpty` for string checks
+- `reduce_boolean`: Uses simpler boolean operations
+
+### Fixing Violations
+
+When SwiftLint reports violations, use the automatic fixer:
+
+```bash
+swiftlint --fix --format
+```
+
+For violations that can't be automatically fixed, address them manually following the SwiftLint documentation.
+
+## Setup & Installation
+
+### Requirements
+
+- Xcode 14.0 or later
+- iOS 16.0 or later
+- Swift 5.7 or later
+- SwiftLint 0.63.2 or later
+
+### Clone & Setup
+
+```bash
+# Clone the repository
+git clone [repository-url]
 cd Gamepedia-IOS-Expert
+
+# Install SwiftLint
+brew install swiftlint
+
+# Open in Xcode
+open Gamepedia.xcodeproj
 ```
 
-2. **Install dependencies (CocoaPods)**
+## Building & Running
+
+### Build
+
 ```bash
-pod install
+# Via Xcode
+Command + B
+
+# Via command line
+xcodebuild -project Gamepedia.xcodeproj -scheme Gamepedia -configuration Debug build
 ```
 
-3. **Open the workspace**
+### Run
+
 ```bash
-open Gamepedia.xcworkspace
+# Via Xcode
+Command + R
+
+# Via command line
+xcodebuild -project Gamepedia.xcodeproj -scheme Gamepedia -configuration Debug run
 ```
 
-4. **Build & Run**
-- Select `Gamepedia` scheme
-- Choose your target simulator or device
-- Press `Cmd + R` to build and run
+## Code Quality
 
-## 📊 Data Flow
+### Standards
 
-### Example: Fetch Games
+- **100% SwiftLint Compliance**: All files must pass SwiftLint checks
+- **No Force Casts**: Use optional binding instead of force casting
+- **Implicit Returns**: Use implicit returns in single-expression functions
+- **Proper Access Control**: Use the lowest access control level appropriate
+- **Clear Naming**: Use descriptive names following Swift conventions
+
+### Pre-commit Checks
+
+Before committing code:
+
+1. Run SwiftLint: `swiftlint lint`
+2. Fix violations: `swiftlint --fix`
+3. Review changes manually
+4. Run unit tests
+5. Commit changes
+
+### Continuous Integration
+
+The project uses Codemagic for CI/CD. Every build automatically:
+
+1. Installs dependencies
+2. Runs SwiftLint
+3. Builds the project
+4. Runs tests
+5. Archives the application
+
+## Project Structure
 
 ```
-HomeView (onAppear)
-    ↓
-GamePresenter.getGames()
-    ↓
-GameInteractor.getFewDiscoveryGames()
-    ↓
-GetGamesRepository
-    ├─→ GetGameLocaleDataSource (Local Cache)
-    └─→ GetGamesRemoteDataSource (RAWG API)
-        ↓
-    GameResponse[] (API Response)
-        ↓
-    GameTransformer (Response → Domain)
-        ↓
-    GameDomainModel[] 
-        ↓
-    Realm Storage (Save)
-        ↓
-    @Published var games (Presenter)
-        ↓
-    SwiftUI View Re-renders
+Gamepedia-IOS-Expert/
+├── Gamepedia/                          # Main app
+│   ├── App/                            # App entry point
+│   ├── Core/                           # Shared utilities
+│   └── Features/                       # Feature modules
+├── Modules/                            # SPM modules
+│   ├── Core/                           # Core framework
+│   ├── Games/                          # Games module
+│   ├── Genres/                         # Genres module
+│   ├── Developers/                     # Developers module
+│   ├── Favorite/                       # Favorite module
+│   └── SearchGame/                     # Search module
+├── swiftlint.yml                       # SwiftLint configuration
+├── build-phase-swiftlint.sh            # Build phase script
+├── codemagic.yaml                      # CI/CD configuration
+└── README.md                           # This file
 ```
 
-## 📦 Module Details
+## Contributing
 
-### Core Module
-Foundation for all features with shared abstractions:
-- **Protocols**: `UseCase`, `Repository`, `Interactor`
-- **Base Classes**: `GetListPresenter` (generic list presenter)
-- **Utilities**: Extension and networking utilities
-- **Database**: Realm integration for local storage
+When contributing to this project:
 
-### Games Module
-Main game discovery and detail features:
-- **Domain**: `GameDomainModel`, `DetailGameDomainModel`
-- **Data**: Remote API, Local Realm storage, Repository
-- **Presenter**: `GamePresenter` with @Published properties
-- **Use Case**: `GameInteractor` for business logic
+1. Ensure all code passes SwiftLint checks
+2. Follow the established architecture patterns
+3. Write unit tests for new features
+4. Keep functions focused and single-responsibility
+5. Use descriptive names and add documentation comments
 
-### Genres Module
-Genre browsing and filtering:
-- Genre list with grid display
-- Genre-specific game filtering
-- `GenreInteractor` for business logic
+## License
 
-### Developers Module
-Developer discovery and profiles:
-- Developer list browsing
-- Developer-specific game details
-- `DeveloperInteractor` for queries
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-### Favorite Module
-Favorites management with Realm persistence:
-- Add/remove from favorites
-- Persistent local storage
-- Favorite status indicator across app
-- `GetFavoritiesRepository` for CRUD operations
+## Support
 
-### SearchGame Module
-Game search functionality:
-- Real-time search by title
-- Keyword-based filtering
-- Search results display
-- `GetSearchRepository` for queries
-
-## 🎨 UI Components
-
-### Reusable Components
-- `GameItem` - Game card with image, rating, and title
-- `GameFavoriteItem` - Favorite game list item
-- `GenreItem` - Genre card for grid display
-- `DeveloperItem` - Developer profile item
-- `PlatformItem` - Platform compatibility display
-- `Loading` - Loading state indicator
-- `LottieView` - Lottie animation support
-- `TitleSubtitle` - Section header component
-
-### Navigation Structure
-- **SplashView** (3-second intro animation)
-- **HomeView** (Main tab navigation)
-  - **HomeTab** - Discovery & featured content
-  - **SearchTab** - Game search
-  - **FavoriteTab** - Saved favorites
-  - **ProfileTab** - User profile
-
-## 🔄 Data Persistence
-
-**Local Database**: Realm
-
-### Storage Entities
-- `GameModuleEntity` - Game data cache
-- `GenreModuleEntity` - Genre data cache
-- `DeveloperModuleEntity` - Developer data cache
-- `SearchModuleEntity` - Search history
-
-### Hybrid Caching Strategy
-1. Fetch from local Realm (fast, offline-capable)
-2. Update from remote API in background
-3. Persist new data to local database
-4. Reactive updates via Combine publishers
-
-## 🧪 Testing
-
-Each feature module includes comprehensive test targets:
-- `CoreTests` - Core abstractions and utilities
-- `GamesTests` - Game feature logic
-- `GenresTests` - Genre feature logic
-- `SearchGameTests` - Search functionality
-- `FavoriteTests` - Favorites management
-
-## 🔗 API Integration
-
-**API Provider**: [RAWG.io Video Games Database](https://rawg.io/api)
-
-### Base Endpoints
-| Endpoint | Purpose |
-|----------|---------|
-| `/games` | Fetch games, apply filters & sorting |
-| `/genres` | Get all available game genres |
-| `/developers` | Fetch game developers |
-
-### Response Models
-- `GameResponse` / `DetailGameResponse` - Game data
-- `GenreResponse` / `DetailGenreResponse` - Genre data
-- `DeveloperResponse` - Developer profiles
-- `SearchResponse` - Search results
-
-## 🔧 Building & Deployment
-
-### Local Build
-```bash
-xcodebuild build \
-  -project Gamepedia.xcodeproj \
-  -scheme Gamepedia \
-  CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-```
-
-### CI/CD Pipeline (CodeMagic)
-- **Workflow**: `ios-project-debug`
-- **Environment**: Latest Xcode, CocoaPods
-- **Scripts**: Build app, Build for testing
-- **Artifacts**: Compiled `.app` files
-- **Publishing**: Email notifications to `ridhoafni.dev@gmail.com`
-
-View build status: [![Codemagic build status](https://api.codemagic.io/apps/69cf9432c67af7fcb8ff114c/ios-project-debug/status_badge.svg)](https://codemagic.io/app/69cf9432c67af7fcb8ff114c/ios-project-debug/latest_build)
-
-## 📝 Project Highlights
-
-✅ **Modern Architecture** - Clean, testable, and maintainable code structure  
-✅ **Reactive by Default** - Combine framework for seamless asynchronous operations  
-✅ **Modular Design** - SPM-based modules for code reusability and isolation  
-✅ **Type Safety** - Leverages Swift's strong type system throughout  
-✅ **Scalable Patterns** - Generic presenters and protocols for easy feature additions  
-✅ **Offline Support** - Local caching with Realm for enhanced UX  
-✅ **Professional CI/CD** - CodeMagic integration for automated builds & testing  
-✅ **Comprehensive Error Handling** - Type-safe error propagation and management  
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**Ridho Afni**
-- Email: ridhoafni.dev@gmail.com
-- GitHub: [@ridhoafni-dev](https://github.com/ridhoafni-dev)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📞 Support
-
-For issues, questions, or suggestions, please open an issue on the GitHub repository.
+For issues, questions, or suggestions, please open an issue in the repository.
 
 ---
 
-**Built with ❤️ using SwiftUI & Clean Architecture**
+**Last Updated**: April 2026
+**SwiftLint Version**: 0.63.2
+**Swift Version**: 5.7+
+
