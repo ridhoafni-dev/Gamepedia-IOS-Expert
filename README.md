@@ -1,6 +1,6 @@
 # Gamepedia-IOS-Expert
 
-[![Codemagic build status](https://api.codemagic.io/apps/69cf9432c67af7fcb8ff114c/69cfd0db38bc9009f1cb6921/ios-project-debug/status_badge.svg)](https://codemagic.io/apps/69cf9432c67af7fcb8ff114c/ios-project-debug/latest_build)
+[![Codemagic build status](https://api.codemagic.io/apps/69cf9432c67af7fcb8ff114c/ios_debug/status_badge.svg)](https://codemagic.io/apps/69cf9432c67af7fcb8ff114c/ios_debug/latest_build)
 
 Gamepedia is a modern iOS application built with SwiftUI that provides comprehensive game information, ratings, and discovery features. The project demonstrates clean architecture principles, modular design, and strict code quality standards enforced through SwiftLint.
 
