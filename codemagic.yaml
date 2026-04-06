@@ -1,13 +1,11 @@
 # Codemagic CI/CD Configuration
-# Build configuration for Gamepedia iOS project
+# Build configuration for Gamepedia iOS project (SPM-based)
 
 workflows:
-  ios_debug:
+  ios-project-debug:
     name: iOS debug
     environment:
-      # Pin to an Xcode that supports Swift tools 6.2 (Swift 6)
-      xcode: 16.2
-      cocoapods: default
+      xcode: latest
       vars:
         XCODE_PROJECT: "Gamepedia.xcodeproj"
         XCODE_SCHEME: "Gamepedia"
@@ -19,10 +17,23 @@ workflows:
           xcode-select -p
           sw_vers
           xcrun simctl list runtimes
-      - name: Clean DerivedData
+
+      - name: Clean build artifacts
         script: |
+          set -euo pipefail
           rm -rf "$DERIVED_DATA_PATH"
           mkdir -p "$DERIVED_DATA_PATH"
+          rm -rf ~/Library/Developer/Xcode/DerivedData/Gamepedia*
+
+      - name: Resolve SPM dependencies
+        script: |
+          set -euo pipefail
+          xcodebuild \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -resolvePackageDependencies \
+            -derivedDataPath "$DERIVED_DATA_PATH" 2>&1 | tee resolve-packages.log
+
       - name: Build app (generic iOS, no signing)
         script: |
           set -euo pipefail
@@ -30,36 +41,39 @@ workflows:
             -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME" \
             -configuration Debug \
-            -UseModernBuildSystem=YES \
             -derivedDataPath "$DERIVED_DATA_PATH" \
-            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-            COMPILER_INDEX_STORE_ENABLE=NO \
             -destination 'generic/platform=iOS' \
-            -parallelizeTargets NO \
-            -quiet | xcpretty || exit ${PIPESTATUS[0]}
-      - name: Build for testing (iOS Simulator, no signing)
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            OTHER_SWIFT_FLAGS="-suppress-warnings" \
+            clean build 2>&1 | tee build.log
+
+      - name: Build for testing (iOS Simulator)
         script: |
           set -euo pipefail
-          # Ensure this runtime exists; adjust if simctl shows a different latest
-          DESTINATION="platform=iOS Simulator,name=iPhone 15,OS=latest"
           xcodebuild \
             -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME" \
             -configuration Debug \
             -sdk iphonesimulator \
-            -UseModernBuildSystem=YES \
             -derivedDataPath "$DERIVED_DATA_PATH" \
-            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
             COMPILER_INDEX_STORE_ENABLE=NO \
-            -destination "$DESTINATION" \
-            build-for-testing \
-            -parallelizeTargets NO \
-            -quiet | xcpretty || exit ${PIPESTATUS[0]}
+            OTHER_SWIFT_FLAGS="-suppress-warnings" \
+            build-for-testing 2>&1 | tee build-test.log
     artifacts:
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $CM_BUILD_DIR/DerivedData/Logs/**
       - $CM_BUILD_DIR/DerivedData/Build/Products/**
-      - $CM_BUILD_DIR/xcresult/**
+      - resolve-packages.log
+      - build.log
+      - build-test.log
+
     publishing:
       email:
         recipients:
