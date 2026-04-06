@@ -32,8 +32,8 @@ workflows:
             -UseModernBuildSystem=YES \
             -derivedDataPath "$DERIVED_DATA_PATH" \
             -destination 'generic/platform=iOS' \
-            -parallelizeTargets NO \
             -quiet \
+            build \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
@@ -50,7 +50,6 @@ workflows:
             -UseModernBuildSystem=YES \
             -derivedDataPath "$DERIVED_DATA_PATH" \
             -destination "$DESTINATION" \
-            -parallelizeTargets NO \
             -quiet \
             build-for-testing \
             CODE_SIGN_IDENTITY="" \
