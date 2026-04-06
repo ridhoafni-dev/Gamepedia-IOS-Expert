@@ -5,8 +5,7 @@ workflows:
   ios_debug:
     name: iOS debug
     environment:
-      # Pin to an Xcode that supports Swift tools 6.2 (Swift 6)
-      xcode: 16.2
+      xcode: latest
       cocoapods: default
       vars:
         XCODE_PROJECT: "Gamepedia.xcodeproj"
