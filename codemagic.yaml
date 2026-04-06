@@ -41,7 +41,7 @@ workflows:
       - name: Build for testing (iOS Simulator, no signing)
         script: |
           set -euo pipefail
-          DESTINATION="platform=iOS Simulator,name=iPhone 15,OS=latest"
+          DESTINATION="platform=iOS Simulator,name=iPhone 17,OS=latest"
           xcodebuild \
             -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME" \
